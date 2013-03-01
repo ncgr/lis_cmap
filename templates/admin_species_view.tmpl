@@ -1,0 +1,47 @@
+[% INCLUDE admin_header.tmpl title='Species View' %]
+<a href="admin">Home</a> |
+<a href="admin?action=species_create">Create New Species</a>
+<hr noshade>
+
+[% IF species.size %]
+    <table width="100%">
+        <tr>
+            <td colspan="7" align="center">
+                [% SET pager_url="admin?action=feature_types_view&order_by=${apr.param('order_by')}" %]
+                [% PROCESS pager.tmpl %]
+            </td>
+        </tr>
+        <tr>
+          <th><a href="admin?action=species_view;order_by=species_acc">Acc. ID</a></th>
+          <th><a href="admin?action=species_view;order_by=species_common_name">Common Name</a></th>
+          <th><a href="admin?action=species_view;order_by=species_full_name">Full Name</a></th>
+          <th><a href="admin?action=species_view;order_by=display_order">Display Order</a></th>
+          <th colspan="3" align="center">&nbsp;</th>
+        </tr>
+      [% SET i=0 %]
+      [% FOREACH s=species %]
+          <tr bgcolor="[% IF i % 2 == 0 %]lightgrey[% ELSE %]white[% END %]">
+              <td>[% s.species_acc %]</td>
+              <td>[% s.species_common_name %]</td>
+              <td>[% s.species_full_name %]</td>
+              <td>[% s.display_order %]</td>
+              <td align="center">
+                <a href="admin?action=species_view;species_id=[% s.species_id %]">View</a>
+              </td>
+              <td align="center">
+                <a href="admin?action=species_edit;species_id=[% s.species_id %]">Edit</a>
+              </td>
+              <td align="center">
+                <a href="admin?action=confirm_delete;entity_type=species;entity_id=[% s.species_id %];entity_name_field=species_common_name">Delete</a>
+              </td>
+          </tr>
+          [% SET i = i + 1 %]
+      [% END %]
+    </table>
+
+[% ELSE %]
+
+  <p>No species to show.</p>
+
+[% END %]
+[% INCLUDE admin_footer.tmpl %]

@@ -1,0 +1,118 @@
+[% SET title='Map Type Info' %]
+[% 
+    INCLUDE header.tmpl 
+    title='CMap - Map Type Info'
+    cur_sec='map_type_info'
+    help_anchor='map_type_info'
+%]
+
+<h1>[% title %]</h1>
+
+[%- IF intro -%]
+<p>[% intro %]</p>
+[%- END -%]
+
+<div align="center">
+
+<form method="GET" action="map_type_info">
+    Display:
+    <select name="map_type_acc">
+        <option value="">--All Map Types--</option>
+        [% FOREACH mt=all_map_types %]
+            <option value="[% mt.map_type_acc %]"[% IF apr.param('map_type_acc')==mt.map_type_acc %] selected[% END %]>[% mt.map_type %]</option>
+        [% END %]
+    </select>
+    <input type="submit" value="Submit">
+</form>
+
+<p>
+[% IF map_types.size %]
+    <table>
+        <tr>
+            <td colspan="2" align="center">
+                [% SET pager_url="map_type_info?" %]
+                [% PROCESS pager.tmpl %]
+            </td>
+        </tr>
+        [% FOREACH mt=map_types %]
+            <tr class="colored">
+                <td align="right" valign="top">Map&nbsp;Type:</td>
+                <td>
+                    <b>[% mt.map_type %]</b>
+                </td>
+            </tr> 
+
+            <tr>
+                <td align="right" valign="top">Accession&nbsp;ID:</td>
+                <td>[% mt.map_type_acc %]</td>
+            </tr>
+
+            <tr>
+                <td align="right" valign="top">Map&nbsp;Units:</td>
+                <td>[% mt.map_units %]</td>
+            </tr>
+
+            <tr>
+                <td align="right" valign="top">Is&nbsp;Relational&nbsp;Only:</td>
+                <td>
+                    [% IF mt.is_relational_map; 'Yes'; ELSE; 'No'; END %] 
+                </td>
+            </tr> 
+
+            <tr>
+                <td align="right" valign="top">Appearance:</td>
+                <td>[% mt.color %] [% mt.shape %]</td>
+            </tr> 
+
+            [% FOREACH att=mt.attributes %]
+                [% NEXT IF att.is_public.defined AND att.is_public == 0 %]
+                <tr>
+                    <td align="right" valign="top">
+                        [% att.attribute_name %]:
+                    </td>
+                    <td>
+                        [%- IF att.attribute_value.match('^http://') -%]
+                            <a href="[% att.attribute_value %]">[% att.attribute_value %]</a>
+                        [%- ELSE -%]
+                            [% att.attribute_value %]
+                        [%- END -%]
+                    </td>
+                </tr>
+            [% END %]
+
+            [% IF mt.xrefs.size %]
+                <tr>
+                    <td align="right" valign="top">Cross-references:</td>
+                    <td>
+                        <ul>
+                        [%- FOREACH xref=mt.xrefs -%]
+                            [% NEXT UNLESS xref.xref_url %]
+                            <li><a href="[% xref.xref_url %]">[% xref.xref_name %]</a></li>
+                        [%- END -%]
+                        </ul>
+                    </td>
+                </tr> 
+            [% END %]
+
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <b>[</b>&nbsp;<a href="map_set_info?map_type_acc=[% mt.map_type_acc %]">Show All Map Sets Of This Map Type</a>&nbsp;<b>]</b>
+                </td>
+            </tr> 
+            <tr><td colspan="2">&nbsp;</td></tr>
+        [% END %]
+    </table>
+[% ELSE %]
+
+    No map types found.
+
+[% END %]
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+[% INCLUDE footer.tmpl %]

@@ -1,0 +1,1358 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CMAP API</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#cmap_api">CMap API</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#introduction">Introduction</a></li>
+	<li><a href="#overview">Overview</a></li>
+	<li><a href="#important_notes">Important Notes</a></li>
+	<ul>
+
+		<li><a href="#accession_ids">Accession IDs</a></li>
+		<li><a href="#purge_the_cache">Purge the Cache</a></li>
+		<ul>
+
+			<li><a href="#inside_a_program">Inside a Program</a></li>
+			<li><a href="#command_line">Command line</a></li>
+			<li><a href="#cache_level">Cache Level</a></li>
+		</ul>
+
+		<li><a href="#cmap_assembly_editor_plugins">CMap Assembly Editor Plug-ins</a></li>
+	</ul>
+
+	<li><a href="#importing_data">Importing Data</a></li>
+	<ul>
+
+		<li><a href="#creating_a_species">Creating a Species</a></li>
+		<ul>
+
+			<li><a href="#returns_species_id">Returns species_id</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_a_map_set">Creating a Map Set</a></li>
+		<ul>
+
+			<li><a href="#returns_map_set_id">Returns map_set_id</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_a_map">Creating a Map</a></li>
+		<ul>
+
+			<li><a href="#returns_map_id">Returns map_id</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_a_features">Creating a Features</a></li>
+		<ul>
+
+			<li><a href="#returns_feature_id">Returns feature_id</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_a_correspondence">Creating a Correspondence</a></li>
+		<ul>
+
+			<li><a href="#returns_feature_correspondence_id">Returns feature_correspondence_id</a></li>
+			<li><a href="#threshold">Threshold</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_an_attribute">Creating an Attribute</a></li>
+		<ul>
+
+			<li><a href="#returns_1">Returns 1</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_an_external_reference">Creating an External Reference</a></li>
+		<ul>
+
+			<li><a href="#returns_1">Returns 1</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+		<li><a href="#creating_a_map_to_feature_link">Creating a Map to Feature Link</a></li>
+		<ul>
+
+			<li><a href="#returns_1">Returns 1</a></li>
+			<li><a href="#parameters">Parameters</a></li>
+		</ul>
+
+	</ul>
+
+	<li><a href="#querying_the_cmap_database">Querying the CMap Database</a></li>
+	<ul>
+
+		<li><a href="#getting_species_information">Getting Species Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+		</ul>
+
+		<li><a href="#getting_map_set_information">Getting Map Set Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+			<li><a href="#see_also">See also</a></li>
+		</ul>
+
+		<li><a href="#getting_map_information">Getting Map Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+			<li><a href="#see_also">See also</a></li>
+		</ul>
+
+		<li><a href="#getting_feature_information">Getting Feature Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+			<li><a href="#see_also">See also</a></li>
+		</ul>
+
+		<li><a href="#getting_correspondence_information">Getting Correspondence Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+			<li><a href="#see_also">See also</a></li>
+		</ul>
+
+		<li><a href="#getting_attribute_information">Getting Attribute Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+		</ul>
+
+		<li><a href="#getting_external_reference_information">Getting External Reference Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+		</ul>
+
+		<li><a href="#getting_map_to_feature_information">Getting Map to Feature Information</a></li>
+		<ul>
+
+			<li><a href="#parameters">Parameters</a></li>
+			<li><a href="#structure_returned">Structure Returned</a></li>
+		</ul>
+
+		<li><a href="#final_information">Final information</a></li>
+	</ul>
+
+	<li><a href="#questions_or_comments">Questions or Comments</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="cmap_api">CMap API</a></h1>
+<p>CMap Application Programming Interface</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>$Revision: 1.2 $</p>
+<p>This document was written for the upcoming CMap 1.0 release.  It corresponds to
+code that is in CVS at the time off commit.  It may not be applicable to older
+versions.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="introduction">Introduction</a></h1>
+<p>This document is intended to help you interface with the CMap database using
+the CMap API.  As CMap is written in Perl, that is the language used to
+interface with it.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="overview">Overview</a></h1>
+<p>There are two types of interaction between your program and the CMap database;
+<a href="#importing_data">Importing Data</a> and <a href="#querying_the_cmap_database">Querying the CMap Database</a>.  Each type of interaction
+is performed in its own way.</p>
+<p>Importing data requires the use of a Bio::GMOD::CMap::Admin object.  Creating
+this will be descibed in the <a href="#importing_data">Importing Data</a> section.</p>
+<p>Querying the CMap database is done through the use of an object returned by the
+<code>sql()</code> method, which any CMap module has access to.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="important_notes">Important Notes</a></h1>
+<p>
+</p>
+<h2><a name="accession_ids">Accession IDs</a></h2>
+<p>All the accession id columns in the CMap tables act the same.  They are all
+character fields, so they will accept any combination of numbers and letters
+you care to use. Please don't use spaces or characters outside the ranges
+``a-z,'' ``A-Z,'' ``0-9'' or dashes (``-'') as this will likely only cause you
+headaches. It is also not necessary to explicitly assign any accession IDs.
+While they *are* required by the database, there is code in place to ensure
+that the accession ID is set to the primary ID of the record if the accession
+ID is empty. Once your accession IDs have been established and publicized, they
+should never change.</p>
+<p>Also, it is best to avoid strictly numeric accession ids since the automatic
+accessions are numeric and this can cause conflicts.</p>
+<p>
+</p>
+<h2><a name="purge_the_cache">Purge the Cache</a></h2>
+<p>After changing information in the database (or a config file), the query cache
+needs to be purged.   Not doing so, often results in a mix of old and new
+information being displayed, which can be confusing.</p>
+<p>You can purge the cache inside a script or use the command line.</p>
+<p>
+</p>
+<h3><a name="inside_a_program">Inside a Program</a></h3>
+<p>Purging inside your program is simple.  Use a Bio::GMOD::CMap::Admin object
+(see <a href="#importing_data">Importing Data</a> for creating this object) to call the purge_cache
+method.</p>
+<pre>
+    $admin-&gt;purge_cache( );</pre>
+<p>A cache level can be specified.  See the section below on cache levels for more
+information.</p>
+<pre>
+    $admin-&gt;purge_cache( $cache_level );</pre>
+<p>
+</p>
+<h3><a name="command_line">Command line</a></h3>
+<p>To purge the cache on the command line use cmap/bin/cmap_admin.pl.  You can
+either use the menu system or by command line:</p>
+<pre>
+  $ cmap_admin.pl [-d data_source] [--cache_level level] --action purge_query_cache</pre>
+<p>
+</p>
+<h3><a name="cache_level">Cache Level</a></h3>
+<p>There are four layers of the cache.  This is to keep data from being
+unnecessarily purged.  For instance when a correpspondence is added, no map
+data is changed, so only the correspondence information should be purged.
+</p>
+<pre>
+
+When one layer is purged all of the layers below it are purged.</pre>
+<dl>
+<dt><strong><a name="item__2d_cache_level_1_purge_all">- Cache Level 1 Purge All</a></strong>
+
+<dd>
+<p>Purge all when a map set or species has been added or modified.  A
+change to map sets or species has potential to impact all of the data.</p>
+</dd>
+</li>
+<dt><strong><a name="item_2">- Cache Level 2 (purge map info on down)</a></strong>
+
+<dd>
+<p>Level 2 should be purged when map information is changed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_3">- Cache Level 3 (purge feature info on down)</a></strong>
+
+<dd>
+<p>Level 3 should be purged when feature information is changed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_4">- Cache Level 4 (purge correspondence info on down)</a></strong>
+
+<dd>
+<p>Level 4 should be purged when correspondence information is changed.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="cmap_assembly_editor_plugins">CMap Assembly Editor Plug-ins</a></h2>
+<p>It is important to note that if you are writing a plug-in for CMAE, the methods
+described in this section will only work if the data is stored locally.  If the
+data access is remote, you must use the methods in AppData.pm.  There will be
+further documentation written on this topic.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="importing_data">Importing Data</a></h1>
+<p>To create data in the CMap database, a CMap admin object needs to be created.
+In the following example, $data_source stores the data source name that
+identifies which configuration file to use.</p>
+<pre>
+    use Bio::GMOD::CMap::Admin;</pre>
+<pre>
+    my $data_source = 'CMAP_DEMO';
+    my $cmap_admin
+        = Bio::GMOD::CMap::Admin-&gt;new( data_source =&gt; $data_source, );</pre>
+<p>
+</p>
+<h2><a name="creating_a_species">Creating a Species</a></h2>
+<pre>
+    my $species_id = $admin-&gt;species_create(
+        species_full_name   =&gt; $species_full_name,
+        species_common_name =&gt; $species_common_name,
+        display_order       =&gt; $display_order,
+        species_acc         =&gt; $species_acc,
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_species_id">Returns species_id</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_species_full_name">- species_full_name (Required)</a></strong>
+
+<dd>
+<p>Full name of the species, such as ``Homo Sapiens''.</p>
+</dd>
+</li>
+<dt><strong><a name="item_species_common_name">- species_common_name (Required)</a></strong>
+
+<dd>
+<p>Short name of the species, such as ``Human''.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_display_order">- display_order</a></strong>
+
+<dd>
+<p>The number representing where in the order that this species will be displayed
+in species lists.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_species_acc">- species_acc</a></strong>
+
+<dd>
+<p>See <a href="#accession_ids">Accession IDs</a> for more information about accession IDs.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_a_map_set">Creating a Map Set</a></h2>
+<pre>
+    my $map_set_id = $admin-&gt;map_set_create(
+        map_set_name       =&gt; $map_set_name,
+        map_set_acc        =&gt; $map_set_acc,
+        map_type_acc       =&gt; $map_type_acc,
+        width              =&gt; $width,
+        is_relational_map  =&gt; $is_relational_map,
+        published_on       =&gt; $published_on,
+        map_set_short_name =&gt; $map_set_short_name,
+        display_order      =&gt; $display_order,
+        species_id         =&gt; $species_id,
+        color              =&gt; $color,
+        shape              =&gt; $shape,
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_map_set_id">Returns map_set_id</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_map_set_name">- map_set_name (Required)</a></strong>
+
+<dd>
+<p>Name of the map set being created</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_set_acc">- map_set_acc (Required)</a></strong>
+
+<dd>
+<p>See <a href="#accession_ids">Accession IDs</a> for more information about accession IDs.</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_type_acc">- map_type_acc (Required)</a></strong>
+
+<dd>
+<p>The accession id of a map type that is defined in the config file.</p>
+</dd>
+</li>
+<dt><strong><a name="item_species_id">- species_id (Required)</a></strong>
+
+<dd>
+<p>The species ID that this map set belongs to.  This can be retrieved after
+creating the species, <a href="#creating_a_species">Creating a Species</a> or by qurying the database for the
+species id, <a href="#getting_species_information">Getting Species Information</a>.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_width">- width</a></strong>
+
+<dd>
+<p>Pixel width of the map</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_is_relational_map">- is_relational_map</a></strong>
+
+<dd>
+<p>Relational Maps do not show up in the initial map selection lists since they
+are only used in relation to another map.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_published_on">- published_on</a></strong>
+
+<dd>
+<p>Data the map set was published</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_map_set_short_name">- map_set_short_name</a></strong>
+
+<dd>
+<p>Shorter name for the map set</p>
+</dd>
+</li>
+<dt><strong>- display_order</strong>
+
+<dd>
+<p>The number representing where in the order that this map set will be displayed
+in map set lists.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_color">- color</a></strong>
+
+<dd>
+<p>The color of the maps</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_shape">- shape</a></strong>
+
+<dd>
+<p>The shape of the maps.  This can be ``I-beam'', ``box'' or ``dumbbell''.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_a_map">Creating a Map</a></h2>
+<pre>
+    my $map_id = $admin-&gt;map_create(
+        map_name      =&gt; $map_name,
+        map_set_id    =&gt; $map_set_id,
+        map_acc       =&gt; $map_acc,
+        map_start     =&gt; $map_start,
+        map_stop      =&gt; $map_stop,
+        display_order =&gt; $display_order,
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_map_id">Returns map_id</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_map_name">- map_name (Required)</a></strong>
+
+<dd>
+<p>Name of the map being created</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_set_id">- map_set_id (Required)</a></strong>
+
+<dd>
+<p>The map set ID that this map set belongs to.  This can be retrieved after
+creating the map set, <a href="#creating_a_map_set">Creating a Map Set</a> or by qurying the database for the
+map set id, <a href="#getting_map_set_information">Getting Map Set Information</a>.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_map_acc">- map_acc</a></strong>
+
+<dd>
+<p>See <a href="#accession_ids">Accession IDs</a> for more information about accession IDs.</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_start">- map_start (Required)</a></strong>
+
+<dd>
+<p>Begining point of the map.</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_stop">- map_stop (Required)</a></strong>
+
+<dd>
+<p>End point of the map.</p>
+</dd>
+</li>
+<dt><strong>- display_order</strong>
+
+<dd>
+<p>The number representing where in the order that this map will be displayed in
+map lists.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_a_features">Creating a Features</a></h2>
+<pre>
+    my $feature_id = $admin-&gt;feature_create(
+        map_id           =&gt; $map_id,
+        feature_name     =&gt; $feature_name,
+        feature_acc      =&gt; $feature_acc,
+        feature_start    =&gt; $feature_start,
+        feature_stop     =&gt; $feature_stop,
+        is_landmark      =&gt; $is_landmark,
+        feature_type_acc =&gt; $feature_type_acc,
+        direction        =&gt; $direction,
+        #gclass =&gt; $gclass, # not likely to be used
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_feature_id">Returns feature_id</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_map_id">- map_id (Required)</a></strong>
+
+<dd>
+<p>The map ID that this map belongs to.  This can be retrieved after creating the
+map  <a href="#creating_a_map">Creating a Map</a> or by qurying the database for the map id, <a href="#getting_map_information">Getting Map Information</a>.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_name">- feature_name (Required)</a></strong>
+
+<dd>
+<p>The name of the feature</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_acc">- feature_acc</a></strong>
+
+<dd>
+<p>See <a href="#accession_ids">Accession IDs</a> for more information about accession IDs.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_start">- feature_start (Required)</a></strong>
+
+<dd>
+<p>Location on the map where this feature begins.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_stop">- feature_stop</a></strong>
+
+<dd>
+<p>Location on the map where this feature ends.  This will be set to feature_start
+if not given.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_is_landmark">- is_landmark</a></strong>
+
+<dd>
+<p>Declares the feature to be a landmark.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_type_acc">- feature_type_acc (Required)</a></strong>
+
+<dd>
+<p>The accession id of a feature type that is defined in the config file.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_direction">- direction</a></strong>
+
+<dd>
+<p>The direction the feature points in relation to the map.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_gclass">- gclass</a></strong>
+
+<dd>
+<p>The gclass that the feature will have.  This only relates to using CMap
+integrated with GBrowse and should not be used otherwise.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_a_correspondence">Creating a Correspondence</a></h2>
+<pre>
+    my $feature_correspondence_id = $admin-&gt;feature_correspondence_create(
+        feature_id1                =&gt; $feature_id1,
+        feature_id2                =&gt; $feature_id2,
+        feature_acc1               =&gt; $feature_acc1,
+        feature_acc2               =&gt; $feature_acc2,
+        is_enabled                 =&gt; $is_enabled,
+        evidence_type_acc          =&gt; $evidence_type_acc, # Alt: correspondence_evidence
+        score                      =&gt; $score, # used in conjunction with evidence_type_acc
+        feature_correspondence_acc =&gt; $feature_correspondence_acc,
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_feature_correspondence_id">Returns feature_correspondence_id</a></h3>
+<p>
+</p>
+<h3><a name="threshold">Threshold</a></h3>
+<p>In an effort so speed up import of correspondences, correspondences can be
+queued.  When the number in the queue breaks a threshold, those correspondences
+are then added into the database.  Supplying a ``threshold'' value to this method
+will enable that feature.  From experience, a good threshold is between 100 and
+1000 but feel free to play around with it.</p>
+<p>To finish creating the correspondences in the queue, simply run the method
+again with no arguments.</p>
+<pre>
+  $admin-&gt;feature_correspondence_create();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_feature_id1">- feature_id1 (Required unless feature_acc1 is given)</a></strong>
+
+<dd>
+<p>The feature_id of the first feature in the correspondence.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_id2">- feature_id2 (Required unless feature_acc2 is given)</a></strong>
+
+<dd>
+<p>The feature_id of the second feature in the correspondence.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_acc1">- feature_acc1 (Required unless feature_id1 is given)</a></strong>
+
+<dd>
+<p>The feature_acc of the first feature in the correspondence.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_acc2">- feature_acc2 (Required unless feature_id2 is given)</a></strong>
+
+<dd>
+<p>The feature_acc of the second feature in the correspondence.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_is_enabled">- is_enabled</a></strong>
+
+<dt><strong><a name="item_evidence_type_acc">- evidence_type_acc (Required unless correspondence_evidence is given)</a></strong>
+
+<dd>
+<p>The accession id of a evidence type that is defined in the config file.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_score">- score</a></strong>
+
+<dd>
+<p>The score can be used if evidence_type_acc is being used, otherwise it is
+stored in the correspondence_evidence object.</p>
+</dd>
+</li>
+<dt><strong><a name="item_correspondence_evidence">- correspondence_evidence (Required unless evidence_typ_acc is given)</a></strong>
+
+<dd>
+<p>List of evidence hashes that correspond to the evidence types that this
+correspondence should have.  The hashes must have a ``evidence_type_acc''
+key.  It can also have a ``score'' value.</p>
+</dd>
+<dd>
+<pre>
+    my $evidences = [
+        {   evidence_type_acc =&gt; $evidence_type_acc,
+            score             =&gt; $score,
+        },
+    ];</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_correspondence_acc">- feature_correspondence_acc</a></strong>
+
+<dd>
+<p>See <a href="#accession_ids">Accession IDs</a> for more information about accession IDs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_threshold">- threshold</a></strong>
+
+<dd>
+<p>See the Threshold section above.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_an_attribute">Creating an Attribute</a></h2>
+<pre>
+    $admin-&gt;attribute_create(
+        object_id       =&gt; $object_id,
+        attribute_name  =&gt; $attribute_name,
+        attribute_value =&gt; $attribute_value,
+        object_type     =&gt; $object_type,
+        display_order   =&gt; $display_order,
+        is_public       =&gt; $is_public,
+    );</pre>
+<p>See also $admin-&gt;<code>set_attribute()</code> for a slightly faster (but more complicated)
+version.</p>
+<p>
+</p>
+<h3><a name="returns_1">Returns 1</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong><a name="item_object_id">- object_id (Required)</a></strong>
+
+<dd>
+<p>The primary key of the object.</p>
+</dd>
+</li>
+<dt><strong><a name="item_attribute_name">- attribute_name (Required)</a></strong>
+
+<dd>
+<p>The name of this attribute</p>
+</dd>
+</li>
+<dt><strong><a name="item_attribute_value">- attribute_value (Required)</a></strong>
+
+<dd>
+<p>The value stored in this attribute</p>
+</dd>
+</li>
+<dt><strong><a name="item_object_type">- object_type (Required)</a></strong>
+
+<dd>
+<p>The type of object being attributed, such as map, feature, map_set, etc.</p>
+</dd>
+</li>
+<dt><strong>- display_order</strong>
+
+<dd>
+<p>The number representing where in the order that this attribute will be
+displayed in attribute lists.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_is_public">- is_public</a></strong>
+
+<dd>
+<p>If 1 (default), the attribute will be displayed on the CMap web page.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_an_external_reference">Creating an External Reference</a></h2>
+<pre>
+    $admin-&gt;xref_create(
+        object_id     =&gt; $object_id,
+        xref_name     =&gt; $xref_name,
+        xref_url      =&gt; $xref_url,
+        object_type   =&gt; $object_type,
+        display_order =&gt; $display_order,
+        is_public     =&gt; $is_public,
+    );</pre>
+<p>See also $admin-&gt;<code>set_xref()</code> for a slightly faster (but more complicated)
+version.</p>
+<p>
+</p>
+<h3><a name="returns_1">Returns 1</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong>- object_id (Required)</strong>
+
+<dd>
+<p>The primary key of the object.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xref_name">- xref_name (Required)</a></strong>
+
+<dd>
+<p>The name of this xref</p>
+</dd>
+</li>
+<dt><strong><a name="item_xref_url">- xref_url (Required)</a></strong>
+
+<dd>
+<p>The url stored in this xref</p>
+</dd>
+</li>
+<dt><strong>- object_type (Required)</strong>
+
+<dd>
+<p>The type of object being xrefd, such as map, feature, map_set, etc.</p>
+</dd>
+</li>
+<dt><strong>- display_order</strong>
+
+<dd>
+<p>The number representing where in the order that this xref will be
+displayed in xref lists.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="creating_a_map_to_feature_link">Creating a Map to Feature Link</a></h2>
+<pre>
+    $admin-&gt;map_to_feature_create(
+        feature_id  =&gt; $feature_id,
+        feature_acc =&gt; $feature_acc,
+        map_id      =&gt; $map_id,
+        map_acc     =&gt; $map_acc,
+    );</pre>
+<p>
+</p>
+<h3><a name="returns_1">Returns 1</a></h3>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<dl>
+<dt><strong>- map_id (Required unless map_acc is given)</strong>
+
+<dd>
+<p>Identifier of the map to be linked.</p>
+</dd>
+</li>
+<dt><strong><a name="item_map_acc">- map_acc (Required unless map_id is given)</a></strong>
+
+<dd>
+<p>Accession of the map to be linked.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_id">- feature_id (Required unless feature_acc is given)</a></strong>
+
+<dd>
+<p>Identifier of the feature to be linked.</p>
+</dd>
+</li>
+<dt><strong><a name="item_feature_acc">- feature_acc (Required unless feature_id is given)</a></strong>
+
+<dd>
+<p>Accession of the feature to be linked.</p>
+</dd>
+</li>
+</dl>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="querying_the_cmap_database">Querying the CMap Database</a></h1>
+<p>To query the data, another object is needed which we will call the $sql_object.
+The $sql_object can be created from any CMap object.  For the following
+examble, we'll use the $cmap_admin object from the <a href="#importing_data">Importing Data</a> section.</p>
+<pre>
+  my $sql_object = $cmap_admin-&gt;sql();</pre>
+<p>When you have the $sql_object, you can then call any of the methods in
+Bio/GMOD/CMap/Data/Generic.pm.</p>
+<p>
+</p>
+<h2><a name="getting_species_information">Getting Species Information</a></h2>
+<pre>
+    my $species = $sql_object-&gt;get_species();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all species in the database.</p>
+<dl>
+<dt><strong><a name="item_id">- Species ID (species_id)</a></strong>
+
+<dt><strong><a name="item_accessions">- List of Species Accessions (species_accs)</a></strong>
+
+<dt><strong><a name="item_map">- Boolean: is this a relational map (is_relational_map)</a></strong>
+
+<dt><strong><a name="item_enabled">- Boolean: Is this enabled (is_enabled)</a></strong>
+
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   species_id          =&gt; $species_id,
+            species_acc         =&gt; $species_acc,
+            species_common_name =&gt; $species_common_name,
+            species_full_name   =&gt; $species_full_name,
+            display_order       =&gt; $display_order,
+        },
+    ]</pre>
+<p>
+</p>
+<h2><a name="getting_map_set_information">Getting Map Set Information</a></h2>
+<pre>
+    my $map_sets = $sql_object-&gt;get_map_sets();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all map sets in the database.</p>
+<dl>
+<dt><strong>- Species ID (species_id)</strong>
+
+<dt><strong><a name="item_ids">- List of Species IDs (species_ids)</a></strong>
+
+<dt><strong><a name="item_accession">- Species Accession (species_acc)</a></strong>
+
+<dt><strong>- Map Set ID (map_set_id)</strong>
+
+<dt><strong>- List of Map Set IDs (map_set_ids)</strong>
+
+<dt><strong>- Map Set Accession (map_set_acc)</strong>
+
+<dt><strong>- List of Map Set Accessions (map_set_accs)</strong>
+
+<dt><strong>- Map Type Accession (map_type_acc)</strong>
+
+<dt><strong>- Boolean: is this a relational map (is_relational_map)</strong>
+
+<dt><strong>- Boolean: Is this enabled (is_enabled)</strong>
+
+<dt><strong><a name="item_count_maps">- Boolean count_maps (count_maps)</a></strong>
+
+<dd>
+<p>Add a map count to the return object</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   map_set_id             =&gt; $map_set_id,
+            map_set_acc            =&gt; $map_set_acc,
+            map_set_name           =&gt; $map_set_name,
+            map_set_short_name     =&gt; $map_set_short_name,
+            map_type_acc           =&gt; $map_type_acc,
+            published_on           =&gt; $published_on,
+            is_enabled             =&gt; $is_enabled,
+            is_relational_map      =&gt; $is_relational_map,
+            map_units              =&gt; $map_units,
+            map_set_display_order  =&gt; $map_set_display_order,
+            shape                  =&gt; $shape,
+            color                  =&gt; $color,
+            width                  =&gt; $width,
+            species_id             =&gt; $species_id,
+            species_acc            =&gt; $species_acc,
+            species_common_name    =&gt; $species_common_name,
+            species_full_name      =&gt; $species_full_name,
+            species_display_order  =&gt; $species_display_order,
+            map_type               =&gt; $map_type,
+            map_type_display_order =&gt; $map_type_display_order,
+            epoch_published_on     =&gt; $epoch_published_on,
+            map_count =&gt; $map_count,    # (Only if count_maps is specified)
+        },
+    ]</pre>
+<p>
+</p>
+<h3><a name="see_also">See also</a></h3>
+<p>The get_map_sets_simple by executing ``perldoc Bio::GMOD::CMap::Data::Generic'';</p>
+<p>
+</p>
+<h2><a name="getting_map_information">Getting Map Information</a></h2>
+<pre>
+    my $maps = $sql_object-&gt;get_maps();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all maps in the database.</p>
+<dl>
+<dt><strong>- Map ID (map_id)</strong>
+
+<dt><strong>- List of Map IDs (map_ids)</strong>
+
+<dt><strong>- List of Map Accessions (map_accs)</strong>
+
+<dt><strong>- Map Set ID (map_set_id)</strong>
+
+<dt><strong>- Map Set Accession (map_set_acc)</strong>
+
+<dt><strong>- List of Map Set Accessions (map_set_accs)</strong>
+
+<dt><strong><a name="item_name">- Map Name (map_name)</a></strong>
+
+<dt><strong><a name="item_length">- Map Length (map_length)</a></strong>
+
+<dt><strong>- Map Type Accession (map_type_acc)</strong>
+
+<dt><strong>- Species Accession (species_acc)</strong>
+
+<dt><strong>- Boolean: is this a relational map (is_relational_map)</strong>
+
+<dt><strong>- Boolean: Is this enabled (is_enabled)</strong>
+
+<dt><strong><a name="item_count_features">- Boolean count_features (count_features)</a></strong>
+
+<dd>
+<p>Add a feature count to the return object</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   map_id                 =&gt; $map_id,
+            map_acc                =&gt; $map_acc,
+            map_name               =&gt; $map_name,
+            map_start              =&gt; $map_start,
+            map_stop               =&gt; $map_stop,
+            display_order          =&gt; $display_order,
+            map_set_id             =&gt; $map_set_id,
+            map_set_acc            =&gt; $map_set_acc,
+            map_set_name           =&gt; $map_set_name,
+            map_set_short_name     =&gt; $map_set_short_name,
+            published_on           =&gt; $published_on,
+            shape                  =&gt; $shape,
+            width                  =&gt; $width,
+            color                  =&gt; $color,
+            map_type_acc           =&gt; $map_type_acc,
+            map_units              =&gt; $map_units,
+            is_relational_map      =&gt; $is_relational_map,
+            species_id             =&gt; $species_id,
+            species_acc            =&gt; $species_acc,
+            species_common_name    =&gt; $species_common_name,
+            species_full_name      =&gt; $species_full_name,
+            map_type_display_order =&gt; $map_type_display_order,
+            map_type               =&gt; $map_type,
+            epoch_published_on     =&gt; $epoch_published_on,
+            default_shape          =&gt; $default_shape,
+            default_color          =&gt; $default_color,
+            default_width          =&gt; $default_width,
+            feature_count          =&gt;
+                $feature_count,    # (Only if count_features is specified)
+        },
+    ]</pre>
+<p>
+</p>
+<h3><a name="see_also">See also</a></h3>
+<p>The get_maps_simple by executing ``perldoc Bio::GMOD::CMap::Data::Generic'';</p>
+<p>
+</p>
+<h2><a name="getting_feature_information">Getting Feature Information</a></h2>
+<pre>
+    my $features = $sql_object-&gt;get_features();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>Identifiers that are more specific are used instead of more general ids.  For
+instance, if a feature_id and a map_id are specified, only the feature_id will
+be used because the map_id is a more broad search.</p>
+<p>If no parameters are provided, it will return all features in the database.</p>
+<dl>
+<dt><strong>- Feature ID (feature_id)</strong>
+
+<dt><strong>- Feature Accession (feature_acc)</strong>
+
+<dt><strong>- Feature Name (feature_name)</strong>
+
+<dt><strong>- Map ID (map_id)</strong>
+
+<dt><strong>- map_acc (map_acc)</strong>
+
+<dt><strong>- Map Set ID (map_set_id)</strong>
+
+<dt><strong>- List of Map Set IDs (map_set_ids)</strong>
+
+<dt><strong>- feature_start (feature_start)</strong>
+
+<dt><strong><a name="item_feature_stop">- feature_stop (feature_stop)</a></strong>
+
+<dt><strong><a name="item_direction">- Direction (direction)</a></strong>
+
+<dt><strong><a name="item_types">- Allowed feature types (feature_type_accs)</a></strong>
+
+<dt><strong>- Species ID (species_id)</strong>
+
+<dt><strong>- List of Species IDs (species_ids)</strong>
+
+<dt><strong>- List of Species Accessions (species_accs)</strong>
+
+<dt><strong><a name="item_stop">- Map Start and Map Stop (map_start,map_stop)</a></strong>
+
+<dd>
+<p>These must both be defined in order to to be used.  If defined the method will
+return only features that overlap that region.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rows">- Aliases get own rows (aliases_get_rows)</a></strong>
+
+<dd>
+<p>Value that dictates if aliases that match get there own rows.  This is mostly
+usefull for feature_name searches.</p>
+</dd>
+</li>
+<dt><strong><a name="item_aliases">- Don't get aliases (ignore_aliases)</a></strong>
+
+<dd>
+<p>Value that dictates if aliases are ignored.  The default is to get aliases.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   feature_id          =&gt; $feature_id,
+            feature_acc         =&gt; $feature_acc,
+            feature_type_acc    =&gt; $feature_type_acc,
+            feature_type        =&gt; $feature_type,
+            feature_name        =&gt; $feature_name,
+            feature_start       =&gt; $feature_start,
+            feature_stop        =&gt; $feature_stop,
+            direction           =&gt; $direction,
+            map_id              =&gt; $map_id,
+            is_landmark         =&gt; $is_landmark,
+            map_acc             =&gt; $map_acc,
+            map_name            =&gt; $map_name,
+            map_start           =&gt; $map_start,
+            map_stop            =&gt; $map_stop,
+            map_set_id          =&gt; $map_set_id,
+            map_set_acc         =&gt; $map_set_acc,
+            map_set_name        =&gt; $map_set_name,
+            map_set_short_name  =&gt; $map_set_short_name,
+            is_relational_map   =&gt; $is_relational_map,
+            map_type_acc        =&gt; $map_type_acc,
+            map_type            =&gt; $map_type,
+            map_units           =&gt; $map_units,
+            species_id          =&gt; $species_id,
+            species_acc         =&gt; $species_acc,
+            species_common_name =&gt; $species_common_name,
+            feature_type        =&gt; $feature_type,
+            default_rank        =&gt; $default_rank,
+            aliases =&gt; $aliases, # a list of aliases (Unless $aliases_get_rows
+                                 #or $ignore_aliases are specified),
+        },
+    ]</pre>
+<p>
+</p>
+<h3><a name="see_also">See also</a></h3>
+<p>The get_features_simple by executing ``perldoc Bio::GMOD::CMap::Data::Generic'';</p>
+<p>
+</p>
+<h2><a name="getting_correspondence_information">Getting Correspondence Information</a></h2>
+<pre>
+    my $correspondences = $sql_object-&gt;get_feature_correspondence_details()</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>Note: If not supplying evidence type information, the disregard_evidence_type
+parameter must be set to true, otherwise, no data will be returned.</p>
+<dl>
+<dt><strong><a name="item_feature_correspondence_id">- feature_correspondence_id (feature_correspondence_id)</a></strong>
+
+<dt><strong>- feature_id1 (feature_id1)</strong>
+
+<dt><strong>- feature_id2 (feature_id2)</strong>
+
+<dt><strong><a name="item_map_set_id2">- map_set_id2 (map_set_id2)</a></strong>
+
+<dt><strong><a name="item_map_set_acc2">- map_set_acc2 (map_set_acc2)</a></strong>
+
+<dt><strong><a name="item_map_id1">- map_id1 (map_id1)</a></strong>
+
+<dt><strong><a name="item_map_id2">- map_id2 (map_id2)</a></strong>
+
+<dt><strong><a name="item_map_acc2">- map_acc2 (map_acc2)</a></strong>
+
+<dt><strong><a name="item_disregard_evidence_type">- disregard_evidence_type (disregard_evidence_type)</a></strong>
+
+<dd>
+<p>If not supplying evidence type information, the disregard_evidence_type
+parameter must be set to true, otherwise, no data will be returned.</p>
+</dd>
+</li>
+<dt><strong>- Included Evidence Types Accessions (included_evidence_type_accs)</strong>
+
+<dt><strong><a name="item_score">- Ev. types that must be less than score (less_evidence_type_accs)</a></strong>
+
+<dt><strong>- Ev. types that must be greater than score (greater_evidence_type_accs)</strong>
+
+<dt><strong>- Scores for comparing to evidence types (evidence_type_score)</strong>
+
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   feature_name2              =&gt; $feature_name2,
+            feature_id2                =&gt; $feature_id2,
+            feature_id2                =&gt; $feature_id2,
+            feature_acc1               =&gt; $feature_acc1,
+            feature_acc2               =&gt; $feature_acc2,
+            feature_start2             =&gt; $feature_start2,
+            feature_stop2              =&gt; $feature_stop2,
+            feature_type_acc2          =&gt; $feature_type_acc2,
+            map_id2                    =&gt; $map_id2,
+            map_acc2                   =&gt; $map_acc2,
+            map_name2                  =&gt; $map_name2,
+            map_display_order2         =&gt; $map_display_order2,
+            map_set_id2                =&gt; $map_set_id2,
+            map_set_acc2               =&gt; $map_set_acc2,
+            map_set_short_name2        =&gt; $map_set_short_name2,
+            ms_display_order2          =&gt; $ms_display_order2,
+            published_on2              =&gt; $published_on2,
+            map_type_acc2              =&gt; $map_type_acc2,
+            map_units2                 =&gt; $map_units2,
+            species_common_name2       =&gt; $species_common_name2,
+            species_display_order2     =&gt; $species_display_order2,
+            feature_correspondence_id  =&gt; $feature_correspondence_id,
+            feature_correspondence_acc =&gt; $feature_correspondence_acc,
+            is_enabled                 =&gt; $is_enabled,
+            evidence_type_acc          =&gt; $evidence_type_acc,
+            map_type2                  =&gt; $map_type2,
+            feature_type2              =&gt; $feature_type2,
+            evidence_type              =&gt; $evidence_type,
+        },
+    ]</pre>
+<p>
+</p>
+<h3><a name="see_also">See also</a></h3>
+<p>The get_feature_correspondences_simple by executing ``perldoc
+Bio::GMOD::CMap::Data::Generic'';</p>
+<p>
+</p>
+<h2><a name="getting_attribute_information">Getting Attribute Information</a></h2>
+<pre>
+    my $attributes = $sql_object-&gt;get_attributes();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all features in the database.</p>
+<dl>
+<dt><strong><a name="item_map_set">- Object type such as feature or map_set (object_type)</a></strong>
+
+<dt><strong>- Object ID (object_id)</strong>
+
+<dt><strong><a name="item_attribute_id">- attribute_id (attribute_id)</a></strong>
+
+<dt><strong><a name="item_is_public">- is_public (is_public)</a></strong>
+
+<dt><strong>- attribute_name (attribute_name)</strong>
+
+<dt><strong>- attribute_value (attribute_value)</strong>
+
+<dt><strong><a name="item_clause">- Order by clause (order_by)</a></strong>
+
+<dt><strong><a name="item_flag">- Get All Flag (get_all)</a></strong>
+
+<dd>
+<p>Boolean value.  If set to 1, return all without regard to whether object_id is
+null.  This will allow retrieval of attributes given generally to all of a
+type.Specifying an object_id overrides this.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   attribute_id    =&gt; $attribute_id,
+            object_id       =&gt; $object_id,
+            table_name      =&gt; $table_name,
+            display_order   =&gt; $display_order,
+            is_public       =&gt; $is_public,
+            attribute_name  =&gt; $attribute_name,
+            attribute_value =&gt; $attribute_value,
+            object_type     =&gt; $object_type,
+        },
+    ]</pre>
+<p>
+</p>
+<h2><a name="getting_external_reference_information">Getting External Reference Information</a></h2>
+<pre>
+    my $xrefs = $sql_object-&gt;get_xrefs();</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all features in the database.</p>
+<dl>
+<dt><strong>- Object type such as feature or map_set (object_type)</strong>
+
+<dt><strong>- Object ID (object_id)</strong>
+
+<dt><strong><a name="item_xref_id">- xref_id (xref_id)</a></strong>
+
+<dt><strong>- xref_name (xref_name)</strong>
+
+<dt><strong>- xref_url (xref_url)</strong>
+
+<dt><strong>- Order by clause (order_by)</strong>
+
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   xref_id       =&gt; $xref_id,
+            object_id     =&gt; $object_id,
+            display_order =&gt; $display_order,
+            xref_name     =&gt; $xref_name,
+            xref_url      =&gt; $xref_url,
+            object_type   =&gt; $object_type,
+        },
+    ]</pre>
+<p>
+</p>
+<h2><a name="getting_map_to_feature_information">Getting Map to Feature Information</a></h2>
+<pre>
+    my $map_to_features = $sql_object-&gt;get_map_to_features()</pre>
+<p>
+</p>
+<h3><a name="parameters">Parameters</a></h3>
+<p>The parameters narrow down search results or provide direction for the results.</p>
+<p>If no parameters are provided, it will return all features in the database.</p>
+<dl>
+<dt><strong>- Map ID (map_id)</strong>
+
+<dt><strong>- Map Accession (map_acc)</strong>
+
+<dt><strong>- Feature ID (feature_id)</strong>
+
+<dt><strong>- Feature Accession (feature_acc)</strong>
+
+</dl>
+<p>
+</p>
+<h3><a name="structure_returned">Structure Returned</a></h3>
+<pre>
+    [   {   map_id      =&gt; $map_id,
+            map_acc     =&gt; $map_acc,
+            feature_id  =&gt; $feature_id,
+            feature_acc =&gt; $feature_acc,
+        },
+    ]</pre>
+<p>
+</p>
+<h2><a name="final_information">Final information</a></h2>
+<p>For more information about the methods available, execute ``perldoc
+Bio::GMOD::CMap::Data::Generic'' on the command line.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="questions_or_comments">Questions or Comments</a></h1>
+<p>Contact the CMap list, <a href="mailto:gmod-cmap@lists.sourceforge.net">gmod-cmap@lists.sourceforge.net</a> with your questions or
+comments.</p>
+<p>You can also leave a bug report for CMap at the SourceForge site for GMOD,
+<a href="http://sourceforge.net/projects/gmod/.">http://sourceforge.net/projects/gmod/.</a></p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ben Faga, <a href="mailto:faga@cshl.edu">faga@cshl.edu</a></p>
+<p>Copyright (c) 2007 Cold Spring Harbor Laboratory
+</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

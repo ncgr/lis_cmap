@@ -1,0 +1,197 @@
+[% INCLUDE admin_header.tmpl title="View Feature &quot;$feature.feature_name&quot;" %]
+
+<a href="admin">Home</a> |
+<a href="admin?action=confirm_delete;entity_type=feature;entity_id=[% feature.feature_id %]">Delete</a> |
+<a href="admin?action=feature_edit;feature_id=[% feature.feature_id %]">Edit</a>
+<hr noshade>
+
+<table>
+    <tr>
+        <th align="right">
+            Map:
+        </th>
+        <td>
+            [% feature.species_common_name %]-[% feature.map_set_name %]-[% feature.map_name %]
+            (<a href="admin?action=map_view;map_id=[% feature.map_id %]">View Map</a>)
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Acc ID:
+        </th>
+        <td>
+            [% feature.feature_acc %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Feature Name:
+        </th>
+        <td>
+            [% feature.feature_name %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Feature Type:
+        </th>
+        <td>
+            [% feature.feature_type %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Is Landmark:
+        </th>
+        <td>
+            [% IF feature.is_landmark; 'Yes'; ELSE; 'No'; END %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Start:
+        </th>
+        <td>
+            [% feature.feature_start | commify %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Stop:
+        </th>
+        <td>
+            [% IF feature.feature_stop.defined %][% feature.feature_stop | commify %][% ELSE %]NULL[% END %]
+        </td>
+    </tr>
+
+    <tr>
+        <th align="right">
+            Direction:
+        </th>
+        <td>
+            [% IF feature.direction.defined %][% feature.direction | commify %][% ELSE %]NULL[% END %]
+        </td>
+    </tr>
+</table>
+
+<hr>
+<table width="100%">
+    <tr>
+        <td><h2>Feature Aliases</h2></td>
+        <td align="right">
+            <a href="admin?action=feature_alias_create;feature_id=[% feature.feature_id %]">Add Alias</a>
+        </td>
+    </tr>
+</table>
+
+[%- IF feature.aliases.size -%]
+    <table width="100%">
+        <tr>
+            <th>Alias</th>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+
+        [% SET i=0 %]
+        [%- FOREACH alias=feature.aliases -%]
+            <tr bgcolor="[% IF i % 2 == 0 %]lightgrey[% ELSE %]white[% END %]">
+                <td>
+                    [%- alias.alias -%]
+                </th>
+                <td align="center">
+                     <a href="admin?action=feature_alias_view;feature_alias_id=[% alias.feature_alias_id %]">View</a>
+                </td>
+                <td align="center">
+                     <a href="admin?action=feature_alias_edit;feature_alias_id=[% alias.feature_alias_id %]">Edit</a>
+                </td>
+                <td align="center">
+                    <a href="admin?action=confirm_delete;entity_type=feature_alias;entity_id=[% alias.feature_alias_id %];entity_name_field=alias">Delete</a>
+                </td>
+            </tr>
+            [% SET i=i+1 %]
+        [%- END -%]
+    </table>
+[%- ELSE -%]
+    <div align="center">No aliases.</div>
+[%- END -%]
+
+[% 
+    INCLUDE admin_attributes_view.tmpl 
+    title='Feature Attributes'
+    attributes=feature.attributes 
+    return_action='feature_view'
+    pk_name='feature_id'
+    object_id=feature.feature_id
+    object_type='feature'
+%]
+
+[% 
+    INCLUDE admin_xrefs_view_embedded.tmpl 
+    title='Feature XRefs'
+    xrefs=feature.xrefs 
+    return_action='feature_view'
+    pk_name='feature_id'
+    object_id=feature.feature_id
+    object_type='feature'
+%]
+
+<hr>
+<table width="100%">
+    <tr>
+        <td><h2>Feature Correspondences<h2></td>
+        <td align="right">
+            <a href="admin?action=feature_corr_create;feature_id1=[% feature.feature_id %]">Add Correspondence</a>
+        </td>
+    </tr>
+</table>
+
+[% IF feature.correspondences.size %]
+    <table width="100%">
+        <tr>
+            <th>Acc. ID</th>
+            <th>Map</th>
+            <th>Feature Name</th>
+            <th>Aliases</th>
+            <th>Evidence</th>
+            <th>Is Enabled</th>
+            <th colspan="3">&nbsp;</th>
+        </tr>
+      
+        [% SET i=0 %]
+        [% FOREACH fc=feature.correspondences %]
+            <tr bgcolor="[% IF i % 2 == 0 %]lightgrey[% ELSE %]white[% END %]">
+                <td>[% fc.feature_correspondence_acc %]</td>
+                <td>
+                    <a href="admin?action=map_view;map_id=[% fc.map_id2 %]">[% fc.species_common_name2 %]-[% fc.map_set_short_name2 %]-[% fc.map_name2 %]</a>
+                </td>
+                <td>
+                    <a href="admin?action=feature_view;feature_id=[% fc.feature_id2 %]">[% fc.feature_name2 %]</a>
+                </td>
+                <td>[% fc.aliases2.join(', ') %]</td>
+                <td>[% fc.evidence.evidence_type %]</td>
+                <td>[% IF fc.is_enabled; 'Yes'; ELSE; 'No'; END %]</td>
+                <td align="center">
+                    <a href="admin?action=feature_corr_view;feature_correspondence_id=[% fc.feature_correspondence_id %]">View</a>
+                </td>
+                <td align="center">
+                    <a href="admin?action=feature_corr_edit;feature_correspondence_id=[% fc.feature_correspondence_id %]">Edit</a>
+                </td>
+                <td align="center">
+                    <a href="admin?action=confirm_delete;entity_type=feature_correspondence;entity_name_field=feature_correspondence_acc;entity_id=[% fc.feature_correspondence_id %]">Delete</a>
+                </td>
+            </tr>
+            [% SET i=i+1 %]
+        [% END %]
+    </table>
+
+[% ELSE %]
+
+  <p>No correspondences to show.</p>
+
+[% END %]
+[% INCLUDE admin_footer.tmpl %]

@@ -1,0 +1,101 @@
+[% SET title="Correspondences Detail &quot;$corr.feature_correspondence_acc&quot;" %]
+[% 
+    INCLUDE header.tmpl 
+    title='CMap - Correspondence Details'
+    cur_sec='correspondence_details'
+    help_anchor='correspondence_details'
+%]
+<h1>[% title %]</h1>
+
+<table width="100%">
+    <tr class="colored">
+        <th>&nbsp;</th>
+        <th colspan="2">Feature 1</th>
+        <th colspan="2">Feature 2</th>
+    </tr>
+    <tr>
+        <th align="right">Feature Name:</th>
+        <td>[% feature1.feature_name %]</td>
+        <td align="center"><b>[</b>&nbsp;<a href="feature?feature_acc=[% feature1.feature_acc %]">View&nbsp;Feature&nbsp;Details</a>&nbsp;<b>]</b></td>
+        <td>[% feature2.feature_name %]</td>
+        <td align="center"><b>[</b>&nbsp;<a href="feature?feature_acc=[% feature2.feature_acc %]">View&nbsp;Feature&nbsp;Details</a>&nbsp;<b>]</b></td>
+    </tr>
+    <tr>
+        <th align="right">Feature Aliases:</th>
+        <td>[% feature1.aliases.join(', ') %]</td>
+        <td>&nbsp;</td>
+        <td>[% feature2.aliases.join(', ') %]</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <th align="right">Map Name:</th>
+        <td> 
+            [% feature1.species_common_name %] -
+            [% feature1.map_set_name %] -
+            [% feature1.map_name %]
+        </td>
+        <td align="center"><b>[</b>&nbsp;<a href="map_set_info?map_set_acc=[% feature1.map_set_acc %]">View&nbsp;Map&nbsp;Set</a>&nbsp;<b>]</b></td>
+        <td> 
+            [% feature2.species_common_name %] -
+            [% feature2.map_set_name %] -
+            [% feature2.map_name %]
+        </td>
+        <td align="center"><b>[</b>&nbsp;<a href="map_set_info?map_set_acc=[% feature2.map_set_acc %]">View&nbsp;Map&nbsp;Set</a>&nbsp;<b>]</b></td>
+    </tr>
+    <tr>
+        <th align="right">Position:</th>
+        <td>
+            [% feature1.feature_start | commify %]
+            [% IF feature1.feature_stop.defined AND feature1.feature_stop > feature1.feature_start %]- [% feature1.feature_stop | commify %][% END %] [% feature1.map_units %]
+        </td>
+        <td align="center"><b>[</b>&nbsp;<a href="map_details?ref_map_set_acc=[% feature1.map_set_acc %];ref_map_accs=[% feature1.map_acc %];highlight=[% feature1.feature_acc %]">View&nbsp;On&nbsp;Map</a>&nbsp;<b>]</b></td>
+        <td>
+            [% feature2.feature_start | commify %]
+            [% IF feature2.feature_stop.defined AND feature2.feature_stop > feature2.feature_start %]- [% feature2.feature_stop | commify %][% END %] [% feature2.map_units %]
+        </td>
+        <td align="center"><b>[</b>&nbsp;<a href="map_details?ref_map_set_acc=[% feature2.map_set_acc %];ref_map_accs=[% feature2.map_acc %];highlight=[% feature2.feature_acc %]">View&nbsp;On&nbsp;Map</a>&nbsp;<b>]</b></td>
+    </tr>
+    <tr>
+        <th align="right">Feature Type:</th>
+        <td>[% feature1.feature_type %]</td>
+        <td align="center"><b>[</b>&nbsp;<a href="feature_type_info?feature_type_acc=[% feature1.feature_type_acc %]">View&nbsp;Feature&nbsp;Type&nbsp;Info</a>&nbsp;<b>]</b></td>
+        <td>[% feature2.feature_type %]</td>
+        <td align="center"><b>[</b>&nbsp;<a href="feature_type_info?feature_type_acc=[% feature2.feature_type_acc %]">View&nbsp;Feature&nbsp;Type&nbsp;Info</a>&nbsp;<b>]</b></td>
+    </tr>
+</table>
+
+<h2>Evidence</h2>
+
+[% IF corr.evidence.size %]
+    <table width="100%">
+        <tr>
+            <th>Acc. ID</th>
+            <th>Evidence Type</th>
+            <th>Evidence Rank</th>
+            <th>Score</th>
+            <th>&nbsp;</th>
+        </tr>
+      
+        [% SET i=0 %]
+        [% FOREACH e=corr.evidence %]
+            <tr class="[% IF i % 2 == 0 %]colored[% ELSE %]monotonic[% END %]">
+                <td>[% e.correspondence_evidence_id %]</td>
+                <td>[% e.evidence_type %]</td>
+                <td align="right">[% e.rank %]</td>
+                <td align="right">[% IF e.score.defined; e.score; ELSE; 'N/A'; END %]</td>
+                <td align="center">
+                    <b>[</b>&nbsp;<a href="evidence_type_info?evidence_type_acc=[% e.evidence_type_acc %]">View&nbsp;Evidence&nbsp;Type&nbsp;Info</a>&nbsp<b>]</b>
+                </td>
+                </td>
+            </tr>
+            [% SET i=i+1 %]
+        [% END %]
+    </table>
+
+[% ELSE %]
+
+  <p>No evidence to show.</p>
+
+[% END %]
+
+[% INCLUDE footer.tmpl %]

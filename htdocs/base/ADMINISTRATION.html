@@ -1,0 +1,3174 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ADMINISTRATION</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#title">TITLE</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#starting_out">STARTING OUT</a></li>
+	<li><a href="#editing_configuration_files">EDITING CONFIGURATION FILES</a></li>
+	<ul>
+
+		<li><a href="#global_conf">global.conf</a></li>
+		<li><a href="#individual_configuration_files">INDIVIDUAL CONFIGURATION FILES</a></li>
+		<ul>
+
+			<li><a href="#required_general_options">Required General Options</a></li>
+			<li><a href="#map__feature_and_evidence_type_information">Map, Feature and Evidence Type Information</a></li>
+			<ul>
+
+				<li><a href="#common_fields_">Common fields.</a></li>
+				<li><a href="#feature_type_specific_options">Feature type specific options</a></li>
+				<li><a href="#evidence_type_specific_options">Evidence type specific options</a></li>
+				<li><a href="#map_type_specific_options">Map type specific options</a></li>
+			</ul>
+
+			<li><a href="#menu_defaults">Menu Defaults</a></li>
+			<ul>
+
+				<li><a href="#map_menu_options">Map Menu Options</a></li>
+				<li><a href="#feature_menu_options">Feature Menu Options</a></li>
+				<li><a href="#correspondence_menu_options">Correspondence Menu Options</a></li>
+				<li><a href="#display_menu_options">Display Menu Options</a></li>
+				<li><a href="#advanced_menu_options">Advanced Menu Options</a></li>
+			</ul>
+
+			<li><a href="#presentation_options">Presentation Options</a></li>
+			<li><a href="#web_related_options">Web Related Options</a></li>
+			<li><a href="#javascript_options">JavaScript options</a></li>
+			<li><a href="#configuration_defined_buttons">Configuration Defined Buttons</a></li>
+			<ul>
+
+				<li><a href="#configuration_structure">Configuration Structure</a></li>
+				<li><a href="#testable_parameters">Testable Parameters</a></li>
+			</ul>
+
+			<li><a href="#miscellaneous_options">Miscellaneous Options</a></li>
+			<li><a href="#title_and_intro_text_options">Title and Intro Text Options</a></li>
+			<li><a href="#administration_options">Administration Options</a></li>
+			<ul>
+
+				<li><a href="#map_set_creation_defaults">Map Set Creation Defaults</a></li>
+			</ul>
+
+		</ul>
+
+		<li><a href="#including_other_configuration_files">INCLUDING OTHER CONFIGURATION FILES</a></li>
+		<li><a href="#validating_configuration_files">VALIDATING CONFIGURATION FILES</a></li>
+		<li><a href="#configuring_for_speed_and_clarity">CONFIGURING FOR SPEED AND CLARITY</a></li>
+	</ul>
+
+	<li><a href="#webadmin_tool">WEB-ADMIN TOOL</a></li>
+	<li><a href="#setting_up_species">SETTING UP SPECIES</a></li>
+	<li><a href="#creating_a_new_map_set">CREATING A NEW MAP SET</a></li>
+	<ul>
+
+		<li><a href="#using_the_web_admin_tool_to_create_a_map_set">USING THE WEB ADMIN TOOL TO CREATE A MAP SET</a></li>
+		<li><a href="#using_the_cmap_admin_pl_tool_to_create_a_map_set">USING THE cmap_admin.pl TOOL TO CREATE A MAP SET</a></li>
+		<li><a href="#viewing_new_map_set">VIEWING NEW MAP SET</a></li>
+	</ul>
+
+	<li><a href="#importing_map_data">IMPORTING MAP DATA</a></li>
+	<ul>
+
+		<li><a href="#importing_xml_data__experimental_">IMPORTING XML DATA (EXPERIMENTAL)</a></li>
+	</ul>
+
+	<li><a href="#making_correspondences">MAKING CORRESPONDENCES</a></li>
+	<ul>
+
+		<li><a href="#creating_correspondence_records">CREATING CORRESPONDENCE RECORDS</a></li>
+	</ul>
+
+	<li><a href="#loading_the_correspondence_matrix">LOADING THE CORRESPONDENCE MATRIX</a></li>
+	<li><a href="#establishing_database_crossreferences">ESTABLISHING DATABASE CROSS-REFERENCES</a></li>
+	<li><a href="#viewing_data">VIEWING DATA</a></li>
+	<ul>
+
+		<li><a href="#viewing_all_map_sets">VIEWING ALL MAP SETS</a></li>
+		<li><a href="#viewing_a_map_set">VIEWING A MAP SET</a></li>
+		<li><a href="#viewing_a_map">VIEWING A MAP</a></li>
+		<li><a href="#editing_a_map">EDITING A MAP</a></li>
+		<li><a href="#viewing_a_feature">VIEWING A FEATURE</a></li>
+		<li><a href="#editing_a_feature">EDITING A FEATURE</a></li>
+		<li><a href="#searching_for_a_feature">SEARCHING FOR A FEATURE</a></li>
+	</ul>
+
+	<li><a href="#customizing_html_templates">CUSTOMIZING HTML TEMPLATES</a></li>
+	<li><a href="#administration_using_cmap_admin_pl">ADMINISTRATION USING cmap_admin.pl</a></li>
+	<li><a href="#reducing_query_cache_size">REDUCING QUERY CACHE SIZE</a></li>
+	<li><a href="#validate_config_files">VALIDATE CONFIG FILES</a></li>
+	<li><a href="#cmap_matrix_compare_pl">cmap_matrix_compare.pl</a></li>
+	<li><a href="#linking_in">LINKING IN</a></li>
+	<ul>
+
+		<li><a href="#uri">URI</a></li>
+		<li><a href="#url_arguments">URL Arguments</a></li>
+		<ul>
+
+			<li><a href="#required_arguments_">Required Arguments:</a></li>
+			<li><a href="#operational_arguments">Operational Arguments</a></li>
+			<li><a href="#arguments_for_speed_and_clarity">Arguments for Speed and Clarity</a></li>
+			<li><a href="#menu_arguments">Menu Arguments</a></li>
+			<li><a href="#hide_display_menus">Hide/Display Menus</a></li>
+			<li><a href="#just_in_case_you_see_it">Just in case you see it</a></li>
+			<li><a href="#map_details_arguments">Map Details Arguments</a></li>
+			<li><a href="#depricated_arguments">Depricated Arguments</a></li>
+		</ul>
+
+		<li><a href="#map_accession_information_format">Map Accession Information Format</a></li>
+		<li><a href="#comparative_map_construction">Comparative Map Construction</a></li>
+	</ul>
+
+	<li><a href="#using_cmap_modules_in_custom_scripts">USING CMAP MODULES IN CUSTOM SCRIPTS</a></li>
+	<li><a href="#sample_data">SAMPLE DATA</a></li>
+	<li><a href="#multiple_cmap_installations">MULTIPLE CMAP INSTALLATIONS</a></li>
+	<li><a href="#miscellaneous">MISCELLANEOUS</a></li>
+	<li><a href="#troubleshooting">TROUBLESHOOTING</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="title">TITLE</a></h1>
+<p>CMap Administration and Data Curation</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>$Revision: 1.41 $</p>
+<p>This document is intended to help you understand how to use the data
+curation tools provided with CMap.  There are three tools you will use:
+the configuration files, the ``cmap_admin.pl'' command-line interface and 
+the web-base administration interface.</p>
+<p>The configuration file is used to create and customize the look of map, 
+feature and evidence types as well as customizing the CMap experience.</p>
+<p>The ``cmap_admin.pl'' program is used for all long-running processes that 
+are not practical to address over the HTTP protocol.  It employs a 
+``wizard''-like approach to accomplishing various tasks by asking the 
+curator a series of questions and performing the desired action using 
+the answers provided.  cmap_admin.pl can also be driven via command 
+line arguments.</p>
+<p>The web admin tool is meant to provide a point-and-click interface for 
+performing the more mundane administrative tasks or for viewing the 
+data.</p>
+<p>All of this is discussed in further detail in this document.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="starting_out">STARTING OUT</a></h1>
+<p>If you have just installed CMap, then your database is probably
+completely empty.  (Of course, a small but complete dataset is
+provided in the ``data'' directory, but the database for your own data
+will be empty.)  So let's start by discussing what you need to do to
+get a usable installation with your data.</p>
+<p>This document assumes that you've already been through all
+the steps described in the INSTALL.pod document, so you
+should be able to pull up the web-based admin tool by
+pointing your browser to
+``http://your.host.name/cgi-bin/cmap/admin'' (or where ever you
+have installed it).  Depending on whether or not you decided
+to password-protect that URL, you may have to enter a
+username and password when prompted by your browser.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="editing_configuration_files">EDITING CONFIGURATION FILES</a></h1>
+<p>The first step to getting your data into CMap is to correctly set up 
+your configuration files.  The config files tell CMap how to access
+your database.  Also, each map type, feature type and evidence type 
+of the data that you will be installing needs to be defined in the 
+configuration files.</p>
+<p>CMap has multiple configuration files.  These files are read out of the 
+``cmap.conf/'' directory, likely located in your apache ``conf/'' directory.
+There are two types of config files.  There is one (and only one) 
+``global.conf'' file that holds information applicable to all of the 
+databases.  And in that directory, at least one individual configuration 
+file for each database used.  Everything that can be customized about 
+CMap is controlled by these files, which are described in detail 
+below.</p>
+<p>The configuration files are written in a standard Apache-style 
+configuration file syntax.  Comments are defined as anything following 
+a hash sign and are ignored.  Options which are grouped together are in 
+angle brackets (``&lt;&gt;'').  Standard options are written in a ``Name Value'' 
+syntax where the two are separated by whitespace or an equal sign.  For 
+more information on the syntax, read the POD for Config::General (by 
+executing ``perldoc Config::General'' on your system).</p>
+<p>Each configuration setting is documented in comments.  Legal and default values
+are listed along with a brief description of the option.  Except for the
+``database'' and map/feature/evidence_type settings, there is a reasonable
+default, hard coded value for every configuration setting (so you could
+actually comment out all of the ``optional settings'' in the file).</p>
+<p>Whenever you make a change to cmap.conf, it will most likely be
+necessary for you to purge the CMap cache to see the change if the 
+change affects something in the viewer since.  This is particularly 
+true if map|feature|evidence type information has been changed because
+that information is cached along with database search results.  
+Purging the query cache can be done by using the cmap_admin.pl program 
+(explained later in this document).</p>
+<p>
+</p>
+<h2><a name="global_conf">global.conf</a></h2>
+<p>The global.conf contains information which is used by all of the other 
+configurations.  You will want to set the default_db value.</p>
+<ul>
+<li><strong><a name="item_template_dir">template_dir</a></strong>
+
+<p>Automatically set to the path of the directory that contains the html
+templates.</p>
+</li>
+<li><strong><a name="item_web_document_root_dir">web_document_root_dir</a></strong>
+
+<p>Automatically set to the absolute path of the document root for the web server.</p>
+</li>
+<li><strong><a name="item_web_cmap_htdocs_dir">web_cmap_htdocs_dir</a></strong>
+
+<p>Automatically set the absolute path to the cmap docs directory.  This must be
+in the web_document_root directory.</p>
+</li>
+<li><strong><a name="item_cache_dir">cache_dir</a></strong>
+
+<p>Automatically set to the path of the directory that contains the 
+temporary image files.  This has no relation to the query caching 
+system mentioned earlier (that needs purging).</p>
+</li>
+<li><strong><a name="item_session_dir">session_dir</a></strong>
+
+<p>An absolute path to the directory where session files are written.</p>
+</li>
+<li><strong><a name="item_default_db">default_db</a></strong>
+
+<p>Set the name of the database (named in its config file) that will 
+be used as the default.</p>
+</li>
+<li><strong><a name="item_max_img_dir_fullness__5b_default_3a_0__5d">max_img_dir_fullness [ default: 0 ]</a></strong>
+
+<p>This is the maximum percent the image cache directory will fill before CMap
+quits writing to it.  This is to keep CMap from filling your drive.</p>
+<p>Excluding or setting to 0 will ignore directory size.</p>
+</li>
+<li><strong><a name="item_max_img_dir_size__5b_default_3a_0__5d">max_img_dir_size [ default: 0 ]</a></strong>
+
+<p>Using this option may slow down your requests by as much as 0.4 seconds.  This
+is the maximum size (in bytes) the image cache directory will grow before CMap
+quits writing to it.  This is to keep CMap from filling your drive.</p>
+<p>Excluding or setting to 0 will ignore directory size.</p>
+</li>
+<li><strong><a name="item_purge_img_dir_when_full__5b_default_3a_0__5d">purge_img_dir_when_full [ default: 0 ]</a></strong>
+
+<p>Allow CMap to purge the image directory when it is full.</p>
+<p>Excluding or setting to 0 will prevent CMap from attempting to purge the image
+directory.</p>
+</li>
+<li><strong><a name="item_file_age_to_purge__5b_default_3a_300__5d">file_age_to_purge [ default: 300 ]</a></strong>
+
+<p>The age (in seconds) of an image file that an image has to be before it can be
+removed by CMap.</p>
+<p>The default is set to five minutes so that any http requests accessing current
+images will have a chance to get them.  Setting to 0 may cause problems with
+concurrent requests.</p>
+</li>
+<li><strong><a name="item_max_image_map_objects__5b_default_3a_20000__5d">max_image_map_objects [ default: 20000 ]</a></strong>
+
+<p>The maximum number of area boxes (clickable image elements) that CMap will try
+to print before issuing a warning message and ignoring all area boxes.  This
+can save a browser from crashing.  No commas allowed.</p>
+</li>
+<li><strong><a name="item_max_query_cache_size__5b_default_3a_26214400__5d">max_query_cache_size [ default: 26214400 ]</a></strong>
+
+<p>How large the size limit should be for the query cache in bytes.  The value 0
+will cause the size to not be limited.  This is used in the
+cmap_reduce_cache_size.pl (<a href="#reducing_query_cache_size">REDUCING QUERY CACHE SIZE</a>) script</p>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="individual_configuration_files">INDIVIDUAL CONFIGURATION FILES</a></h2>
+<p>CMap supports multiple data sources and multiple customizations 
+for each.  This allows a curator to maintain distinct databases 
+and view them all in CMap.</p>
+<p>If you have only one database, then you need only one configuration
+file of this type.  Adding another is as simple as creating a new
+configuration file.  Any file that is in the ``cmap.conf/'' directory 
+that ends in ``.conf'' will be read as a configuration file.</p>
+<p>All of the parameters that can be specified in an individual config file
+are described here.</p>
+<p>The required elements are the <a href="#required_general_options">Required General Options</a> and the <a href="#map__feature_and_evidence_type_information">Map, Feature and Evidence Type Information</a>.  The other elements all have
+reasonable defaults and can be ignored until you want to tweak them.</p>
+<p>The file ``example.conf'' (which is installed in the cmap.conf/
+directory) provides a good starting point for your configuration.
+When you are done customizing your config file, make sure you set
+``is_enabled'' to 1.</p>
+<p>
+</p>
+<h3><a name="required_general_options">Required General Options</a></h3>
+<ul>
+<li><strong><a name="item_is_enabled">is_enabled</a></strong>
+
+<p>Set to 1 to enable or 0 to keep this configuration file from being 
+used.</p>
+</li>
+<li><strong><a name="item__3cdatabase_3e">&lt;database&gt;</a></strong>
+
+<p>Contains the database connection parameters. The 'name' field is the
+name that this config file and the data source will be referred to as.  
+Therefor, it is important to keep it unique.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="map__feature_and_evidence_type_information">Map, Feature and Evidence Type Information</a></h3>
+<p>Starting with v0.13 map, feature and evidence types (*_types) are 
+defined in the configuration files and not in the database.  This means
+that to add an object of *_type, its type must be defined here in the
+config file.</p>
+<p>The accession id of the *_type is listed in two places for technical 
+reasons.  It is important that both places have the same accession id.  
+One is in the initial tag, &lt;map_type X&gt;, where 'X' is the accession. 
+The other is in the 'evidence_type_acc' field.</p>
+<p>It is important to note that some of the information is stored in the 
+database when features and map sets are created.  Fields like map units 
+and default_rank will not change in the database if you change them only
+in the config file.  This may be something to be addressed in the future.</p>
+<p>
+</p>
+<h4><a name="common_fields_">Common fields.</a></h4>
+<ul>
+<li><strong><a name="item___type_acc">*_type_acc</a></strong>
+
+<p>The accession id that is used in the database to identify the type. 
+No spaces are allowed.  Example: 'maize_marker'</p>
+</li>
+<li><strong><a name="item___type">*_type</a></strong>
+
+<p>The full name of that type, such as ``Maize Marker''.</p>
+</li>
+<li><strong><a name="item_color">color</a></strong>
+
+<p>The color of the object.</p>
+</li>
+<li><strong><a name="item_attribute">attribute</a></strong>
+
+<p>Attributes of feature, evidence and map types have been moved out of the
+database and into the config file.</p>
+<p>Attributes are essentially name, value pairs which describe something about the
+type.  They must be defined in &lt;attribute&gt; tags.  Here is an example entry:</p>
+<pre>
+ &lt;attribute&gt;
+   name Description
+   value This is the description of the *_type.
+   is_public 1
+ &lt;/attribute&gt;
+ &lt;attribute&gt;
+   name History
+   value This type was first discovered in the fourth century BC.
+ &lt;/attribute&gt;</pre>
+<p>Notice that is_public is optional.  If not given it will default to 1.</p>
+</li>
+<li><strong><a name="item_xref">xref (cross-reference)</a></strong>
+
+<p>Cross-references of feature, evidence and map types have been moved out of the
+database and into the config file.</p>
+<p>Cross-references (xrefs) are links from this type to another website.  They
+consist of a name and a URL.  If the URL is inside the ``cmap/'' namespace you
+can define just the end portion.  However if you want to link outside this
+website, you must include the ``http://''.  Here is an example entry:</p>
+<pre>
+ &lt;xref&gt;
+   name Map Search
+   url map_search
+ &lt;/xref&gt;
+ &lt;xref&gt;
+   name google
+   url <a href="http://www.google.com">http://www.google.com</a>
+ &lt;/xref&gt;</pre>
+</li>
+<li><strong><a name="item_area_code">area_code (map and feature types only)</a></strong>
+
+<p>CMap allows you to change the URL, the alternate message or specify JavaScript
+to be included in the area box over the drawings of map and features.  The
+following example makes the map name appear in the status bar of the browser on
+mouse over.  It also changes the alternate message to the map name and makes
+the url search google.</p>
+<pre>
+ $code=sprintf(&quot;onMouseOver=\&quot;window.status='%s';return true\&quot;&quot;,$map-&gt;{'map_name'});
+ $alt =sprintf(&quot;%s&quot;,$map-&gt;{'map_name'});
+ $url=sprintf(&quot;www.google.com/search?q=%s&quot;,$map-&gt;{'map_name'});</pre>
+<p>This is Perl code that lets you change the values of three variables; $code,
+$alt and $url.  $code hold the JavaScript commands that the area will use.
+$alt holds the alternate message that will pop up when the mouse is hovered
+over the area box.  $url is the URL that the browser will go to when clicking
+the area box.  These are evaluated for each map of this type which enables
+access to the internal variable $map (or in the case of features, $feature).</p>
+<p>This allows the administrator the freedom to make the page more versatile.
+Each variable has usable defaults.</p>
+<p>Some useful keys in $map (which are used $map-&gt;{'key'}):</p>
+<dl>
+<dt><strong><a name="item__2d_map_name">- map_name</a></strong>
+
+<dt><strong><a name="item__2d_map_id">- map_id</a></strong>
+
+<dd>
+<p>The database identifier, useful for making queries.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_map_acc">- map_acc</a></strong>
+
+<dd>
+<p>The map accession id</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_map_type_acc">- map_type_acc</a></strong>
+
+<dd>
+<p>The accession id of the map type (of course you already know this)</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_other_map_keys">- Other Map Keys</a></strong>
+
+<dd>
+<p>map_start, map_stop, display_order, map_set_id, map_set_acc, map_set_name,
+map_set_short_name, published_on, shape, width, color, map_units,
+is_relational_map, species_id, species_acc, species_common_name,
+species_full_name, map_type_display_order, map_type, epoch_published_on,
+default_shape default_color default_width</p>
+</dd>
+</li>
+</dl>
+<p>Some useful keys in $feature (which are used $feature-&gt;{'key'}):</p>
+<dl>
+<dt><strong><a name="item__2d_feature_name">- feature_name</a></strong>
+
+<dt><strong><a name="item__2d_feature_id">- feature_id</a></strong>
+
+<dd>
+<p>The database identifier, useful for making queries.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_acc">- feature_acc</a></strong>
+
+<dd>
+<p>The feature accession id</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_type_acc">- feature_type_acc</a></strong>
+
+<dd>
+<p>The accession id of the feature type (of course you already know this)</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_other_feature_keys">- Other Feature Keys</a></strong>
+
+<dd>
+<p>feature_start, feature_stop, direction, map_id, map_acc, map_name, map_units,
+feature_type, default_rank, shape color drawing_lane, drawing_priority,</p>
+</dd>
+</li>
+</dl>
+<p>Since area_code allows you to inject Perl to be executed, the Bio::GMOD::CMap::Data::Generic can be used gather data from the db.  To access the module, use the ``$self-&gt;sql()'' method.  You can use the object returned to call data retrieval methods.  For an list and explanation of the possible methods, execute ``perldoc Bio::GMOD::CMap::Data::Generic''.</p>
+<p>The following is an example of how to get an xref from the database.</p>
+<pre>
+  area_code &lt;&lt;EOF
+    my $dbxrefs = $self-&gt;sql()-&gt;get_xrefs(
+      cmap_object =&gt; $self,
+      object_id   =&gt; $feature-&gt;{'feature_id'},
+      object_type =&gt; 'feature',
+      xref_name   =&gt; 'Chado',
+    );
+    my $new_url = '';
+    if ( @{ $dbxrefs || [] } ) {
+      my $t = $self-&gt;template;
+      $t-&gt;process( \$dbxrefs-&gt;[0]{'xref_url'},
+          { object =&gt; $feature }, \$new_url );
+    }
+    $url = $new_url;
+    $code=sprintf(&quot;onMouseOver=\&quot;window.status='%s';return true\&quot;&quot;,$feature-&gt;{'feature_type_acc'});
+  EOF</pre>
+<li><strong><a name="item_required_page_code">required_page_code (map and feature types only)</a></strong>
+
+<p>This field takes a list of page_code accessions.  Page_code is used 
+to insert functions that map/feature JavaScript will use.  This is 
+handy if multiple types do the same complex thing.  Creating page_code
+is described later.</p>
+</li>
+<li><strong><a name="item_extra_forms">extra_forms (map and feature types only)</a></strong>
+
+<p>This field takes a list of extra_form accessions.  Extra_forms are 
+used to add form objects to the options menu.  These can be used for
+anything from hidden fields that store data to buttons that submit
+the page to a different place.  Creating extra_forms is described later.</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="feature_type_specific_options">Feature type specific options</a></h4>
+<ul>
+<li><strong><a name="item_shape_3a">Shape:</a></strong>
+
+<p>The shape to use when drawing the feature.  Here is a short
+description of the shapes and what they're best used for:</p>
+<dl>
+<dt><strong><a name="item__2d_line_3a">- line:</a></strong>
+
+<dd>
+<p>This a horizontal line just wider than the map's width intended to
+represent single-point features (e.g., SNPs or markers).  If the
+feature has a length (a defined stop), the line is drawn at the =item
+*midpoint* of the feature. This shape is the most generic and has the
+least tendency to look busy on very crowded maps. It is mostly
+intended to represent single-point features, but is also useful for
+spanning features when you aren't necessarily concerned with showing
+the span.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_in_2dtriangle_3a">- in-triangle:</a></strong>
+
+<dd>
+<p>Like the ``line,'' this is intended to represent single-point features
+or just the beginning of a spanning feature (e.g., the beginning of an
+insertion). ``In'' here means pointing at the map, which may mean
+pointing right or left depending on the side of the map which features
+are being drawn.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_out_2dtriangle_3a">- out-triangle:</a></strong>
+
+<dd>
+<p>Exactly like the ``in-triangle,'' only pointing away from the map. These
+two glyphs were added for the common representation of insertions and
+deletions.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_box_3a">- box:</a></strong>
+
+<dd>
+<p>Creates an open (unfilled) box that straddles the map. While it's
+possible to place a box in a lane other than ``1'' (i.e., there's no
+code in place to stop you), it really doesn't look very good.  This
+shape was really intended just to represent infrequently occurring
+features, like a centromere. The boxes get progressively larger as
+they start to collide and are quite confusing when there are many. Use
+sparingly.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_dumbbell_3a">- dumbbell:</a></strong>
+
+<dd>
+<p>This is a spanning shape intended for features with both a start and
+stop position. The dumbbell is fairly small and floats in mini-lanes
+within the drawing lane. When a feature with no length (a single-point
+feature) is drawn with a dumbbell, it renders as a dot (just the
+circle on the end), which could be confusing to users.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_span_3a">- span:</a></strong>
+
+<dd>
+<p>Like half a box, the ``span'' is a three-sided figure made of straight
+lines that was intended for spanning features. Looks very odd when
+applied to single-point feature.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_direction_2darrow_3a">- direction-arrow:</a></strong>
+
+<dd>
+<p>Another spanning shape, this is a straight line with an arrowhead
+pointing in the direction dictated by the 'direction' field. It 
+``floats'' like the dumbbell.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_up_2darrow_3a">- up-arrow:</a></strong>
+
+<dd>
+<p>Exactly like the ``direction-arrow,'' only with the arrowhead always 
+points towards the top of the image.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_down_2darrow_3a">- down-arrow:</a></strong>
+
+<dd>
+<p>Exactly like the ``direction-arrow,'' only with the arrowhead always 
+points towards the bottom of the image.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_double_2darrow_3a">- double-arrow:</a></strong>
+
+<dd>
+<p>Like the ``up-arrow'' and ``down-arrow,'' except with arrowheads on both
+ends.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_filled_2dbox_3a">- filled-box:</a></strong>
+
+<dd>
+<p>Another spanning feature which floats (like the dumbbell), this is a
+filled-in rectangle (trimmed in black).</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_banding_3a">- banding:</a></strong>
+
+<dd>
+<p>A spanning feature where consecutive banding features alternate in 
+color between black and the chosen color.</p>
+</dd>
+<dd>
+<p>There is one banding specific option that can be defined</p>
+</dd>
+<ul>
+<li><strong><a name="item_color2">color2 (default: black)</a></strong>
+
+<p>This is the second color that this glyph will oscillate between.  This is used
+in conjunction with the ``color'' option.</p>
+</li>
+</ul>
+<p>Also, a feature type with this glyph must have it's own drawing lane.</p>
+<dt><strong><a name="item__2d_read_2ddepth_3a">- read-depth:</a></strong>
+
+<dd>
+<p>A spanning feature where the name of the feature dictates how far 
+from the base position a line is drawn.  The name MUST be a number.
+This will create a line graph type of glyph.</p>
+</dd>
+<dd>
+<p>Also, a feature type with this glyph must have it's own drawing lane.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_heatmap">- heatmap</a></strong>
+
+<dd>
+<p>A heatmap glyph is a density glyph where density is shown by color.  Each color is made by an individual feature and the feature name is the number that this section represents.</p>
+</dd>
+<dd>
+<p>For example, two items are collapsed below.</p>
+</dd>
+<dd>
+<pre>
+       ----
+  ------------
+       |
+       V
+  -----OOOO---</pre>
+</dd>
+<dd>
+<p>This would be represented by three features and written in the import file like this:</p>
+</dd>
+<dd>
+<pre>
+  feature_name    feature_start   feature_stop    feature_type_acc
+  1               1               5               something_density
+  2               6               9               something_density
+  1               10              12              something_density</pre>
+</dd>
+<dd>
+<p>There are heatmap specific options that should be defined in order for this to be most useful.</p>
+</dd>
+<ul>
+<li><strong><a name="item_min_value">min_value (default: 0)</a></strong>
+
+<p>The minimum value that a feature can be named.  If it is lower than this, the color will be the minimum color.</p>
+</li>
+<li><strong><a name="item_max_value">max_value (default: 100)</a></strong>
+
+<p>The maximum value that a feature can be named.  If it is higher than this, the color will be the maximum color.</p>
+</li>
+<li><strong><a name="item_min_color_value">min_color_value (default: '255,0,0')</a></strong>
+
+<p>This is the color that the minimum value will have.  It is the bottom color of
+the gradient.  It is represented as a string, writen in rgb format
+('red,green,blue').</p>
+</li>
+<li><strong><a name="item_max_color_value">max_color_value (default: '0,255,0')</a></strong>
+
+<p>This is the color that the maximum value will have.  It is the top color of the
+gradient.  It is represented as a string, writen in rgb format
+('red,green,blue').</p>
+</li>
+</ul>
+<p>Also, a feature type with this glyph must have it's own drawing lane.</p>
+</dl>
+<li><strong><a name="item_feature_modification_code">feature_modification_code</a></strong>
+
+<p>The feature_modification_code is similar to the area_code option (see above).  It allows you to inject Perl code into CMap when the feature is about to be drawn.  Also, like area_code, it can access variables that are in the environment where it is run.  To see what this has access to, you can search for ``feature_modification_code'' in .../path/to/Bio/GMOD/CMap/Drawer/Map.pm.</p>
+<p>The following will change the color of the feature if the name matches a specified pattern.</p>
+<pre>
+  feature_modification_code &lt;&lt;EOF
+    if ($feature-&gt;{'feature_name'} =~ /^sb(\S+)_/){
+        $color = 'black';
+    }
+    elsif ($feature-&gt;{'feature_name'} =~ /^os(\S+)_/){
+        $color = 'orange';
+    }
+  EOF</pre>
+</li>
+<li><strong><a name="item_glyph_overlap_3b">glyph_overlap;</a></strong>
+
+<p>This option was completely unnecessary and has been removed from use.</p>
+</li>
+<li><strong><a name="item_drawing_lane_3a">Drawing Lane:</a></strong>
+
+<p>A positive integer defining the ``lane'' where the feature will be
+drawn. The idea was taken from Gbrowse's ``tracks,'' this allows you the
+ability to segregate feature types into visually distinct vertical
+areas. Feature types which share the same lane will all be distributed
+before feature types in the next highest lane. The lower the number
+for the lane, the closer to the map the feature will be drawn.</p>
+<p>Lanes are not absolute, they are only used to sort the features on
+a map;  therefore, if you have only ``Centromeres'' and ``Markers'' in
+lane #1, on any map with either of those types of features, they will
+be drawn =item *on* the map;  on any map without those types, the
+feature type with the next highest lane number will be drawn =item
+*on* the map.  The same is true as you move into higher lanes;  if the
+lanes move like ``1,'' ``4,'' ``7,'' you will have only 3 lanes with no
+gaps.</p>
+</li>
+<li><strong><a name="item_drawing_priority_3a">Drawing Priority:</a></strong>
+
+<p>A positive integer which determines the order in which feature types
+within the lane are drawn. The lower the number for the priority, the
+sooner the feature will be drawn in the lane.</p>
+</li>
+<li><strong><a name="item_display">Feature Default Display (feature_default_display)</a></strong>
+
+<p>This allows you to choose default display options for individual feature types.
+This default overrides the global default but is overridden by the
+feature_default_display defined in the reference map set's map_type.</p>
+<pre>
+ Values:
+    display:   Display all features of this type
+    corr_only: Display only features of this type with displayed correspondences
+    ignore:    Completely ignore features of this type.</pre>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="evidence_type_specific_options">Evidence type specific options</a></h4>
+<p>A single correspondence can be supported by any number of evidence
+types, so it is necessary that these be ranked from ``1'' to N (where
+lower numbers have precedence over higher).  When multiple records
+support a correspondence, only the highest ranking evidence will be
+used when determining how to draw the correspondence line.  If you
+intend to use cmap_admin.pl tool to create correspondences for you
+based on simple name/feature type comparisons, you should create a
+special evidence to use just for that purpose (e.g., with the name
+``Automated name-based'' or something similar to flag it as a
+machine-created/non-curated correspondence).  Evidence type color 
+will only be used when NOT aggregating.</p>
+<ul>
+<li><strong><a name="item_rank_3a">Rank:</a></strong>
+
+<p>The rank of the evidence relative to the others</p>
+</li>
+<li><strong><a name="item_type">Line Type (line_type):</a></strong>
+
+<p>How lines representing this evidence type will be drawn.</p>
+<pre>
+ Values:
+    direct:   Line directly from feature to feature.
+    indirect: Line that starts perpendicular to the map for a short distance
+              before traveling to the other feature.
+    ribbon:   A ribbon is drawn that spans the top and bottom of each feature.</pre>
+</li>
+<li><strong>Evidence Default Display (evidence_default_display)</strong>
+
+<p>This allows you to choose default display options for individual evidence types.
+This default overrides the global default.</p>
+<p>You cannot default to the greater than or less than score options.</p>
+<pre>
+ Values:
+    display:      Display all correspondences with evidence of this type
+    ignore:       Completely ignore the evidence of this type when considering correspondences.</pre>
+</li>
+<li><strong><a name="item__3caggregated_correspondence_colors_3e">&lt;aggregated_correspondence_colors&gt;</a></strong>
+
+<p>This option dictates the color of aggregated correspondence lines for this
+evidence type.  It is defined the same way as aggregated_correspondence_colors
+is in the main options section of <a href="#individual_configuration_files">INDIVIDUAL CONFIGURATION FILES</a>.</p>
+<p>These colors will only be used if the aggregate correspondences are split based
+on evidence type.  Meaning each evidence type will have it's own aggregated
+correspondence.  It is suggested to use primary colors for each different type,
+so they can be distinguished.</p>
+<pre>
+ &lt;aggregated_correspondence_colors&gt;
+    1    lightblue
+    20   blue
+    0    darkblue
+ &lt;/aggregated_correspondence_colors&gt;</pre>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="map_type_specific_options">Map type specific options</a></h4>
+<ul>
+<li><strong><a name="item_map">Is Relational Map (is_relational_map):</a></strong>
+
+<p>Are maps in this set only relational maps?  Set this to 1 if there are a lot of
+maps in the set and they don't need to selected individually.  This keeps the
+render times down and makes for smaller menus.</p>
+</li>
+<li><strong><a name="item_units">Map Units (map_units):</a></strong>
+
+<p>The units of measurement for this type of map.  This text will display
+at the bottom of non-relational maps, so it's best to keep this short,
+like ``cM'' for ``centimorgans.''</p>
+</li>
+<li><strong><a name="item_order">Display Order (display_order):</a></strong>
+
+<p>Like the same field in the ``species'' table, this determines the order
+that maps of this type will be displayed, e.g., on Gramene it is
+preferred that ``Sequence'' maps be listed before ``Genetic'' maps which
+should come before ``Physical'' maps.</p>
+</li>
+<li><strong><a name="item_shape">Shape (shape):</a></strong>
+
+<p>This determines how maps of this type will be drawn. You can choose to
+make maps of each type visually distinct by specifying different
+shapes and colors. There are three choices for shape: box, dumbbell
+and I-beam. A box will be trimmed in black and will be filled with the
+color of your choice (or a reasonable default). A dumbbell or an
+I-beam will be rendered only in the map's color (no trim).</p>
+</li>
+<li><strong><a name="item_width">Width (width):</a></strong>
+
+<p>How wide a map will be drawn.</p>
+</li>
+<li><strong>Feature Default Display (&lt;feature_default_display&gt;)</strong>
+
+<p>This allows you to choose default display options for individual feature types
+when this maps of this map_type are used as reference maps.  This default
+overrides the both the global default and the default set in the feature_type.</p>
+<p>The values are defined as name, value pairs, where the name is the feature_type accession and the value is the default value for that feature_type.  They must be defined in &lt;feature_default_display&gt; tags.  Here is an example entry:</p>
+<pre>
+  &lt;feature_default_display&gt;
+    marker display
+    read corr_only
+  &lt;/feature_default_display&gt;</pre>
+<pre>
+ Values:
+   display:   Display all features of this type
+   corr_only: Display only features of this type with displayed correspondences
+   ignore:    Completely ignore features of this type.</pre>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="menu_defaults">Menu Defaults</a></h3>
+<p>
+</p>
+<h4><a name="map_menu_options">Map Menu Options</a></h4>
+<ul>
+<li><strong><a name="item_stack_maps__5b_default_3a_0__5d">stack_maps [ default: 0 ]</a></strong>
+
+<p>Place the reference maps vertically rather than side by side.</p>
+</li>
+<li><strong><a name="item_menu_bgcolor__5b_default_3a_white__5d">menu_bgcolor [ default: white ]</a></strong>
+
+<p>The background color of some areas of the menu</p>
+<p>Values: color</p>
+</li>
+<li><strong><a name="item_menu_bgcolor_tint__5b_default_3a_lightgrey__5d">menu_bgcolor_tint [ default: lightgrey ]</a></strong>
+
+<p>The background color of tinted areas of the menu</p>
+<p>Values: color</p>
+</li>
+<li><strong><a name="item_menu_ref_bgcolor__5b_default_3a_aqua__5d">menu_ref_bgcolor [ default: aqua ]</a></strong>
+
+<p>The background color of some of the reference map areas of the menu</p>
+<p>Values: color</p>
+</li>
+<li><strong><a name="item_menu_ref_bgcolor_tint__5b_default_3a_lightblue__5d">menu_ref_bgcolor_tint [ default: lightblue ]</a></strong>
+
+<p>The background color of tinted reference map areas of the menu</p>
+<p>Values: color</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="feature_menu_options">Feature Menu Options</a></h4>
+<ul>
+<li><strong><a name="item_label_features__5b_default_3a_all__5d">label_features [ default: all ]</a></strong>
+
+<p>Which features to show by default</p>
+<p>Values: none, landmarks, all</p>
+</li>
+<li><strong><a name="item_collapse_features__5b_default_3a_1__5d">collapse_features  [ default: 1 ]</a></strong>
+
+<p>Collapse features glyphs into one glyph if they overlap</p>
+<pre>
+ Values: 
+    0:  don't collapse
+    1:  collapse</pre>
+</li>
+<li><strong><a name="item_feature_default_display__5b_default_3a_display__5d">feature_default_display [ default: display ]</a></strong>
+
+<p>Dictates the default choice of the feature type display menu.  This is
+overridden by defaults in the map_type (of the reference map set) or the
+feature_type definitions.</p>
+<pre>
+ Values:
+    display:   Display all features of this type
+    corr_only: Display only features of this type with displayed correspondences
+    ignore:    Completely ignore features of this type.</pre>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="correspondence_menu_options">Correspondence Menu Options</a></h4>
+<ul>
+<li><strong><a name="item_aggregate_correspondences__5b_default_3a_1__5d">aggregate_correspondences [ default: 1 ]</a></strong>
+
+<p>Set default, aggregate correspondences into one or two lines.</p>
+<pre>
+ Values: 
+    0:  don't aggregate 
+    1:  one line 
+    2:  two lines</pre>
+</li>
+<li><strong><a name="item_evidence_default_display__5b_default_3a_display__5">evidence_default_display [ default: display ]</a></strong>
+
+<p>Dictates the default choice of the evidence type display menu.  You cannot
+default to the greater than or less than score options.</p>
+<p>This default is overridden by the any individually defined defaults.</p>
+<pre>
+ Values:
+    display:      Display all correspondences with evidence of this type
+    ignore:       Completely ignore the evidence of this type when considering correspondences.</pre>
+</li>
+<li><strong><a name="item_show_intraslot_correspondences__5b_default_3a_0__5">show_intraslot_correspondences [ default: 0 ]</a></strong>
+
+<p>Display correspondences between maps in the same slot (map_set).</p>
+</li>
+<li><strong><a name="item_corrs_to_map__5b_default_3a_0__5d">corrs_to_map [ default: 0 ]</a></strong>
+
+<p>This determines where the correspondence lines are terminated.</p>
+<pre>
+ Values:
+    0 : Lines connect features
+    1 : Lines connect maps</pre>
+</li>
+<li><strong><a name="item_split_agg_evespondences__5b_default_3a_0__5d">split_agg_evespondences [ default: 0 ]</a></strong>
+
+<p>If multiple correspondence types are present, aggregate them separately from
+each other.</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="display_menu_options">Display Menu Options</a></h4>
+<ul>
+<li><strong><a name="item_font_size__5b_default_3a_small__5d">font_size [ default: small ]</a></strong>
+
+<p>How large to make the font</p>
+<p>Values: small, medium, large</p>
+</li>
+<li><strong><a name="item_image_size__5b_default_3a_small__5d">image_size [ default: small ]</a></strong>
+
+<p>How large to make the image</p>
+<p>Values: small, medium, large</p>
+</li>
+<li><strong><a name="item_image_type__5b_default_3a_png__5d">image_type [ default: png ]</a></strong>
+
+<p>The output type of the image, legal value are whatever image libraries
+installed</p>
+<p>Values: png, jpeg, svg and maybe gif</p>
+</li>
+<li><strong><a name="item_clean_view__5b_default_3a_0__5d">clean_view [ default: 0 ]</a></strong>
+
+<p>If set to 1, the control buttons on the image are removed.  This is useful for
+taking images for publication.</p>
+</li>
+<li><strong><a name="item_hide_legend__5b_default_3a_0__5d">hide_legend [ default: 0 ]</a></strong>
+
+<p>If set to 1, the legend on the image is removed.  This is useful for
+taking images for publication.</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="advanced_menu_options">Advanced Menu Options</a></h4>
+<ul>
+<li><strong><a name="item_scale_maps__5b_default_3a_1__5d">scale_maps [ default: 1 ]</a></strong>
+
+<p>Allow scaleable (set by scalable) maps to be drawn in scale</p>
+<pre>
+ Values: 
+    0:  don't scale
+    1:  scale</pre>
+</li>
+<li><strong><a name="item__3cscalable_3e__5b_optional__5d">&lt;scalable&gt; [ Optional ]</a></strong>
+
+<p>Dictates which map units can be used to scale maps to each other.  Maps 
+with units described here will be scaled against maps with the same 
+units.</p>
+</li>
+<li><strong><a name="item__3cscale_conversion_3e">&lt;scale_conversion&gt;</a></strong>
+
+<p>If you want to scale maps with different map units, the conversion factor must
+be specified here.</p>
+<p>For an example (a completely nonsensical example), lets pretend that a
+centimorgan (cM) is 100 base pair (bp).  The config would look something like
+the following, which is read 'One centimorgan is the size of 100 base pairs'.</p>
+<pre>
+ &lt;scale_conversion&gt;
+   &lt;cM&gt;
+     bp 100
+   &lt;/cM&gt;
+ &lt;/scale_conversion&gt;</pre>
+<p>Since the directionality doesn't matter, this is the same as:</p>
+<pre>
+ &lt;scale_conversion&gt;
+   &lt;bp&gt;
+     cM .01
+   &lt;/bp&gt;
+ &lt;/scale_conversion&gt;</pre>
+<p>There is no reason to define the conversion in both directions since only one
+factor will be used and it could create inconsistencies if one direction was
+different from the other.</p>
+<p>Also, multiple conversions can be defined as in this (nonsensical) example.</p>
+<pre>
+ &lt;scale_conversion&gt;
+   &lt;bp&gt;
+     cM .01
+     bands .1
+   &lt;/bp&gt;
+   &lt;cM&gt;
+     bands 10
+   &lt;/cM&gt;
+ &lt;/scale_conversion&gt;</pre>
+<p>It is appropriate to describe all relationships as CMap won't necessarily
+figure out the relationship between a band and a centimorgan transitively (but
+it might depending on the order of the map sets).  Therefor, to avoid
+inconsistencies, please make sure to define all relationships (and define them
+correctly).</p>
+</li>
+<li><strong><a name="item_omit_area_boxes__5b_default_3a_0__5d">omit_area_boxes [ default: 0 ]</a></strong>
+
+<p>This determines which area boxes are rendered.  The area boxes create clickable
+areas on the image.  Rendering all the boxes gives the most functionality but
+can be slow if there are a lot of features.  The option to omit feature area
+boxes can help speed things up while leaving the navigation buttons.  There is
+also an option to ignore all of the area boxes, which is not recommended.</p>
+<pre>
+ Values:
+    0 : render all of the area boxes
+    1 : omit the feature area boxes 
+    2 : omits all area boxes</pre>
+</li>
+<li><strong><a name="item_comp_menu_order__5b_default_3a__27display_order_27">comp_menu_order [ default: 'display_order' ]</a></strong>
+
+<p>Dictates the default value of how the comparison maps will be ordered in the
+menu select box.  The choices are 'display_order' and 'corrs'.  'display_order'
+is the classical order based on the maps display order and their names.
+Specifying 'corrs' orders the maps by the number of correspondences.</p>
+</li>
+<li><strong><a name="item_ignore_image_map_sanity__5b_default_3a_0__5d">ignore_image_map_sanity [ default: 0 ]</a></strong>
+
+<p>A sanity check on the size of the image map (number of clickable objects) is
+performed unless this is set to 1.  If the sanity check fails, the image will
+not be clickable and a warning message will be displayed.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="presentation_options">Presentation Options</a></h3>
+<ul>
+<li><strong><a name="item_min_map_pixel_height__5b_default_3a_20__5d">min_map_pixel_height [ default: 20 ]</a></strong>
+
+<p>The smallest any map can be drawn, in pixels</p>
+<p>Values: any positive integer (within reason)</p>
+</li>
+<li><strong><a name="item_min_tick_distance__5b_default_3a_40__5d">min_tick_distance  [ default: 40 ]</a></strong>
+
+<p>Set the minimum number of pixels between tick marks on map.</p>
+</li>
+<li><strong><a name="item_feature_color__5b_default_3a_black__5d">feature_color [ default: black ]</a></strong>
+
+<p>Default color of a feature if the feature type's ``color'' is ``Default''</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_feature_highlight_bg_color__5b_default_3a_red__5d">feature_highlight_bg_color [ default: red ]</a></strong>
+
+<p>Color of box around a highlighted feature</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_feature_highlight_fg_color__5b_default_3a_yellow__">feature_highlight_fg_color [ default: yellow ]</a></strong>
+
+<p>Color of background behind a highlighted feature</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_connecting_line_color__5b_default_3a_lightblue__5d">connecting_line_color [ default: lightblue ]</a></strong>
+
+<p>The color of the line connecting feature correspondences</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_feature_correspondence_color__5b_default_3a_red__5">feature_correspondence_color [ default: red ]</a></strong>
+
+<p>Color of a feature label when it has a correspondence.  Comment out to use the
+feature's own color</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_aggregated_correspondence_colors__5b_optional__5d">aggregated_correspondence_colors [ Optional ]</a></strong>
+
+<p>This option dictates the color of aggregated correspondence lines based on the
+number of correspondences between the maps.  The default is black.</p>
+<p>The format is ``upper_bound color'' where upper_bound is the cap that this color
+is used for.  In the following example, from 0-1 corr, the line will be light
+grey.  If there are 2 corr, the line will be blue.  From 3-5 (inclusive), the
+line will be purple.  Anything ABOVE 20 will be black, which is denoted by an
+upper_bound of 0 (in this case it means infinity).</p>
+<pre>
+ &lt;aggregated_correspondence_colors&gt;
+    1    lightgrey
+    2   blue
+    5   purple
+    20  red
+    0    black
+ &lt;/aggregated_correspondence_colors&gt;</pre>
+</li>
+<li><strong><a name="item_background_color__5b_default_3a_lightgoldenrodyell">background_color [ default: lightgoldenrodyellow ]</a></strong>
+
+<p>The background color of the map image</p>
+<p>Values: any color found in the COLORS array of Bio::GMOD::CMap::Constants To
+view this file, either look in the ``lib'' directory of the original CMap source
+directory, or, if you have the very handy ``pmtools'' installed on your system,
+type ``pmcat Bio::GMOD::CMap::Constants'' on your command-line.</p>
+</li>
+<li><strong><a name="item_slot_background_color__5b_default_3a_beige__5d">slot_background_color [ default: beige ]</a></strong>
+
+<p>The colors of the slot background and border.</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_slot_border_color__5b_default_3a_khaki__5d">slot_border_color [ default: khaki ]</a></strong>
+
+<p>The colors of the slot border.</p>
+<p>Values: see background_color</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="web_related_options">Web Related Options</a></h3>
+<ul>
+<li><strong><a name="item_user_pref_cookie_name__5b_default_3a_cmap_user_pre">user_pref_cookie_name [ default: CMAP_USER_PREF ]</a></strong>
+
+<p>Name of the cookie holding user preferences</p>
+</li>
+<li><strong><a name="item_cookie_domain__5b_optional__5d">cookie_domain [ Optional  ]</a></strong>
+
+<li><strong><a name="item_stylesheet__5b_default_3a__2fcmap_2fcmap_2ecss__5d">stylesheet [ default: /cmap/cmap.css ]</a></strong>
+
+<p>The css formatted stylesheet to use.</p>
+</li>
+<li><strong><a name="item_feature_type_details_url__5b_default_3a_feature_ty">feature_type_details_url [ default: feature_type_info?feature_type ]</a></strong>
+
+<p>This is the base url for the page that describes the feature type.</p>
+</li>
+<li><strong><a name="item_evidence_type_details_url__5b_default_3a_evidence_">evidence_type_details_url [ default: evidence_type_info?evidence_type ]</a></strong>
+
+<p>This is the base url for the page that describes the evidence type.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="javascript_options">JavaScript options</a></h3>
+<p>These options are only used to allow complex JavaScript to be specified in the
+config document.  These can be used in conjunction with the area_code of
+feature_types and map_types.</p>
+<ul>
+<li><strong><a name="item_page_code">page_code</a></strong>
+
+<p>Each page_code has one field called ``page_code'' that takes in script 
+information in plain text.  It is not as complicated as the area_code 
+in map and feature types.  The example is JavaScript but it really can 
+be anything recognized by your browser.</p>
+<p>This can be used to specify functions that the individual maps or 
+features need to use.  When a feature or map type is used that requests 
+a page_code object, the code is inserted at the top of the page.</p>
+</li>
+<li><strong><a name="item_extra_form">extra_form</a></strong>
+
+<p>Similar to page_code, one or more extra_forms can be called from map or
+feature types.  Each extra_form has one field called 'extra_form' which
+takes standard html and will insert it into the main CMap viewer form. 
+These can be used for anything from hidden fields that store data to 
+buttons that submit the page to a different place.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="configuration_defined_buttons">Configuration Defined Buttons</a></h3>
+<p>CMap allows the creation of buttons to modify options in the CMap viewer menu.
+Conditions can be set that would need to be met before the button will appear.</p>
+<p>A simple example would be to add a ``For Publication'' button that would set the
+``clean_view'' option and would only appear when the ``clean_view'' option was off.</p>
+<p>The impitus for adding this feature was for creating a button that would toggle
+between an overview style view and a more detailed view.  Clicking the
+``Overview'' button would set the feature display options to ``corr_only'' of all
+but a select set of feature types which would have the effect of de-cluttering
+the view.  A ``Detailed'' button could set all the feature display options to
+always ``display''.</p>
+<p>
+</p>
+<h4><a name="configuration_structure">Configuration Structure</a></h4>
+<p>All buttons are enclosed in an &lt;additional_buttons&gt; tag.</p>
+<p>The following is the configuration for the ``clean_view'' buttons mentioned
+above.</p>
+<pre>
+  &lt;additional_buttons&gt;
+      &lt;button&gt;
+          text For Publication
+          &lt;if&gt;
+              clean_view 0
+          &lt;/if&gt;
+          &lt;set&gt;
+              clean_view 1
+          &lt;/set&gt;
+      &lt;/button&gt;
+      &lt;button&gt;
+          text Return Navigation Buttons
+          &lt;if&gt;
+              clean_view 1
+          &lt;/if&gt;
+          &lt;set&gt;
+              clean_view 0
+          &lt;/set&gt;
+      &lt;/button&gt;
+  &lt;/additional_buttons&gt;</pre>
+<p>Note that there are two buttons, one for when ``clean_view'' is set and one for
+when it is not.  They work together.</p>
+<p>Each &lt;button&gt; is it's own element with the following fields.</p>
+<ul>
+<li><strong><a name="item_text">text</a></strong>
+
+<p>The text written on the button.  This should be short, otherwise there will be
+some ugly buttons.</p>
+</li>
+<li><strong><a name="item_if">if (Optional)</a></strong>
+
+<p>This section contains one or more tests for menu items.  All options must match
+for the button to be displayed.</p>
+<p>The individual options are described later in the Testable Parameters section.</p>
+</li>
+<li><strong><a name="item_if_not">if_not (Optional)</a></strong>
+
+<p>This section contains one or more tests for menu items.  All options must not
+match for the button to be displayed.</p>
+<p>The following is an alternate configuration for the ``For Publication'' button.</p>
+<pre>
+  &lt;button&gt;
+      text For Publication
+      &lt;if_not&gt;
+          clean_view 1
+      &lt;/if_not&gt;
+      &lt;set&gt;
+          clean_view 1
+      &lt;/set&gt;
+  &lt;/button&gt;</pre>
+<p>The individual options are described later in the Testable Parameters section.</p>
+</li>
+<li><strong><a name="item_set">set</a></strong>
+
+<p>This is where the action of the button is defined.  It will set the value of
+the defined parameters to the value supplied.  The defined parameter must be
+the name of a menu option.  If you are unsure of the menu option name, simpley
+view source on a CMap page and look for the option that you wish to set.</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="testable_parameters">Testable Parameters</a></h4>
+<dl>
+<dt><strong><a name="item__2d_boolean_parameters">- Boolean Parameters</a></strong>
+
+<dd>
+<p>These parameters can be tested using 1 or 0 (or blank).</p>
+</dd>
+<dd>
+<pre>
+    highlight
+    collapse_features
+    scale_maps
+    stack_maps
+    omit_area_boxes
+    show_intraslot_corr
+    split_agg_ev
+    clean_view
+    corrs_to_map
+    ignore_image_map_sanity
+    dotplot</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2d_string_parameters">- String Parameters</a></strong>
+
+<dd>
+<p>These parameters are a little more than boolean.  They may be numbers (for
+isntance, the radio button`` aggregate'' values are 0,1 or 2).  View page source
+of the CMap viewer to see the options of radio buttons.</p>
+</dd>
+<dd>
+<pre>
+    prev_ref_species_acc
+    prev_ref_map_set_acc
+    ref_species_acc
+    ref_map_set_acc
+    image_type
+    label_features
+    aggregate
+    comp_menu_order
+    data_source
+    ref_map_start
+    ref_map_stop
+    font_size
+    pixel_height</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2d_feature_and_evidence_type_parameters">- Feature and Evidence Type Parameters</a></strong>
+
+<dd>
+<p>These parameters are a little different.  To query if a feature type is
+displayed, that feature type must be included as a display_feature_type.</p>
+</dd>
+<dd>
+<pre>
+    display_feature_type feature_type_acc
+    corr_only_feature_type feature_type_acc
+    ignored_feature_type feature_type_acc</pre>
+</dd>
+<dd>
+<pre>
+    included_evidence_type evidence_type_acc
+    ignored_evidence_type evidence_type_acc
+    less_evidence_type evidence_type_acc
+    greater_evidence_type evidence_type_acc</pre>
+</dd>
+<dd>
+<p>An example button:</p>
+</dd>
+<dd>
+<pre>
+    &lt;button&gt;
+        text No Marker
+        &lt;if&gt;
+            display_feature_type marker
+        &lt;/if&gt;
+        &lt;set&gt;
+            ft_marker 0
+        &lt;/set&gt;
+    &lt;/button&gt;</pre>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h3><a name="miscellaneous_options">Miscellaneous Options</a></h3>
+<ul>
+<li><strong><a name="item_disable_cache__5b_default_3a_0__5d">disable_cache [ default: 0 ]</a></strong>
+
+<p>Set to 1 to disable the query caching feature.  This is good for speed testing or
+debugging.</p>
+</li>
+<li><strong><a name="item_feature_search_field__5b_default_3a_feature_name__">feature_search_field [ default: feature_name ]</a></strong>
+
+<p>Set the default search field.</p>
+<p>Values: feature_name, feature_aid</p>
+</li>
+<li><strong><a name="item_max_search_pages__5b_default_3a_10__5d">max_search_pages [ default: 10 ]</a></strong>
+
+<p>How many pages of results to show in searches.  Set to ``0'' (or a negative
+number) or comment out to disable</p>
+<p>Values: any positive integer (within reason)</p>
+</li>
+<li><strong><a name="item_max_child_elements__5b_default_3a_25__5d">max_child_elements [ default: 25 ]</a></strong>
+
+<p>The maximum number of elements that can appear on a page (like in search
+results).  Set to ``0'' or a negative number or comment out to disable</p>
+<p>Values: any positive integer (within reason)</p>
+</li>
+<li><strong><a name="item_object_plugin__5b_optional__5d">object_plugin [ optional ]</a></strong>
+
+<p>See object-plugins.pod for further details.</p>
+</li>
+<li><strong><a name="item_page_object__5b_optional__5d">page_object [ optional ]</a></strong>
+
+<p>Returns the ``page'' object.  In the original Gramene project
+(http://www.gramene.org/), there is a Perl object that handles inserting
+appropriate page headers and footers.  This object can be passed into the
+templates to print out these elements as necessary.</p>
+<p>If you wish to have something like this, I'm sure you can glean the basic ideas
+from Lincoln's ``GramenePage.pm'' module.  Then define the ``page_object'' in your
+cmap.conf.  Otherwise, just don't worry about it, and this method will never
+return anything.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="title_and_intro_text_options">Title and Intro Text Options</a></h3>
+<p>Titles and Introductory texts for various pages.</p>
+<ul>
+<li><strong><a name="item_cmap_title__5b_default_3a_cmap__5d">cmap_title [ default: CMap ]</a></strong>
+
+<li><strong><a name="item_cmap_home_intro__5b_optional__5d">cmap_home_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_map_viewer_intro__5b_optional__5d">map_viewer_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_species_info_intro__5b_optional__5d">species_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_map_set_info_intro__5b_optional__5d">map_set_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_feature_type_info_intro__5b_optional__5d">feature_type_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_map_type_info_intro__5b_optional__5d">map_type_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_evidence_type_info_intro__5b_optional__5d">evidence_type_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_feature_search_intro__5b_optional__5d">feature_search_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_matrix_title__5b_optional__5d">matrix_title [ Optional ]</a></strong>
+
+<li><strong><a name="item_matrix_intro__5b_optional__5d">matrix_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_link_info_intro__5b_optional__5d">link_info_intro [ Optional ]</a></strong>
+
+<li><strong><a name="item_map_titles__5b_default_3a_species_common_name_map_">map_titles [ default: species_common_name map_set_short_name map_name ]</a></strong>
+
+<p>The list of information to display in the map title box.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="administration_options">Administration Options</a></h3>
+<ul>
+<li><strong><a name="item_add_name_correspondence__5b_optional__5d">add_name_correspondence [ Optional ]</a></strong>
+
+<p>When making name-based correspondences, the default behavior is to allow
+correspondences between features of the *exact* same type.  If you wish to
+expand the feature types allowed when making name-based correspondences, then
+add their accession IDs to this section.  The relationships will be reciprocal,
+so if you say ``foo bar'' then correspondences from features with the accession
+ID ``foo'' will be allowed to those with the accession ID ``bar'' and vice versa.
+Separate feature types with spaces.  Assert all equivalent feature types on one
+line, e.g., ``foo bar baz.''</p>
+</li>
+<li><strong><a name="item_disallow_name_correspondence__5b_optional__5d">disallow_name_correspondence [ Optional ]</a></strong>
+
+<p>List of feature types that cannot have name correspondences with features of
+the SAME type.</p>
+</li>
+<li><strong><a name="item_make_corr_feature_divisor__5b_default_3a_1__5d">make_corr_feature_divisor [ default: 1 ]</a></strong>
+
+<p>In response to database problems making correspondences with really large maps,
+the features on a map can be divided (based on feature_id) to decrease the
+number of features that the database has to handle and one time.  If you are
+not having this problem, it will not help you at all.</p>
+</li>
+</ul>
+<p>
+</p>
+<h4><a name="map_set_creation_defaults">Map Set Creation Defaults</a></h4>
+<p>These are the default settings for when map sets are created.</p>
+<ul>
+<li><strong><a name="item_map_color__5b_default_3a_lightgrey__5d">map_color [ default: lightgrey ]</a></strong>
+
+<p>Default color of a map if the ``color'' field of both the map type and the map
+set are ``Default''</p>
+<p>Values: see background_color</p>
+</li>
+<li><strong><a name="item_map_shape__5b_default_3a_box__5d">map_shape [ default: box ]</a></strong>
+
+<p>Default shape of a map if the ``shape'' field of both the map type and the map
+set are ``Default''</p>
+<p>Values: any shape found in the VALID hash under map_shape in Bio::GMOD::CMap::Constants</p>
+</li>
+<li><strong><a name="item_map_width__5b_default_3a_8__5d">map_width [ default: 8 ]</a></strong>
+
+<p>Default width of the maps</p>
+<p>Value: any number from 1 to 10</p>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="including_other_configuration_files">INCLUDING OTHER CONFIGURATION FILES</a></h2>
+<p>If there is a section of the individual configuration files that is 
+repeated in multiple files, that section can be placed in a separate
+file.  That file can then be included in each configuration file.</p>
+<pre>
+ &lt;&lt;include foo_type_info.cfg&gt;&gt;</pre>
+<p>It is recommended that any included files be named with a ``.cfg'' 
+extension.  Do no name it with a ``.conf'' extension, otherwise it 
+will be read as a separate config file.</p>
+<p>
+</p>
+<h2><a name="validating_configuration_files">VALIDATING CONFIGURATION FILES</a></h2>
+<p>You can use the cmap_validate_config.pl (<a href="#validate_config_files">VALIDATE CONFIG FILES</a>) to test your
+individual config files (not global.conf yet) and make sure that they are
+valid.  This can save you a lot of headaches dealing with configuration
+problems.  See the section on <a href="#validate_config_files">VALIDATE CONFIG FILES</a> for more information.</p>
+<p>
+</p>
+<h2><a name="configuring_for_speed_and_clarity">CONFIGURING FOR SPEED AND CLARITY</a></h2>
+<p>There are a few configuration options that can be used to increase the speed
+and clarity of CMap.  This is a collection of those options.  The details are
+described above.</p>
+<p>All of these can be overridden by the user.</p>
+<ul>
+<li><strong><a name="item_aggregate_correspondences">aggregate_correspondences</a></strong>
+
+<p>Setting aggregate_correspondences to 1 (or 2) will cause the correspondences in
+slots with multiple maps to be aggregated.  This reduces the clutter if there
+are many correspondences to draw.</p>
+</li>
+<li><strong><a name="item_collapse_features">collapse_features</a></strong>
+
+<p>Collapses the features that would be identically drawn into one feature.  This
+is especially important when there are a lot of features on a map and can
+reduce the drawing speed.  It also can make the image more clear.</p>
+</li>
+<li><strong><a name="item_feature_default_display">feature_default_display</a></strong>
+
+<p>Setting feature_default_display to ``corr_only'' will keep from drawing features
+that do not have correspondences displayed.  This can give a huge savings when
+there are a lot of features on a map.</p>
+<p>feature_default_display can be overridden by the feature_type configs and by
+the user.  If there are some feature types that should be displayed initially,
+you can set an individual feature_default_display value in the feature_type
+configuration.</p>
+</li>
+<li><strong><a name="item_omit_area_boxes">omit_area_boxes</a></strong>
+
+<p>Setting omit_area_boxes to 1 will keep the features from being clickable.  This can have major savings in transmission and render time if there are a lot of features.  The map controls will still be clickable as normal.</p>
+<p>Setting omit_area_boxes to 2 will render the whole image unclickable.  This could save time but makes CMap harder to use since it relies on clicking the image for a lot of navigation.  If you do choose to go this route, CMap will set clean_view to 1 automatically to keep from drawing the buttons that were rendered useless.</p>
+</li>
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="webadmin_tool">WEB-ADMIN TOOL</a></h1>
+<p>The home page for the web-based CMap administration tool has links for
+all the different actions you can take:</p>
+<ul>
+<li><strong><a name="item_create_new_map_set">Create New Map Set</a></strong>
+
+<li><strong><a name="item_view_map_sets">View Map Sets</a></strong>
+
+<li><strong><a name="item_view_species">View Species</a></strong>
+
+<li><strong><a name="item_view_map_types">View Map Types</a></strong>
+
+<li><strong><a name="item_view_feature_types">View Feature Types</a></strong>
+
+<li><strong><a name="item_view_correspondence_evidence_types">View Correspondence Evidence Types</a></strong>
+
+<li><strong><a name="item_view_cross_2dreferences">View Cross-References</a></strong>
+
+<li><strong><a name="item_search_for_a_feature">Search for a Feature</a></strong>
+
+<li><strong><a name="item_view_color_palette">View Color Palette</a></strong>
+
+<li><strong><a name="item_exit_to_map_viewer">Exit to Map Viewer</a></strong>
+
+</ul>
+<p>Each link is self-explanatory.  In addition to the above links, you
+will also see the current data source to which you are connected.
+You may configure CMap to connect to different distinct data sources
+by having multiple configuration files; see the section 
+<a href="#editing_configuration_files">EDITING CONFIGURATION FILES</a> above for more information on this.  
+If you have configured more than one data source, you will also see a 
+drop-down control allowing you to connect to a different data source.</p>
+<p>On each ``View'' page, you have access to edit and delete the 
+information there (except for map, feature and evidence type 
+information which are defined in the config file).  Each page will 
+be discussed in detail later.  For the moment, let's just focus on 
+what you need to import your first data set.  To do that, you'll 
+need to first set up the species.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="setting_up_species">SETTING UP SPECIES</a></h1>
+<p>Click on ``View Species'' from the home page of the web-admin tool.  As
+you currently have no species to view, you should see the message ``No
+species to show.''  To add a new species, click on the ``Create New
+Species'' link at the top of the page.  You should now see a page
+entitled ``Species Create'' with a form for the following fields:</p>
+<ul>
+<li><strong><a name="item_id">Acc. ID (opt.):</a></strong>
+
+<p>The accession ID</p>
+</li>
+<li><strong><a name="item_name">Common Name: 
+This is the non-scientific name of the species. This field will be
+used most often as a prefix to the map names. If you plan on having
+more than one species that could go by the same common name (e.g., two
+species of ``wheat''), you should differentiate them here, too.</a></strong>
+
+<li><strong><a name="item_full_name_3a">Full Name:</a></strong>
+
+<p>This should be the full genus and species name for the species</p>
+</li>
+<li><strong>Display Order (opt.):</strong>
+
+<p>This is the order in which you'd like this species to appear in
+listings, e.g., on Gramene we prefer ``rice'' to appear before other
+species as it is our model organism</p>
+</li>
+</ul>
+<p><strong>Note:</strong> All the accession id columns in the CMap tables act the
+same.  They are all character fields, so they will accept any
+combination of numbers and letters you care to use. Please don't use
+spaces or characters outside the ranges ``a-z,'' ``A-Z,'' ``0-9'' or dashes
+(``-'') as this will likely only cause you headaches. It is also not
+necessary to explicitly assign any accession IDs.  While they *are*
+required by the database, there is code in place to ensure that the
+accession ID is set to the primary ID of the record if the accession
+ID is empty. Once your accession IDs have been established and
+publicized, they should never change.</p>
+<p>Also, it is best to avoid strictly numeric accession ids since the automatic
+accessions are numeric and this can cause conflicts.</p>
+<p>The fields marked ``(opt.)'' do not require you to enter a value.  If
+one is really required for the database (e.g., the ``accession_id''),
+then a reasonable default will be provided (e.g., the primary key
+value for accession IDs).  When you are done, hit the ``Submit'' button.
+If there are errors, they will be reported to you and you will have to
+correct them before submitting again.  If there are no errors, your
+entry will be accepted and you will be returned to the ``Species View''
+page.</p>
+<p><strong>Note:</strong> On all the pages with clickable column headers, clicking on
+the column names will resort the data by the column.</p>
+<p>If you are unhappy with any of the data you see, you can click on the
+``Edit'' link of the record that displeases you and correct the faults.
+If you have created an unnecessary species, you can delete it by
+clicking on the ``Delete'' link.  After confirming that you really wish
+to delete the species, it will be *permanently* removed from the
+database.</p>
+<p><strong>Note:</strong> There is no ``undo'' function for deletes, so be sure whenever
+you decide to remove an object from the database that you really mean
+it. When an object has other objects that rely on it (e.g., species
+records are linked to map sets), you will not be allowed to remove the
+object until all dependencies to it are removed (e.g., no more map
+sets use the species you want to remove).</p>
+<p>Once you've set up all the species you wish to have in your database,
+click on the ``Home'' link in the upper-left corner to return to the
+web-admin home page.</p>
+<p><strong>Note:</strong> Throughout the admin interface, the ``create'' and ``edit'' pages
+for any object (e.g., species, map types, map sets, etc.) have the
+same fields in the same order with the same restriction. If this
+document only mentions the ``create'' or ``edit'' page for an object, rest
+assured that the complementary page works the same as the one
+described.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="creating_a_new_map_set">CREATING A NEW MAP SET</a></h1>
+<p>Once you have species set up and map types defined, you are ready to create a
+new map set.  Everything in CMap is designed to be generic, so a ``map
+set'' is simply a collection of maps.  What you group together is
+entirely up to you.  On Gramene, map sets tend to correspond to
+published studies of organisms and contain maps that represent
+chromosomes, linkage groups, FPC contigs, and such.  As the database
+design allows only one species and one map type to be linked to a map
+set, it is best to keep these narrowly defined.</p>
+<p>
+</p>
+<h2><a name="using_the_web_admin_tool_to_create_a_map_set">USING THE WEB ADMIN TOOL TO CREATE A MAP SET</a></h2>
+<p>To create a new map set, click on the ``Create New Map Set'' link from
+the admin home page or from the ``Map Sets View'' page.  If you have
+failed to set up species or map types, you will be prompted to do so
+before continuing.  You will see the following fields:</p>
+<ul>
+<li><strong>Acc. ID (opt.):</strong>
+
+<p>The accession ID</p>
+</li>
+<li><strong><a name="item_map_set_name_3a">Map Set Name:</a></strong>
+
+<p>This is the canonical name for the map set. It is expected that this
+name will be quite long and informative, e.g., ``Cornell Avena
+atlantica/A. hirtula RFLP 1995,'' but it doesn't have to be. Given this
+expectation, the name that appears in this fields won't actually show
+up all that often. Mostly, it will show up only on the ``map set info''
+page.</p>
+</li>
+<li><strong><a name="item_short_name_3a">Short Name:</a></strong>
+
+<p>This is the short version of the map set name, e.g., ``Cornell Diploid
+1995'' for the name above. This name is what will be used in all the
+drop-down boxes and for the map titles on the images and in the
+matrix. The field is limited to 30 characters.</p>
+</li>
+<li><strong><a name="item_species_3a">Species:</a></strong>
+
+<p>This is the one (and only one) species with which the map set is
+associated.</p>
+</li>
+<li><strong><a name="item_map_type_3a">Map Type:</a></strong>
+
+<p>The type of maps that are contained in this set.  If there is nothing
+in the menu, please make sure that map_types have been defined in 
+the configuration file in use.</p>
+</li>
+<li><strong><a name="item_published_on_3a">Published On:</a></strong>
+
+<p>The date on which the study was published. This is used to sort the
+map sets. Most date formats will be understood and converted into the
+proper format for your database.</p>
+</li>
+<li><strong><a name="item_display_order_3a">Display Order:</a></strong>
+
+<p>The order in which you'd prefer this map set to sort above others.
+Used before other sorting criteria.</p>
+</li>
+<li><strong><a name="item_is_enabled_3a">Is Enabled:</a></strong>
+
+<p>Determines whether or not this map set will appear to end users. This
+is intended as a convenient way to temporarily hide some data without
+having to remove it entirely from the database.</p>
+</li>
+<li><strong><a name="item_is_relational_only_map">Is Relational Only Map</a></strong>
+
+<p>This determines whether or not the map of this map set can serve as reference
+maps, i.e., as a starting point in a user's search, either via the main map
+viewer or the feature search.  Relational maps CANNOT serve as a starting
+point.  The default is 0.</p>
+</li>
+<li><strong>Shape (opt.):</strong>
+
+<p>The shape that maps of this set will be drawn.</p>
+</li>
+<li><strong>Width (opt.):</strong>
+
+<p>The width that maps of this set will be drawn.</p>
+</li>
+<li><strong><a name="item_color">Color (opt.):</a></strong>
+
+<p>The color that maps of this set will be drawn.</p>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="using_the_cmap_admin_pl_tool_to_create_a_map_set">USING THE cmap_admin.pl TOOL TO CREATE A MAP SET</a></h2>
+<p>You can also create a new map set by using the ``cmap_admin.pl'' tool.
+There are only a few functions that exists in both tools, and
+this one was only added to cmap_admin.pl in order to make importing
+new data sets more convenient.  You can only specify the species, map
+type, long and short names, and accession ID for the map set.
+Everything else about the map must be edited using the web admin tool.</p>
+<p>To create a new map set with cmap_admin.pl, start the script and
+choose the ``Create new map set'' option.  Answer the questions
+appropriately and confirm your decision.  If you see no errors, the
+map set was successfully created.</p>
+<p><strong>Note:</strong> When using cmap_admin.pl, questions which have only one
+choice are automatically answered by the tool. In the above example,
+if you had only one species in the database, cmap_admin.pl will not
+ask you which species to associate with the new map set. There can
+only be one answer, so it answers the question automatically.</p>
+<p>
+</p>
+<h2><a name="viewing_new_map_set">VIEWING NEW MAP SET</a></h2>
+<p>Once you have successfully created a map set with the web admin tool,
+you will be taken to the view of that map set.  You should see the
+data that you entered and that the set currently has no maps
+associated with it.  You can either create each map for the map set
+individually or you can import the data for the map set.  Most likely,
+you will want to do the latter, so that is the next section.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="importing_map_data">IMPORTING MAP DATA</a></h1>
+<p>Using the cmap_admin.pl, you can import a tab-delimited file
+containing the data for a map set with the following fields and
+data types:</p>
+<ul>
+<li><strong><a name="item_map_name">map_name (character(64)) [REQUIRED]:</a></strong>
+
+<p>The name of the map (AKA ``linkage group,'' ``chromosome,'' etc.).</p>
+</li>
+<li><strong><a name="item_map_acc">map_acc (character(20)):</a></strong>
+
+<p>The accession ID of the map.</p>
+</li>
+<li><strong><a name="item_map_display_order">map_display_order (integer):</a></strong>
+
+<p>The order in which to display the map.</p>
+</li>
+<li><strong><a name="item_map_start">map_start (double(8,2)):</a></strong>
+
+<p>The start position of the map.</p>
+</li>
+<li><strong><a name="item_map_stop">map_stop (double(8,2)):</a></strong>
+
+<p>The stop position of the map.</p>
+</li>
+<li><strong><a name="item_feature_acc">feature_acc (character(20)):</a></strong>
+
+<p>The accession ID of the feature.</p>
+</li>
+<li><strong><a name="item_feature_name">feature_name (character(32)) [REQUIRED]:</a></strong>
+
+<p>The name of the feature.</p>
+</li>
+<li><strong><a name="item_feature_alt_name">feature_alt_name (character(32)) [DEPRECATED]:</a></strong>
+
+<p>The alternate name of the feature;  deprecated in lieu of
+``feature_aliases'' but still     supported.</p>
+</li>
+<li><strong><a name="item_feature_aliases">feature_aliases (character(255) each):</a></strong>
+
+<p>Any number of comma-delimited aliases, each of which can be a maximum
+of 255 characters</p>
+</li>
+<li><strong><a name="item_feature_start">feature_start (double(8,2)) [REQUIRED]:</a></strong>
+
+<p>The starting position of the feature on the map.</p>
+</li>
+<li><strong><a name="item_feature_stop">feature_stop (double(8,2)):</a></strong>
+
+<p>The ending position of the feature on the map.</p>
+</li>
+<li><strong><a name="item_feature_direction">feature_direction (double(8,2)) :</a></strong>
+
+<p>The direction of the feature on the map, 1 or -1.  1 is default.</p>
+</li>
+<li><strong><a name="item_feature_type_acc">feature_type_acc (character(32)) [REQUIRED]:</a></strong>
+
+<p>The accession id of the feature's type.</p>
+</li>
+<li><strong><a name="item_feature_dbxref_name">feature_dbxref_name (character(32)) [DEPRECATED]:</a></strong>
+
+<p>The name of the database cross reference;  deprecated in favor of
+``feature_attributes.''</p>
+</li>
+<li><strong><a name="item_feature_dbxref_url">feature_dbxref_url (character(200)) [DEPRECATED]:</a></strong>
+
+<p>The URL of the database cross reference;  deprecated in favor of
+``feature_attributes.''</p>
+</li>
+<li><strong><a name="item_feature_attributes_3a">feature_attributes:</a></strong>
+
+<p>A semi-colon-delimited list of feature attributes.</p>
+</li>
+<li><strong><a name="item_is_landmark">is_landmark (``1'' or ``0''):</a></strong>
+
+<p>Whether or not the feature should be marked as a landmark feature
+(allowing it to be labeled when a user chooses ``Landmarks'' for the
+``Label Features'' option).</p>
+</li>
+</ul>
+<p>For a more thorough treatment of these fields, read the ``import_tab'' 
+section of ``perldoc Bio::GMOD::CMap::Admin::Import.''</p>
+<p>The first line of the file should be the tab-separated names of the
+fields in whatever order you're supplying them (the order of fields is
+not important).  You should use the above names for the fields, but
+you can use spaces and capitalization for the column names, if you
+like, as spaces will be converted to underscores and the names
+lowercased (e.g. ``Feature Alt Name'' will become ``feature_alt_name'').</p>
+<p>If the fields ``map_start'' and ``map_stop'' are not supplied, then the
+start and stop positions of the map will be determined after importing
+all the features by selecting the MIN and MAX start and stop positions
+from the ``cmap_feature'' table.</p>
+<p>Use the ``cmap_admin.pl'' script to bring in your correctly formatted
+data.  Run the script, optionally passing your data file as an
+argument, like so:</p>
+<pre>
+  $ cmap_admin.pl my_groovy_maps.dat</pre>
+<p>If you pass a file as an argument, you will be asked to confirm that
+that is the file you want to use.  If you answer ``no'' or did not pass
+a file, then you will be asked to locate the file containing your
+data.  Type in the path to the file (noticing that you can use tab
+completion), or type ``q'' to exit file selection and return to the
+``Main Menu.''  Once you've found your file, you'll need to tell the
+tool which map set the data corresponds to.  First choose the map type
+and then the species of the map set, then the map set itself.  Lastly,
+you will need to confirm your choices.  If all goes well, you should
+see a lot of lines fly by giving you the step-by-step progress, the
+message ``Done,'' and then you will be returned to the ``Main Menu.''  A
+complete log of the actions taken by the script will be stored in a
+file called ``cmap_admin_log.X'' (where ``X'' is an incrementing number).
+See the docs on cmap_admin.pl (by typing ``perldoc cmap_admin.pl'') for
+more info.</p>
+<p>When you import data for an map set that already has data, all
+existing maps and features with the same name as maps and features in
+your data will be updated.  You also have the option of deleting any
+data that isn't updated.  If you choose this ``overwrite'' option, any
+of the pre-existing maps or features that aren't updated will be
+deleted as it will be assumed that they are no longer present in the
+dataset.</p>
+<p>While the import process is running, it may encounter feature types in
+your data which do not exist in the database.  If this happens, the 
+program will die right there and you will be left to the task of 
+figuring out what was the last data inserted, defining the feature 
+type in the config file and re-running the remaining data.</p>
+<p>When cmap_admin.pl has successfully finished importing your map data,
+you will be returned to the ``Main Menu.''  From here, choose to ``Quit''
+as the rest of the functionality will be covered later.</p>
+<p>
+</p>
+<h2><a name="importing_xml_data__experimental_">IMPORTING XML DATA (EXPERIMENTAL)</a></h2>
+<p>As of 0.10, CMap exports and imports data in XML format.  The standard
+tab-delimited format is very convenient and easy to generate, but it's
+also difficult to indicate hierarchical relationships among data.  As
+such, some experimental has been added to export the concept of
+``objects'' from the database.  These objects will contain all the
+information within them necessary to duplicate themselves entirely in
+another CMap database.  This code is functional but still marked
+``experimental'' as it appears to be very slow when exporting very large
+map sets.</p>
+<p>To try this feature, choose ``Export data'' and then ``Database objects.''
+Follow the directions from there.  Then try importing the data (into
+another database, of course) using the ``Import data'' option and then
+``Import CMap objects.''  Database objects are only created on import at
+this time;  there is no updating of existing objects, so be careful!</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="making_correspondences">MAKING CORRESPONDENCES</a></h1>
+<p>Once you have more than one set of maps in CMap, you can use it for
+what it was designed:  showing comparisons.  To do this, you must
+first create the correspondences between the features on the maps.
+Before you can do this, you'll need to establish the evidence types
+that can be used to support the correspondences.  These are defined
+in the configuration file.  For how to create evidence types, see 
+<a href="#editing_configuration_files">EDITING CONFIGURATION FILES</a> above.</p>
+<p>
+</p>
+<h2><a name="creating_correspondence_records">CREATING CORRESPONDENCE RECORDS</a></h2>
+<p>Once you have evidence types, you can create the correspondence
+records.  It might be helpful to you to inspect ``cmap-schema.png'' and
+``cmap-schema-graph.png'' images in the ``docs'' directory that visualize
+the CMap tables and their relationships.  (Also included is
+``cmap-schema-desc.html,'' a breakdown of the tables into HTML tables
+for easy viewing.)  The tables involved are:</p>
+<ul>
+<li><strong><a name="item_cmap_feature">cmap_feature</a></strong>
+
+<li><strong><a name="item_cmap_feature_correspondence">cmap_feature_correspondence</a></strong>
+
+<li><strong><a name="item_cmap_correspondence_lookup">cmap_correspondence_lookup</a></strong>
+
+<li><strong><a name="item_cmap_correspondence_evidence">cmap_correspondence_evidence</a></strong>
+
+</ul>
+<p>For descriptions of these tables, look at the ``CODE_OVERVIEW.pod'' document
+in the ``docs'' directory.</p>
+<p>There are three ways to create correspondences:</p>
+<ol>
+<li><strong><a name="item_create_each_by_hand_using_the_web_admin_tool_2e">Create each by hand using the web admin tool.</a></strong>
+
+<p>To do this, locate a feature on a map by:</p>
+<p>A)  ``View'' a map set, then ``view'' a map, then ``view'' the feature</p>
+<p>B)  Click on ``Search for a Feature'' and find the feature by name</p>
+<p>Once you have located a feature and have navigated to the ``View
+Feature'' page, click on the link to ``Add Correspondence.'' This will
+take you to the ``Feature Correspondence Create'' page where you can
+search for the other feature in the relationship. When you have
+located both features, you will be presented a form with the following
+fields:</p>
+<ul>
+<li><strong><a name="item_evidence_type_3a">Evidence Type:</a></strong>
+
+<p>The evidence type which supports this correspondence. If you wish to
+add more, you can do so after creating the relationship.</p>
+</li>
+<li><strong>Acc. ID (opt.):</strong>
+
+<p>The accession ID</p>
+</li>
+<li><strong>Is Enabled:</strong>
+
+<p>You can hide correspondences by setting this field to ``No.'' The
+intention was that a curator could permanently negate a certain
+correspondence, e.g., while running the automated name-based
+comparison, a feature name ``ABD104'' is found on two maps so the
+correspondence is created; however the curator knows that this is an
+invalid correspondence, so, rather than deleted the correspondence, he
+sets ``Is Enabled'' to ``No'' thereby preventing the correspondence from
+being created again in the future (i.e., additional evidence types may
+be added to the correspondence, but it won't be enabled -- only the
+curator can re-enable a correspondence using the web admin tool).</p>
+</li>
+</ul>
+<p>When you have finished, click the button entitled ``Create
+Correspondence.'' If the correspondence is successfully created, you
+will be taken to the ``View Feature Correspondence'' page showing you
+the two features, their respective maps and types, and the evidences
+supporting this relationship. You can add more evidence types by
+clicking the link ``Add Evidence.'' You can also edit and delete
+existing evidences by clicking the appropriate links to the right of
+them. If you choose to ``Edit'' a correspondence, you will be
+presented a form with the following fields:</p>
+<ul>
+<li><strong>Acc. ID (opt.):</strong>
+
+<p>The accession ID.</p>
+</li>
+<li><strong>Evidence Type:</strong>
+
+<p>The evidence type.</p>
+</li>
+<li><strong><a name="item_score">Score (opt.):</a></strong>
+
+<p>A floating-point number representing some value associated with the
+correspondence, e.g., a BLAST similarity score or an e-value.</p>
+</li>
+</ul>
+<li><strong><a name="item_automatic_name_2dbased_correspondences">Automatic name-based correspondences</a></strong>
+
+<p>The second method for creating correspondences is to allow CMap to
+create a relationship between any two features with the exact same
+name, irrespective of case. To do this, start cmap_admin.pl and choose
+``Make name-based correspondences.''  It is recommended that you define
+special evidence type to represent this automated correspondence. This
+method is likely to be both incomplete and overly-optimistic. For
+example, it will create correspondences between features called
+``Centromere,'' which is probably not desirable.  The name comparisons
+happen on both the ``feature_name'' in the ``cmap_feature'' table as well
+as any aliases from the ``cmap_feature_alias'' table. Every feature has
+each of these fields compared to those fields for every other feature,
+so this can take a long time to complete. For all of its problems,
+this can be a good way to get started, and you can pare down the
+correspondences from there.</p>
+<p>By default, CMap will only compare features of the same type when
+making name-based correspondences. You can expand the feature types
+considered by adding appropriate lines to ``cmap.conf.'' This is
+documented in that file; look for the string ``add_name_correspondence''
+and follow the directions there.</p>
+</li>
+<li><strong><a name="item_import">Import</a></strong>
+
+<p>The third way to create correspondences is to import them.
+Simply create a tab-delimited file that lists the names (or accession
+IDs) of two features and some evidence to support the correspondence.
+For more information on the format of this file, execute the following
+on your system:</p>
+<pre>
+  perldoc Bio::GMOD::CMap::Admin::ImportCorrespondences</pre>
+<p>This method is the surest as you are always directly controlling what
+gets created.</p>
+</li>
+</ol>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="loading_the_correspondence_matrix">LOADING THE CORRESPONDENCE MATRIX</a></h1>
+<p>The data underlying the correspondence matrix is all precomputed.  As
+it is an intensive operation on seldom-changing data, it was
+determined to cache the pair-wise comparisons of all the maps in the
+database into a (very denormalized) table that would subsequently
+optimize the many calls for this data.  Because of this, it is
+necessary that you remember to reload the matrix whenever you alter
+the number of correspondences in the database.  To do this, execute
+cmap_admin.pl and choose the ``Reload correspondence matrix'' option.
+The only option is to completely truncate the table and reload it from
+scratch.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="establishing_database_crossreferences">ESTABLISHING DATABASE CROSS-REFERENCES</a></h1>
+<p>See the ``attributes-and-xrefs.pod'' document.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="viewing_data">VIEWING DATA</a></h1>
+<p>Now that we've stepped through the basics of setting up the CMap data,
+let's go over some of the more basic operations of curating the data.</p>
+<p>
+</p>
+<h2><a name="viewing_all_map_sets">VIEWING ALL MAP SETS</a></h2>
+<p>From the home page of the web admin tool, you'll see that you can
+``View Map Sets.''  Selecting this link takes you to the ``Map Sets View''
+page where you'll notice three drop-down boxes that you can use to
+narrow the selection criteria for the map sets being displayed.  You
+can restrict them by species, map type, and whether or not they are
+currently enabled.  There is no automatic submission of the form when
+you make a choice (as you might want to use more than one criteria),
+so be sure to hit ``Submit'' when you've made your choices.  As noted
+before, you can re-sort the data by clicking on the hyperlinked column
+headers.  Every object in the web admin tool can be ``viewed,''
+``edited,'' and ``deleted'' by the respective links which are usually
+displayed to the right.</p>
+<p><strong>Note:</strong> On pages that may return a large record set, the data is
+``paged'' and can be accessed by moving through the pages of the data.
+On all these pages, the total number of records is displayed along
+with which are currently being shown. This is the section that looks
+like ``52 records found. Showing 1 to 25.'' (The page size is determined
+by the ``max_child_elements'' option in the CMap configuration file
+which will be discussed shortly.)</p>
+<p>
+</p>
+<h2><a name="viewing_a_map_set">VIEWING A MAP SET</a></h2>
+<p>Choose to ``view'' one of your map sets.  You'll be taken to a page
+which lists all the data in the map set table as well as a summary of
+all the maps associated with the map set.  Notice that you can change
+any of the data for the map set by clicking the ``edit'' link at the
+top, or you can delete it from here by choosing the ``delete'' link.</p>
+<p><strong>Note:</strong> Deleting an object that has dependencies will cause the
+dependencies to be deleted as well. So deleting a map will delete all
+the features (which will delete all the correspondences which will
+delete all the evidences [but not evidence types] supporting the
+correspondence). Deleting a map set deletes all the maps (which
+deletes all the features which ... you get the picture).  Basically,
+just be very sure that you want to delete something as it can have
+cascading effects, and, as noted earlier, THERE IS NO UNDO. There is,
+however, the option to dump your data before messing with it exists,
+giving you the ability to recover. This is discussed in the POD
+documentation of cmap_admin.pl.</p>
+<p>
+</p>
+<h2><a name="viewing_a_map">VIEWING A MAP</a></h2>
+<p>Choose to ``view'' a map to see a summary of all the data in the map
+table as well as all the features on the map.  Notice that you can
+restrict the features displayed by their feature types.  You can also
+search for a feature;  the search option on the map view page
+automatically restricts the search to the current map being displayed.</p>
+<p>
+</p>
+<h2><a name="editing_a_map">EDITING A MAP</a></h2>
+<p>If you click on ``Edit'' while viewing a map, you will be taken to a
+page with the following fields:</p>
+<ul>
+<li><strong><a name="item_map_set_3a">Map Set:</a></strong>
+
+<p>Shows you the map set to which the map belongs</p>
+</li>
+<li><strong>Acc ID (opt.):</strong>
+
+<p>The map's accession ID.</p>
+</li>
+<li><strong><a name="item_map_name_3a">Map Name:</a></strong>
+
+<p>The map's name.</p>
+</li>
+<li><strong>Display Order (opt.):</strong>
+
+<p>The order in which to display the map in relation to the other maps in
+the set.  If all the display orders are the same, then the maps will
+be sorted alphabetically by their names.</p>
+</li>
+<li><strong><a name="item_start_3a">Start:</a></strong>
+
+<p>The map's starting position.</p>
+</li>
+<li><strong><a name="item_stop_3a">Stop:</a></strong>
+
+<p>The map's stop position.</p>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="viewing_a_feature">VIEWING A FEATURE</a></h2>
+<p>Choose to ``view'' a feature from the map view page.  You'll be
+presented with all the data stored in the feature table as well as the
+feature's aliases, correspondences to other features and the evidence
+types supporting the correspondences.  You can also add a new
+correspondence by clicking ``Add Correspondence'' and following the
+directions discussed earlier in section 8.</p>
+<p>
+</p>
+<h2><a name="editing_a_feature">EDITING A FEATURE</a></h2>
+<p>If you click on the ``Edit'' link from the feature view page, you'll be
+presented a form with the following fields:</p>
+<ul>
+<li><strong><a name="item_map_3a">Map:</a></strong>
+
+<p>The map (described by ``species-map set name-map name'') on which the
+feature occurs;  also a link to return to the overall view of that
+map.</p>
+</li>
+<li><strong>Acc ID (opt.):</strong>
+
+<p>The accession ID.</p>
+</li>
+<li><strong><a name="item_feature_name_3a">Feature Name:</a></strong>
+
+<p>The feature's primary name.</p>
+</li>
+<li><strong><a name="item_feature_type_3a">Feature Type:</a></strong>
+
+<p>The feature's type.</p>
+</li>
+<li><strong><a name="item_is_landmark_3a">Is Landmark:</a></strong>
+
+<p>Whether or not this feature is considered a ``landmark.'' Landmarks can
+be used by the end user to show maps less dense with feature labels,
+tagging only those that you as the curator have decided are the most
+important.</p>
+</li>
+<li><strong>Start:</strong>
+
+<p>The start position of the feature.  Must be less than the stop
+position.</p>
+</li>
+<li><strong><a name="item_stop">Stop (opt.):</a></strong>
+
+<p>The ending position of the feature, if any.</p>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="searching_for_a_feature">SEARCHING FOR A FEATURE</a></h2>
+<p>Often you will be interested in finding an individual feature in the
+database without having to navigate to the map set, then the map, then
+page through until you find the feature.  From the home page of the
+web admin tool, you can choose the ``Search for a Feature'' link.  The
+``Feature Search'' form gives you four fields:</p>
+<ul>
+<li><strong><a name="item_name_3a">Name:</a></strong>
+
+<p>The strings you wish to search for.  Separate multiple search strings
+with spaces or commas.</p>
+</li>
+<li><strong><a name="item_search_3a">Search:</a></strong>
+
+<p>Search for the <code>string(s)</code> either in feature's ``feature_name'' (and
+aliases) or feature_acc.</p>
+</li>
+<li><strong><a name="item_species">Species (opt.):</a></strong>
+
+<p>You can restrict by species.</p>
+</li>
+<li><strong>Feature Type (opt.):</strong>
+
+<p>You can restrict by feature type the features which will be searched.</p>
+</li>
+<li><strong>Map Acc. ID (opt.):</strong>
+
+<p>You can restrict the search to only those features falling on a
+particular map by specifying the maps accession ID.</p>
+</li>
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="customizing_html_templates">CUSTOMIZING HTML TEMPLATES</a></h1>
+<p>All the HTML displayed by the application is contained in the
+templates.  These templates are processed by Template Toolkit to
+produce the user interface.  For the most part, the files contain
+straight-up HTML and can be altered to your heart's content.  You
+could probably even pass off the care and feeding of these templates
+to a non-technical person (as this was the idea behind having no HTML
+in the code).  The only functional parts of the templates lie in
+between the many ``[% %]'' tags, and these are often quite
+self-explanatory.  If you can't figure out what to change on your own,
+then check out <a href="http://www.template-toolkit.com/">http://www.template-toolkit.com/</a> for the documentation
+(or type ``perldoc Template'' on your command line).</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="administration_using_cmap_admin_pl">ADMINISTRATION USING cmap_admin.pl</a></h1>
+<p>The cmap_admin.pl script contains full documentation in POD format.  
+To read, please execute ``perldoc &lt;script_name&gt;''.</p>
+<p>That will describe how to use cmap_admin.pl using command line flags for
+scripting.</p>
+<p>However, here is a description of the menu options that cmap_admin.pl provides.</p>
+<ol>
+<li><strong><a name="item_change_current_data_source">Change current data source</a></strong>
+
+<p>Changes the data source currently being used.  This choses which 
+configuration file the script will use.</p>
+</li>
+<li><strong><a name="item_create_new_map_set">Create new map set</a></strong>
+
+<p>After a species has been created using the web admin tool, map sets 
+can be created using cmap_admin.pl</p>
+</li>
+<li><strong><a name="item_import_data">Import data</a></strong>
+
+<p>Allows import of data from files.  The files can be tab-delimited map 
+data for an existing map set, tab-delimited correspondence data for 
+existing features or the experimental CMap objects (which are created 
+with the export function).  To see more information about the 
+tab-delimited format required, see the documentation that is in the 
+modules by running ``perldoc /path/to/Bio/GMOD/CMap/Admin/Import.pm'' 
+and ``perldoc /path/to/Bio/GMOD/CMap/Admin/ImportCorrespondences.pm''.</p>
+</li>
+<li><strong><a name="item_export_data">Export data</a></strong>
+
+<p>Allows export of data to a file.  The data can be represented in a
+tab-delimited text file, as a series of sql insert statements or as 
+the experimental CMap objects.</p>
+</li>
+<li><strong><a name="item_delete_data">Delete data</a></strong>
+
+<p>Allows sweeping deletion of maps, map sets or correspondences.</p>
+</li>
+<li><strong><a name="item_make_name_2dbased_correspondences">Make name-based correspondences</a></strong>
+
+<p>Allows the creation of correspondences based on feature name 
+similarities.</p>
+</li>
+<li><strong><a name="item_reload_correspondence_matrix">Reload correspondence matrix</a></strong>
+
+<p>Reloads the lookup table that the matrix uses.  This is vital if the 
+matrix is to have current data after a data change.</p>
+</li>
+<li><strong><a name="item_purge_the_cache_to_view_new_data">Purge the cache to view new data</a></strong>
+
+<p>Purge the query cache.  The results of many queries are cached in an 
+effort to reduce time querying the database for common queries.  
+Purging the cache is important after the data has changed or after 
+the configuration file has change.  Otherwise the changes will not 
+be consistently displayed.</p>
+<p>There are four layers of the cache.  When one layer is purged all of 
+the layers after it are purged.</p>
+<dl>
+<dt><strong><a name="item__2d_cache_level_1_purge_all">- Cache Level 1 Purge All</a></strong>
+
+<dd>
+<p>Purge all when a map set or species has been added or modified.  A 
+change to map sets or species has potential to impact all of the data.</p>
+</dd>
+</li>
+<dt><strong><a name="item_2">- Cache Level 2 (purge map info on down)</a></strong>
+
+<dd>
+<p>Level 2 is purged when map information is changed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_3">- Cache Level 3 (purge feature info on down)</a></strong>
+
+<dd>
+<p>Level 3 is purged when feature information is changed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_4">- Cache Level 4 (purge correspondence info on down)</a></strong>
+
+<dd>
+<p>Level 4 is purged when correspondence information is changed.</p>
+</dd>
+</li>
+<li><strong><a name="item_5">Cache Level 5 (purge whole image caching )</a></strong>
+
+<p>Level 5 is purged when any information changes because this level caches the
+whole CMap image when a map is first displayed.</p>
+</li>
+</dl>
+<li><strong><a name="item_delete_duplicate_correspondences">Delete duplicate correspondences</a></strong>
+
+<p>If duplicate correspondences may have been added, this will remove them.</p>
+</li>
+<li><strong><a name="item_import_links">Import links</a></strong>
+
+<p>This option is where to import links that will show up in 
+the ``Saved Links'' section of CMap.  The import takes an xml file.</p>
+<p>An example file is supplied, data/sample_saved_links.xml.  You will need to
+change the accessions (*_acc) to reflect your database even if you used the
+test data (since the test data doesn't specify accessions).</p>
+<p>Here are the main elements of the xml file.</p>
+<ul>
+<li><strong><a name="item_cmap_views">cmap_views</a></strong>
+
+<p>Container element that holds all of the other views (aka links).</p>
+<ul>
+<li><strong><a name="item_cmap_view">cmap_view</a></strong>
+
+<p>Each cmap_view element represents a single link.  Multiple cmap_view elements
+can be contained in cmap_views.</p>
+<p>The cmap_view element contains many options.  The only required option is a
+slot with a ``number'' of ``0''.  All others options are useful but will still
+load.</p>
+<dl>
+<dt><strong><a name="item_group">- group (optional)</a></strong>
+
+<dd>
+<p>This is the group that the link will be stored under.  This will override any
+group name given by the controlling program (cmap_admin.pl).</p>
+</dd>
+</li>
+<dt><strong><a name="item_title">- title (optional)</a></strong>
+
+<dd>
+<p>This is the title of the link.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comment">- comment (optional)</a></strong>
+
+<dd>
+<p>This is the comment for the link.</p>
+</dd>
+</li>
+<dt><strong><a name="item_slot">- slot (Requires slot with number=0)</a></strong>
+
+<dd>
+<p>Specify a slot element for each slot that you want to include.  The slot has an
+attribute of ``number''.  There must be a slot with a number of 0 for this to
+link to load.  For information on the slots, see <a href="#comparative_map_construction">Comparative Map Construction</a>.</p>
+</dd>
+<dd>
+<p>Each slot has either one or more map elements or a map_set set element.</p>
+</dd>
+<ul>
+<li><strong><a name="item_map">map (optional)</a></strong>
+
+<p>Each map that you want in this slot needs a map object (unless you are
+specifying a map_set.  A map element has multiple elements.</p>
+<ul>
+<li><strong>map_acc (Required)</strong>
+
+<p>The accession value for the map.</p>
+</li>
+<li><strong>map_start (optional)</strong>
+
+<p>This specifies where on the map the view should start.  If omitted, it will
+start at the beginning of the map.</p>
+</li>
+<li><strong>map_stop (optional)</strong>
+
+<p>This specifies where on the map the view should stop.  If omitted, it will stop
+at the beginning of the map.</p>
+</li>
+<li><strong><a name="item_map_magnification">map_magnification (optional)</a></strong>
+
+<p>This specifies the magnification level this map should have (in relation to the
+size it would normally be).  If omitted it will default to 1.</p>
+</li>
+</ul>
+<li><strong><a name="item_map_set">map_set (optional)</a></strong>
+
+<ul>
+<li><strong><a name="item_map_set_acc">map_set_acc (Required)</a></strong>
+
+<p>The accession value for the map set.</p>
+</li>
+</ul>
+<p>Fo</p>
+</ul>
+<dt><strong><a name="item_menu_options">- menu_options (optional)</a></strong>
+
+<dd>
+<p>The menu_options holds objects that resemble the menu options (see <a href="#linking_in">LINKING IN</a> for list of options).  An example is listed below.</p>
+</dd>
+<dd>
+<pre>
+  &lt;menu_options&gt;
+    &lt;ft_DEFAULT&gt;1&lt;/ft_DEFAULT&gt;
+    &lt;image_size&gt;large&lt;/image_size&gt;
+  &lt;/menu_options&gt;</pre>
+</dd>
+</li>
+</dl>
+</ul>
+</ul>
+</ol>
+<p>Note: If there are multiple CMap installations on the same machine, you may
+have to specify the --config_dir option to be sure that cmap_admin.pl is using
+the correct config directory.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="reducing_query_cache_size">REDUCING QUERY CACHE SIZE</a></h1>
+<p>cmap_reduce_cache_size.pl</p>
+<p>cmap_reduce_cache_size.pl will help limit the growth of the query cache files.</p>
+<p>This script cycles through each CMap data_source and (using the
+Cache::SizeAwareFileCache functionality) reduces the size of the query cache to
+the value given as 'max_query_cache_size' in the config file.
+                                                                                                    It first removes any expired entries and then if it is still over the limit, it
+moves to last accessed entries.
+                                                                                                    If 'max_query_cache_size' is not set, it will use the default value in
+Bio::GMOD::CMap::Constants.
+                                                                                                    It is suggested that this script is run periodically as a cron job.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="validate_config_files">VALIDATE CONFIG FILES</a></h1>
+<p>cmap_validate_config.pl</p>
+<p>This script will test a config file to determine if it is valid or not.  It
+currenly only tests the individual data_source files and not the global.conf.</p>
+<p>Run it on individual config files.</p>
+<pre>
+  $ validate_cmap_config.pl config_file.conf</pre>
+<p>The last line of the output is most important.</p>
+<pre>
+  The config file, config_file.conf is valid.
+  or
+  The config file, config_file.conf is INVALID.</pre>
+<p>You can read through the output to find out why it is invalid, if that is the
+case.</p>
+<p>The script will also output options that are missing but not required to let
+you know what other options you can add.  It will also tell you if you are
+using any deprecated options.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="cmap_matrix_compare_pl">cmap_matrix_compare.pl</a></h1>
+<p>The cmap_matrix_compare.pl script contains full documentation in POD 
+format.  To read, please execute ``perldoc &lt;script_name&gt;''.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="linking_in">LINKING IN</a></h1>
+<p>Most likely, you'll want to link directly into the CMap viewer from
+some other part of your site.</p>
+<p>To link to just one map, make it the ``reference'' map by using the accession IDs
+for the map itself and optionally,the map's parent ``set''.  Here's an example
+showing just one map on Gramene, showing all the feature labels and
+highlighting the feature ``RM9'':</p>
+<pre>
+  <a href="http://www.gramene.org/db/cmap/map_details?ref_map_set_aid=cu-dh-2001;ref_map_aids=cu-dh-2001-1;highlight=&quot;RM9&quot;;data_source=Gramene;label_features=all">http://www.gramene.org/db/cmap/map_details?ref_map_set_aid=cu-dh-2001;ref_map_aids=cu-dh-2001-1;highlight=&quot;RM9&quot;;data_source=Gramene;label_features=all</a></pre>
+<p>Following should help you create your own CMap URL:</p>
+<p>
+</p>
+<h2><a name="uri">URI</a></h2>
+<p>/cgi-bin/cmap/viewer?</p>
+<p>
+</p>
+<h2><a name="url_arguments">URL Arguments</a></h2>
+<p>
+</p>
+<h3><a name="required_arguments_">Required Arguments:</a></h3>
+<ul>
+<li><strong><a name="item_ref_map_aids_3a">ref_map_aids:</a></strong>
+
+<p>The accession ID[s] of the reference map[s].  Multiple map aids can be
+separated by a ``:''.</p>
+<p>Information about the map such as start and stop can be stored in this
+argument.  See <a href="#map_accession_information_format">Map Accession Information Format</a> for more details.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="operational_arguments">Operational Arguments</a></h3>
+<ul>
+<li><strong><a name="item_data_source">data_source</a></strong>
+
+<p>The ``name'' from the ``&lt;database&gt;'' section of the individual configuration file
+identifying the database and config file to use.  If none is supplied, then the
+config file identified as ``the default_db'' in the global.conf file will be
+used.</p>
+</li>
+<li><strong><a name="item_ref_map_set_aid_3a">ref_map_set_aid:</a></strong>
+
+<p>The accession ID of the reference map set</p>
+</li>
+<li><strong><a name="item_ref_species_aid_3a">ref_species_aid:</a></strong>
+
+<p>The accession ID of the reference species</p>
+</li>
+<li><strong><a name="item_comparative_maps">comparative_maps</a></strong>
+
+<p>Describes the comparative maps.  See <a href="#comparative_map_construction">Comparative Map Construction</a> for a full
+discussion of how to construct this argument</p>
+<p>Information about the map such as start and stop can be stored in this
+argument.  See <a href="#map_accession_information_format">Map Accession Information Format</a> for more details.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="arguments_for_speed_and_clarity">Arguments for Speed and Clarity</a></h3>
+<ul>
+<li><strong><a name="item_aggregate__5b_default_3a_set_in_config__5d">aggregate [ default: set in config ]</a></strong>
+
+<p>CMap has the ability to aggregate correspondences into one or two lines.  This
+is faster and produces more easily decifered results on views with many
+correspondences.</p>
+<pre>
+ Values: 
+    0:  don't aggregate 
+    1:  one line 
+    2:  two lines</pre>
+</li>
+<li><strong><a name="item_collapse_features__5b_default_3a_set_in_config__5d">collapse_features [ default: set in config ]</a></strong>
+
+<p>A ``1'' or ``0'' (``Yes'' or ``No,'' respectively) indicating whether to
+collapse spanning features of the same type and with the same
+coordinates to overlap rather than pushing out</p>
+</li>
+<li><strong><a name="item_ft_default">ft_DEFAULT (or the depricated feature_type_DEFAULT)</a></strong>
+
+<p>This will define the how to display feature types that are not explicitly
+defined in ft_*, overriding the config setting.  Setting the features
+to be ignored or display only when there is a correspondence can help speed the
+page drastically.</p>
+<pre>
+ Values:
+    0 :  Completely ignore features of this type.  
+    1 :  Display only features of this type with displayed correspondences
+    2 :  Display all features of this type</pre>
+<p>Note: Both the ft_* format and the feature_type_* format to define the same
+feature type, CMap will appear to randomly decide which one to use.  So please
+be consistant and use ft_*.</p>
+</li>
+<li><strong>omit_area_boxes [ default: 0 ]</strong>
+
+<p>This determines which area boxes are rendered.  The area boxes create clickable
+areas on the image.  Rendering all the boxes gives the most functionality but
+can be slow if there are a lot of features.  The option to omit feature area
+boxes can help speed things up while leaving the navigation buttons.  There is
+also an option to ignore all of the area boxes, which is not recommended.</p>
+<pre>
+ Values:
+    0 : render all of the area boxes
+    1 : omit the feature area boxes 
+    2 : omits all area boxes</pre>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="menu_arguments">Menu Arguments</a></h3>
+<ul>
+<li><strong><a name="item_ft__2a__28or_the_depricated_feature_type__2a_29__5">ft_* (or the depricated feature_type_*) [ default: set in config ]</a></strong>
+
+<p>These define how to display each feature type.  The ``*'' is replaced by the
+feature type's accession (example: ft_marker=2).  Setting the
+features to be ignored or display only when there is a correspondence can help
+speed the page drastically.</p>
+<pre>
+ Values:
+    0 :  Completely ignore features of this type.  
+    1 :  Display only features of this type with displayed correspondences
+    2 :  Display all features of this type</pre>
+<p>Note: Both the ft_* format and the feature_type_* format to define the same
+feature type, CMap will appear to randomly decide which one to use.  So please
+be consistant and use ft_*.</p>
+</li>
+<li><strong><a name="item_et__2a__28or_the_depricated_evidence_type__2a_29__">et_* (or the depricated evidence_type_*) [ default: set in config ]</a></strong>
+
+<p>These define how to handle each evidence type.  The ``*'' is replaced by the
+evidence type's accession (example: et_blast=2).</p>
+<p>You can use this to ignore or display certain evidence types.  You can also
+filter evidence based on the score.  If you do this, there MUST be an ets_*
+value for this evidence type accession.</p>
+<p>If a correspondence has multiple evidences of different types and ANY are
+displayed, that correspondence will be displayed.</p>
+<pre>
+ Values:
+    0 :  Completely ignore this evidence type
+    1 :  Display all evidences of this type
+    2 :  Display if score is less than or equal the est_* score
+    3 :  Display if score is greater than or equal the est_* score</pre>
+<p>Note: Both the et_* format and the evidence_type_* format to define the same
+evidence type, CMap will appear to randomly decide which one to use.  So please
+be consistant and use et_*.</p>
+</li>
+<li><strong><a name="item_ets__2a__28evidence_type_score_29__5b_optional__5d">ets_* (evidence type score) [ Optional ]</a></strong>
+
+<p>These define the score that the evidence of this type are measured against.
+The ``*'' is replaced by the evidence type's accession (example: ets_blast=97).</p>
+</li>
+<li><strong><a name="item_magnify_all__5b_default_3a_1__5d">magnify_all [ default: 1 ]</a></strong>
+
+<p>This holds the multiplier to determine the height of all the maps.  For
+example, if magnify_all is 3 than all the maps are drawn 3 times taller.  This
+can be handy if you want to see more detail.</p>
+<p>Any individual map magnification is then added on top of this.</p>
+</li>
+<li><strong>label_features [ default: all ]</strong>
+
+<p>Which features to label, legal values are ``none,'' ``all,'' or ``landmarks''</p>
+</li>
+<li><strong>scale_maps [ default: 1 ]</strong>
+
+<p>Allow scaleable (set by scalable) maps to be drawn in scale</p>
+<pre>
+ Values: 
+    0:  don't scale
+    1:  scale</pre>
+</li>
+<li><strong><a name="item_highlight__5b_optional__5d">highlight [ Optional ]</a></strong>
+
+<p>A space-less, comma-separated list of feature_names to highlight</p>
+</li>
+<li><strong><a name="item_image_size__5b_default_3a_set_in_config__5d">image_size [ default: set in config ]</a></strong>
+
+<p>How large to make the image, legal values are ``small,'' ``medium'' or ``large''</p>
+</li>
+<li><strong><a name="item_font_size__5b_default_3a_set_in_config__5d">font_size [ default: set in config ]</a></strong>
+
+<p>How large to make the font, legal values are ``small,'' ``medium'' or
+``large''</p>
+</li>
+<li><strong><a name="item_image_type__5b_default_3a_set_in_config__5d">image_type [ default: set in config ]</a></strong>
+
+<p>The output type of the image, legal value are whatever image libraries
+you've installed (usually at least ``png'' or ``jpeg'' or ``svg'')</p>
+</li>
+<li><strong><a name="item_min_correspondences__5b_default_3a_0__5d">min_correspondences [ default: 0 ]</a></strong>
+
+<p>The minimum number of correspondences to require between two maps</p>
+</li>
+<li><strong><a name="item_ref_map_start__5b_default_3a_start_of_map__5d">ref_map_start [ default: start of map ]</a></strong>
+
+<p>The start position of the reference map.  This will only be used if there is
+only one reference map.</p>
+</li>
+<li><strong><a name="item_ref_map_stop__5b_default_3a_end_of_map__5d">ref_map_stop [ default: end of map ]</a></strong>
+
+<p>The stop position of the reference map.  This will only be used if there is
+only one reference map.</p>
+</li>
+<li><strong>corrs_to_map [ default: 0 ]</strong>
+
+<p>This determines where the correspondence lines are terminated.</p>
+<pre>
+ Values:
+    0 : Lines connect features
+    1 : Lines connect maps</pre>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="hide_display_menus">Hide/Display Menus</a></h3>
+<p>These arguments allow you to hide or show individual menus.  Set to 1 to
+display and 0 to hide.  They are hidden by default.</p>
+<ul>
+<li><strong><a name="item_refmenu_3a_reference_menu">refMenu: Reference Menu</a></strong>
+
+<li><strong><a name="item_compmenu_3a_comparison_menu">compMenu:  Comparison Menu</a></strong>
+
+<li><strong><a name="item_optionmenu_3a_options_menu">optionMenu: Options Menu</a></strong>
+
+<li><strong><a name="item_addopmenu_3a_additional_options_menu">addOpMenu: Additional Options Menu</a></strong>
+
+</ul>
+<p>
+</p>
+<h3><a name="just_in_case_you_see_it">Just in case you see it</a></h3>
+<p>These will probably not be used in a constructed URL but they are discribed
+here in case you run across them and wondered what they do.  Also, it's good to
+document them anyway.</p>
+<ul>
+<li><strong><a name="item_flip">flip</a></strong>
+
+<p>This holds the accessions of maps that are flipped.  The format is
+``slot_number=map_aid''.  Multiple maps are separated by a ``:''.</p>
+<p>Example: ``1=map_A:-1=map_D:0=map_C:1=map_B''</p>
+</li>
+<li><strong><a name="item_comp_map_set__5bleft_7cright_5d">comp_map_set_[left|right]</a></strong>
+
+<p>This is the menu object that the form passes to tell CMap the map set of the
+comparative maps on the [left|right].</p>
+</li>
+<li><strong><a name="item_comparative_map__5bleft_7cright_5d">comparative_map_[left|right]</a></strong>
+
+<p>This is the value that the form passes to dictate CMap comparative maps on the
+[left|right].  It holds the map accession of the map.  Multiple maps can be
+specified by defining multiple comparative_map_[left|right] arguments.</p>
+<p>If the accession is defined as ``-1'' than all of the eligible maps in the map set are used.</p>
+<p>See <a href="#map_accession_information_format">Map Accession Information Format</a> for details on the format.</p>
+</li>
+<li><strong><a name="item_sub">sub</a></strong>
+
+<p>The sub argument is part of a scheme to fix a JavaScript problem.  The problem
+was that when a JavaScript, area-box button (on the image) was clicked, it
+would modify some menu objects and submit.  Then if the user hit the back
+button, those menu objects would be the modified values, causing unexpected
+behavior.</p>
+<p>To fix this, modified_ref_map and modified_comp_map were added.  When a
+JavaScript, area-box button is clicked, it modifies modified_ref_map or
+modified_comp_map instead of ref_map_aids or comparative_maps.  That way, those
+fields always keep their original values.</p>
+<p>To determine if the ``modified'' values should be used, CMap looks at the value
+of sub.  If there is NO value, then it assumes that it is a JavaScript link and
+uses the ``modified'' values preferentially over the regular values.</p>
+</li>
+<li><strong><a name="item_modified_ref_map">modified_ref_map</a></strong>
+
+<p>See the description for ``sub'' above for the use of modified_ref_map.</p>
+<p>Information about the map such as start and stop can be stored in this
+argument.  See <a href="#map_accession_information_format">Map Accession Information Format</a> for more details.</p>
+</li>
+<li><strong><a name="item_modified_comp_map">modified_comp_map</a></strong>
+
+<p>See the description for ``sub'' above for the use of modified_comp_map.</p>
+<p>Information about the map such as start and stop can be stored in this
+argument.  See <a href="#map_accession_information_format">Map Accession Information Format</a> for more details.</p>
+</li>
+<li><strong><a name="item_prev_ref_map_set_aid">prev_ref_map_set_aid</a></strong>
+
+<p>If the user is looking at a map (so they picked a ref_map_set_aid and a
+ref_map_aid), and then they choose a different reference map set, then current
+map is sent with the new (and different) map set.  CMap uses this to compare
+the current map set against the previous.  If they're different, CMap wipes out
+the map selection w/o making a db call to find out if the map is from the
+chosen map set.</p>
+</li>
+<li><strong><a name="item_prev_ref_species_aid">prev_ref_species_aid</a></strong>
+
+<p>See the above description for prev_ref_map_set_aid and extrapolate.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="map_details_arguments">Map Details Arguments</a></h3>
+<p>Recently, the Map Details page has been folded into the regular viewer.</p>
+<p>The URI of the Map Details page is ``/cgi-bin/cmap/map_details?''</p>
+<ul>
+<li><strong><a name="item_order_by__5b_optional__5d">order_by [ Optional ]</a></strong>
+
+<p>Order the details by this column.</p>
+<p>Values: feature_name, feature_type_aid, start_position</p>
+</li>
+<li><strong><a name="item_page_no__5b_default_3a_1__5d">page_no [ default: 1 ]</a></strong>
+
+<p>If there is enough data to be displayed on multiple pages, page_no dictates
+which page is diplayed.</p>
+</li>
+<li><strong><a name="item_comparative_map__5b_optional__5d">comparative_map [ Optional ]</a></strong>
+
+<p>Only display the comparative map data for this map or map set.</p>
+<pre>
+ Format:
+    map_set_aid=set1
+    map_aid=map1</pre>
+</li>
+<li><strong><a name="item_action__5b_optional__5d">action [ Optional ]</a></strong>
+
+<p>Set the action to ``download'' to get a tab delimited file of the data.</p>
+</li>
+</ul>
+<p>
+</p>
+<h3><a name="depricated_arguments">Depricated Arguments</a></h3>
+<p>If you a are using these in a URL, please change the URL.  They are not guaranteed to work.</p>
+<ul>
+<li><strong><a name="item_ref_map_aid">ref_map_aid</a></strong>
+
+<li><strong><a name="item_ref_map_names">ref_map_names</a></strong>
+
+</ul>
+<p>
+</p>
+<h2><a name="map_accession_information_format">Map Accession Information Format</a></h2>
+<p>Drawing information about maps (cropping and magnification) can be inserted
+with the map accession in the following fields.</p>
+<ul>
+<li><strong><a name="item_ref_map_aids">ref_map_aids</a></strong>
+
+<li><strong>comparative_maps</strong>
+
+<li><strong><a name="item_comparative_map_right">comparative_map_right</a></strong>
+
+<li><strong><a name="item_comparative_map_left">comparative_map_left</a></strong>
+
+<li><strong>modified_ref_map</strong>
+
+<li><strong>modified_comp_map</strong>
+
+</ul>
+<p>The format is ``accession[start*stopxmagnification]''.  Any position can be left
+out but the ``*'' is required.  The ``x'' can be left out if there is no
+magnification.</p>
+<ul>
+<li><strong><a name="item_start">start</a></strong>
+
+<p>The start position of the map to display if the map is to be cropped.  If left
+blank it will default to the start of the map.</p>
+</li>
+<li><strong><a name="item_stop">stop</a></strong>
+
+<p>The stop position of the map to display if the map is to be cropped.  If left
+blank it will default to the stop of the map.</p>
+</li>
+<li><strong><a name="item_magnification">magnification</a></strong>
+
+<p>This is the magnification value of the map.  If increased to 2 the map will be
+2 times taller, if decreased to .5 it will be half the size.  All positive
+values are allowed but there is a minimum map size.  The default is 1.</p>
+</li>
+</ul>
+<p>Examples:</p>
+<dl>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2_5b200_2a400x1_5d">cu-sl-1994-2[200*400x1]</a></strong>
+
+<dd>
+<p>Correct, crops from 200 to 400 with normal magnification</p>
+</dd>
+</li>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2">cu-sl-1994-2</a></strong>
+
+<dd>
+<p>Correct, no cropping with normal magnification</p>
+</dd>
+</li>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2_5b_2a400_5d">cu-sl-1994-2[*400]</a></strong>
+
+<dd>
+<p>Correct, crops from the start to 400 with normal magnification</p>
+</dd>
+</li>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2_5b_2ax3_5d">cu-sl-1994-2[*x3]</a></strong>
+
+<dd>
+<p>Correct, no cropping with 3 times magnification</p>
+</dd>
+</li>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2_5b200_5d">cu-sl-1994-2[200]</a></strong>
+
+<dd>
+<p>Incorrect, need the ``*'' otherwise we can't tell if you want this to be start of
+end.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cu_2dsl_2d1994_2d2_5bx3_5d">cu-sl-1994-2[x3]</a></strong>
+
+<dd>
+<p>Incorrect, need the ``*'' because we say so.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<h2><a name="comparative_map_construction">Comparative Map Construction</a></h2>
+<p>To include some number of comparative maps, you provide them in the
+``comparative_maps'' argument, which is a single structured string that
+lists all the comparative maps and their placement relative to the
+reference map.  Here I'd like to introduce the concept of ``slots,''
+where the maps (or map sets) fall into a slot moving in positive and
+negative direction away from the reference map, which is in slot ``0,''
+like so:</p>
+<pre>
+           -      -        -         -
+           |      |        |         |
+           |      |      - |  -      |
+           |      |      | -  |      |
+           |      |      |    |      |
+           |      |      |    -      |
+           -      -      -           -
+          -1      0         1        2
+  &lt;----negative --+---------positive-----&gt;</pre>
+<p>The above drawing is representative of Gramene's genetic maps in slots
+-1, 0, and 2, and a physical map in slot 1.  Slots are separated in
+the string by URI-escaped colons and the integral parts of the slot by
+URI-escaped equal signs.  Like so</p>
+<pre>
+    &quot;comparative_maps=&quot;
+    +
+        .-  &lt;slot_number&gt; + 
+        |  &quot;%3D&quot; + 
+  slot  |  &lt;&quot;map_acc&quot; or &quot;map_set_acc&quot;&gt; + 
+        |  &quot;%3D&quot; +
+        `-  &lt;map_acc or map_set_acc&gt;
+    +</pre>
+<pre>
+    &quot;%3A&quot;</pre>
+<pre>
+    +</pre>
+<pre>
+   &lt;next slot&gt;</pre>
+<p>Here is a sample that puts ``Rice-Cornell RFLP 2001-1'' on the left
+(slot ``-1'') and ``Rice-CTIR 2000-1'' on the right (slot ``1''):</p>
+<pre>
+    comparative_maps=1%3Dmap_acc%3D423%3A-1%3Dmap_acc%3D1</pre>
+<p>The middle part of the slot is one of the literal strings
+``map_set_acc'' or ``map_acc.''  If you wanted to display just a single
+map in a slot, use the string ``map_acc'' and the map's accession ID.
+If you want a whole map set in a slot (e.g., a physical map set like
+``I-Map''), then use the string ``map_set_acc'' and the map set's
+accession ID.  You can use the admin interface (``/cgi-bin/cmap/admin'')
+to easily find the accession IDs.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="using_cmap_modules_in_custom_scripts">USING CMAP MODULES IN CUSTOM SCRIPTS</a></h1>
+<p>There are several CMap modules that can be used by scripts outside 
+of the cgi.  To view more documentation on module use, execute 
+'perldoc Module_Name.pm``.</p>
+<p>Modules that are particularily useful:</p>
+<ul>
+<li><strong><a name="item_bio_3a_3agmod_3a_3acmap_3a_3aadmin">Bio::GMOD::CMap::Admin</a></strong>
+
+<p>Modules in the Bio::GMOD::CMap::Admin namespace deal with data 
+manipulation.  There are methods in Bio::GMOD::CMap::Admin to 
+create/destroy all of the CMap objects (i.e. maps, features, etc). 
+Bio::GMOD::CMap::Admin::Import contains a method to import tab 
+delimited files.  View the perldoc of each module in the 
+Bio::GMOD::CMap::Admin namespace to find out more on how to use 
+them.</p>
+</li>
+<li><strong><a name="item_bio_3a_3agmod_3a_3acmap_3a_3adrawer">Bio::GMOD::CMap::Drawer</a></strong>
+
+<p>Use this module to create just the image and the image map.  This 
+would be useful if you wanted to integrate a CMap image on another
+page without the control stuctures.  View the perldoc for instruction
+on how to use Drawer.pm.</p>
+</li>
+<li><strong><a name="item_bio_3a_3agmod_3a_3acmap_3a_3adata_3a_3ageneric">Bio::GMOD::CMap::Data::Generic</a></strong>
+
+<p>This module does all of CMaps database querying.  If you need access to the database in code, there is probably already a method created for this.  The advantage of using this module is that if the database changes, you won't have to change your code.</p>
+<p>To use you must create an instance of another CMap object.  You can use Bio::GMOD::CMap or Bio::GMOD::CMap::Admin or just about any other module.  Most of the Generic.pm methods require you to pass it this CMap object (as cmap_object) to give it access to the configuration options.</p>
+<p>To get access to the Generic.pm object, call ``sql()'' on the CMap object you created.  Here is an example:</p>
+<pre>
+    my $admin = Bio::GMOD::CMap::Admin-&gt;new(
+        data_source =&gt; $data_source,
+    );
+    my $sql_object = $admin-&gt;sql();
+    my $features = $sql_object-&gt;get_features(
+        cmap_object       =&gt; $admin,
+        feature_type_accs =&gt; \@feature_type_accs,
+        map_id            =&gt; $map-&gt;{'map_id'},
+    );</pre>
+</li>
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="sample_data">SAMPLE DATA</a></h1>
+<p>The data/ directory has some example data.  The sample-dump.sql.gz file
+contains a full set of CMap data.  The tabtest* files also give some simple
+example files for importing.</p>
+<p>If you would like to see other sample import data for CMap, you can find
+many examples from the Gramene site:</p>
+<pre>
+  <a href="ftp://ftp.gramene.org/pub/gramene/CURRENT_RELEASE">ftp://ftp.gramene.org/pub/gramene/CURRENT_RELEASE</a></pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="multiple_cmap_installations">MULTIPLE CMAP INSTALLATIONS</a></h1>
+<p>There may be occasion to run multiple CMap installations on the same server.
+To do so, use the customizable install options during the ``perl Build.PL''.  The
+following is an example that creates a secondary install in the
+/usr/local/apache2/htdocs/cmap2/ directory.</p>
+<pre>
+  perl Build.PL \
+    PREFIX=/usr/local/apache2/ \
+    CONF=/usr/local/apache2/conf/cmap.conf2 \
+    WEB_DOCUMENT_ROOT=/usr/local/apache2/htdocs/ \
+    CGIBIN=/usr/local/apache2/htdocs/cmap2/cgi-bin \
+    HTDOCS=/usr/local/apache2/htdocs/cmap2/</pre>
+<p>Here is the breakdown of the options:</p>
+<ul>
+<li><strong><a name="item_prefix">PREFIX</a></strong>
+
+<p>This is the prefix for the web server install.  The default is ``/usr/local/apache/''.</p>
+</li>
+<li><strong><a name="item_conf">CONF</a></strong>
+
+<p>This will create an alternate config directory to store the config files for
+this installation.</p>
+</li>
+<li><strong><a name="item_web_document_root">WEB_DOCUMENT_ROOT</a></strong>
+
+<p>This is the absolute path to the document root of the web server.</p>
+</li>
+<li><strong><a name="item_cgibin">CGIBIN</a></strong>
+
+<p>This will create an alternate cgi-bin directory where the the ``cmap'' script.
+When using a non-standard cgi-bin directory, CGIBIN must be in
+WEB_DOCUMENT_ROOT.</p>
+<p>NOTE: It is important that the cgi script be executable by the web server.  To
+do this in Apache 2, the following must be added to the httpd.conf.</p>
+<pre>
+  &lt;Directory /usr/local/apache2/htdocs/cmap2/cgi-bin&gt;
+    Options +ExecCGI
+    SetHandler cgi-script
+  &lt;/Directory&gt;</pre>
+</li>
+<li><strong><a name="item_htdocs">HTDOCS</a></strong>
+
+<p>This is the absolute path to the directory where the cmap files will be stored.
+HTDOCS must be in WEB_DOCUMENT_ROOT.</p>
+</li>
+</ul>
+<p>The options not used in the example are ``TEMPLATE'', ``CACHE'' and ``SESSIONS''.
+These can also be set if so desired.</p>
+<p>To access the CMap from the above example, the address will be ``http://127.0.0.1/cmap2/''.
+The cmap script will be at ``http://127.0.0.1/cmap2/cgi-bin/cmap''.</p>
+<p>IMPORTANT NOTE:  When creating the individual config files, the ``name'' field in
+``&lt;database&gt;'' should be unique across the whole server.  Using the same ``name''
+for multiple config files, even if they are in different installs, can result
+in clashes over shared cache space.</p>
+<p>OTHER NOTES:</p>
+<ul>
+<li><strong><a name="item_the_last_install_will_become_the_default_install_f">The last install will become the default install for when no config_dir is specified.  This should only affect cmap_admin.pl.  To manually change the default install, modify the value of ``CONFIG_DIR'' in Bio::GMOD::CMap::Constants.</a></strong>
+
+<li><strong><a name="item_when_using_cmap_admin_2epl_2c_it_will_be_important">When using cmap_admin.pl, it will be important to supply a ``--config_dir'' value which points to the config directory to be used.</a></strong>
+
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="miscellaneous">MISCELLANEOUS</a></h1>
+<p>In the ``docs'' directory, you will find two images that might help you
+understand the relationships in the CMap tables,
+``cmap-schema-graph.png'' and ``cmap-schema.png,'' both of which attempt
+to describe the tables and fields and their relationships.  See also 
+``cmap-schema-desc.html'' for an HTML document describing the schema.
+These documents were automatically generated from schema definitions
+via scripts included with SQL::Translator, a set of modules which grew
+out of the author's constant need to make schema changes and quickly
+replicate them amongst the different test databases.  The Oracle,
+PostgreSQL, SQLite and Sybase schemas were also generated by
+SQL::Translator from the MySQL schema, so if you see room for
+improvement, please relay them to the author, preferably via the
+SQL:::Translator mailing list.  SQL::Translator is available on CPAN.
+For more information, see here:</p>
+<pre>
+  <a href="http://sqlfairy.sourceforget.net/">http://sqlfairy.sourceforget.net/</a></pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="troubleshooting">TROUBLESHOOTING</a></h1>
+<p>Here are the solutions to a few common problems:</p>
+<ul>
+<li><strong><a name="item_exist">Error: File does not exist (image)</a></strong>
+
+<p>This is a usually a permissions problem caused by the web server's
+/document_root/cmap/tmp directory is not executable by the web server.  Change
+the permissions to allow the user that the server runs as the ability to
+execute and it should be fixed.</p>
+</li>
+<li><strong><a name="item_error_3a__2e_2e_2e_2fcmap_2econf_3a_not_a_director">Error: .../cmap.conf: not a directory</a></strong>
+
+<p>This is a also usually a permissions problem caused by the web server's
+/path/to/cmap.conf directory (or one of the parent directories) is not
+executable by the web server.  Change the permissions to allow the user that
+the server runs as the ability to execute and it should be fixed.</p>
+</li>
+<li><strong><a name="item_cmap_image_does_not_respond_to_changes_in_config_f">CMap image does not respond to changes in config file or data displayed on the image is strange</a></strong>
+
+<p>After changing a config file (or changing the data without using cmap_admin.pl), the query cache needs to be purged.   Not doing so, often results in a mix of old and new information being displayed, which can be confusing.</p>
+<p>To purge the cache use cmap/bin/cmap_admin.pl.  You can either use the menu system or by command line:</p>
+<pre>
+  $ cmap_admin.pl [-d data_source] --action purge_query_cache</pre>
+<p>See ``perldoc cmap_admin.pl'' for more options.</p>
+</li>
+<li><strong><a name="item_other">Other</a></strong>
+
+<p>Contact the CMap list, <a href="mailto:gmod-cmap@lists.sourceforge.net">gmod-cmap@lists.sourceforge.net</a> with a detailed description of the problem and the version of CMap that you are using.</p>
+<p>You can also leave a bug report for CMap at the SourceForge site for GMOD, <a href="http://sourceforge.net/projects/gmod/.">http://sourceforge.net/projects/gmod/.</a></p>
+</li>
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ken Y. Clark, <a href="mailto:kclark@cshl.edu">kclark@cshl.edu</a>
+Ben Faga, <a href="mailto:faga@cshl.edu">faga@cshl.edu</a></p>
+<p>Copyright (c) 2002-6 Cold Spring Harbor Laboratory</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

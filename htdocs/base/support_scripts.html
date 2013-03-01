@@ -1,0 +1,599 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>support scripts</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#cmap_support_scripts">CMap Support Scripts</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#administration">ADMINISTRATION</a></li>
+	<ul>
+
+		<li><a href="#cmap_admin_pl">cmap_admin.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_data_diagnostics_pl">cmap_data_diagnostics.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_validate_config_pl">cmap_validate_config.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_reduce_cache_size_pl">cmap_reduce_cache_size.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_metrics_pl">cmap_metrics.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_matrix_compare_pl">cmap_matrix_compare.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_examine_attribute_pl">cmap_examine_attribute.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+	</ul>
+
+	<li><a href="#data_parsing_and_import">DATA PARSING AND IMPORT</a></li>
+	<ul>
+
+		<li><a href="#cmap_validate_import_file_pl">cmap_validate_import_file.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_parsewashuacefiles_pl">cmap_parseWashUAceFiles.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_parsefpc_pl">cmap_parsefpc.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_parseagp_pl">cmap_parseagp.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_manageparsedacefile_pl">cmap_manageParsedAceFile.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_import_alignment_pl">cmap_import_alignment.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_insert_gnomspace_xml_pl">cmap_insert_gnomspace_xml.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+	</ul>
+
+	<li><a href="#data_modification">DATA MODIFICATION</a></li>
+	<ul>
+
+		<li><a href="#cmap_create_stacked_maps_pl">cmap_create_stacked_maps.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+		<li><a href="#cmap_fix_map_display_order_pl">cmap_fix_map_display_order.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+	</ul>
+
+	<li><a href="#development">DEVELOPMENT</a></li>
+	<ul>
+
+		<li><a href="#profilecmapdraw_pl">profile-cmap-draw.pl</a></li>
+		<ul>
+
+			<li><a href="#description">Description</a></li>
+			<li><a href="#usage">Usage</a></li>
+			<li><a href="#see_also">See Also</a></li>
+		</ul>
+
+	</ul>
+
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="cmap_support_scripts">CMap Support Scripts</a></h1>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>$Revision: 1.5 $</p>
+<p>There are a number of support scripts included with the CMap distribution.
+They are located in the bin/ directory inside the CMap source directory.</p>
+<p>This document is intended to briefly describe each of these scripts and point
+to other documentation where an individual script is described in more detail.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="administration">ADMINISTRATION</a></h1>
+<p>The chief administration script is cmap_admin.pl.  This is what will be the
+most used script because it does most of the tasks that are needed to get CMap
+running and keep it that way.  The other administration scripts will help
+diagnose problems or attempt to solve issues that might be faced by an administrator.</p>
+<p>
+</p>
+<h2><a name="cmap_admin_pl">cmap_admin.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This is the main administration script.  Most administrative tasks can be
+completed using the cmap_admin.pl script, from importing data to clearing the
+cache.  For much more information, please read the ADMINISTRATION document
+included with the distribution.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_admin.pl -d datasource [options] [data_file]</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  ADMINISTRATION.pod/ADMINISTRATION.html</pre>
+<pre>
+  $ perldoc cmap_admin.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_data_diagnostics_pl">cmap_data_diagnostics.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script was written to check the CMap database for problems.  It will
+report any problems that it finds such as missing configurations for map or
+feature types.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<p>Stats and warnings are printed to standard out and the errors are printed to
+standard error.  To separate the outputs, use the following example.</p>
+<pre>
+  $ cmap_data_diagnostics.pl -d datasource [options] 1&gt;stats_file 2&gt;error_file</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_data_diagnostics.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_validate_config_pl">cmap_validate_config.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script checks a config file (not the global.conf though) to see if it is a
+valid.  It will report any problems it finds.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ validate_cmap_config.pl config_file.conf</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_validate_config.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_reduce_cache_size_pl">cmap_reduce_cache_size.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>From the documentation: This script cycles through each CMap data_source and
+reduces the size of the query cache to the value given as
+'max_query_cache_size' in the config file.</p>
+<p>An optional --config_dir value can be set to use this on config files in a
+secondary location of config file.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_reduce_cache_size.pl</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_reduce_cache_size.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_metrics_pl">cmap_metrics.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>From the script documentation: A simple script to tell you how many records are
+in each table.  If no data-source is provided, the default is used.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_metrics.pl -d DATASOURCE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_metrics.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_matrix_compare_pl">cmap_matrix_compare.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>From the script documentation: This script is designed to compare the CMap
+correspondence matrix data between different loads of the database.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ ./cmap_matrix_compare.pl --store monday.dat</pre>
+<pre>
+  $ ./cmap_matrix_compare.pl --store tuesday.dat</pre>
+<pre>
+  $ ./cmap_matrix_compare.pl --compare monday.dat --compare tuesday.dat</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_matrix_compare.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_examine_attribute_pl">cmap_examine_attribute.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>The goal of this script is to help look for a specific attribute that should be
+on every object of the specified type (map set, feature, etc).  It examines the
+CMap database and find all instances where the attribute should be.</p>
+<p>It prints the value of the attribute if it exists for the object and a warning
+if it is missing.</p>
+<p>An example is if all map sets are supposed to have a ``Description'' attribute.
+Running</p>
+<pre>
+  $ ./cmap_examine_attribute.pl -d DATASOURCE -a &quot;Description&quot; -o &quot;map_set&quot;</pre>
+<p>would check to make sure all the map sets in the database have a Description
+attribute and provide a list of those that were missing it.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ /cmap_examine_attribute.pl -d DATASOURCE -a ATTRIBUTE_NAME -o OBJECT_TYPE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_examine_attribute.pl</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="data_parsing_and_import">DATA PARSING AND IMPORT</a></h1>
+<p>Getting data into the CMap database is an important step.  These scripts will
+help get data into a format that can be imported into CMap.  Some of them will
+directly import the data while others will rely on cmap_admin.pl to read the
+files they create.</p>
+<p>They also provide a good jumping off point if a new or custom parser is
+required.</p>
+<p>
+</p>
+<h2><a name="cmap_validate_import_file_pl">cmap_validate_import_file.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script can be used to check an import file to see if it will import
+correctly.  Any problems will be reported.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_validate_import_file.pl -d DATASOURCE -f IMPORT_FILE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_validate_import_file.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_parsewashuacefiles_pl">cmap_parseWashUAceFiles.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script will parse an ACE file of super contigs and output a tab-delimited
+file that is readable by the CMap importer.</p>
+<p>The script was written for Washington University and may not be useful to most
+people out of the box but can be modified to suit your needs.  It can also
+provide some insight into writing a parser for your favorite file format.</p>
+<p>It is best to follow this script with cmap_manageParsedAceFile.pl to remove
+reads that aren't interesting and mark ones that are.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ ./cmap_parseWashUAceFiles.pl ace_file &gt; cmap_import_file</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_parseWashUAceFiles.pl</pre>
+<pre>
+  $ perldoc cmap_manageParsedAceFile.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_parsefpc_pl">cmap_parsefpc.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script will parse an FPC (fingerprint contig) file and output a
+tab-delimited file that is readable by the CMap importer.</p>
+<p>If an assembly file created by cmap_manageParsedAceFiles.pl is provided, the
+script will read through that file and output (into a separate file) the lines
+that define clones that share a name with one of the FPC clones.  The feature
+type accession of the assembly clones must be ``clone''.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_parcefpc.pl [-a assembly_file] [options] fpc_file &gt; CMAP_IMPORT_FILE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_parcefpc.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_parseagp_pl">cmap_parseagp.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script will parse an AGP formatted file and output a tab-delimited file
+that is readable by the CMap importer.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_parceagp.pl agp_file &gt; CMAP_IMPORT_FILE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_parseagp.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_manageparsedacefile_pl">cmap_manageParsedAceFile.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script reads a CMap import file which was output from
+cmap_parseWashUAceFiles.pl and modifies the data to be more easily viewed in
+CMap.</p>
+<p>It will create read-depth features which will allow the user to see the number
+of reads over a window wihtout having to load each read (which would bog down
+the viewer).</p>
+<p>It also finds problem reads such as singleton reads and read pairs that are too
+far apart.</p>
+<p>The output can then be loaded into CMap using cmap_admin.pl.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ ./cmap_manageParsedAceFile.pl options CMAP_IMPORT_FILE &gt; NEW_CMAP_IMPORT_FILE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_manageParsedAceFile.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_import_alignment_pl">cmap_import_alignment.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script directly imports alignment data recognized by BioPerl's SearchIO
+module (it has been tested for BLAST) into a CMap database.</p>
+<p>It uses the name field from both the query and subject (as parsed by BioPerl)
+to determine which CMap map is being refered to.  If no map with that name is
+currently in the specific map set, the map will be created.</p>
+<p>The HSPs are created as features with the type defined from the command line.
+Correspondences between the HSPs are created.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_import_alignment.pl -d DATASOURCE -f ALIGNMENT_FILE \
+    -q QUERY_MAP_SET_ACC -s SUBJECT_MAP_SET_ACC -t FORMAT \
+    --fta HSP_FEATURE_TYPE -eta CORRESPONDENCE_EVIDENCE_TYPE</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_import_alignment.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_insert_gnomspace_xml_pl">cmap_insert_gnomspace_xml.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script parses an XML file from the GnomSpace program, inserts the fragment
+data into CMap and creates correspondences between them as defined in the
+map_alignment section of the file.  It is an exelent example of how to use the
+CMap API to insert features.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_insert_gnomspace_xml.pl -f FILE -d DATASOURCE -r REF_MAP_SET_ACC \
+    -a ALIGN_MAP_SET_ACC -t FEATURE_TYPE_ACC -e EVIDENCE_TYPE_ACC</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_insert_gnomspace_xml.pl</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="data_modification">DATA MODIFICATION</a></h1>
+<p>These scripts modify the data, hopefully in in a way to make it more
+understandable for the user.</p>
+<p>
+</p>
+<h2><a name="cmap_create_stacked_maps_pl">cmap_create_stacked_maps.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>When there are a large number of comparative maps, the CMap view loads slowly
+and the resulting view can be unusably dense.  This script takes maps from a
+relational map set, groups them based on correspondences to a relational map
+and stacks them.  This creates a smaller number of stacked maps that are made
+up of the original maps.  These stacked maps can then be displayed much more
+quickly and legibly than before.</p>
+<p>It is important to note that this is a non-destructive script.  The stacked
+maps are inserted into a new map set.  It is recommended that the original map
+sets be kept in the database but if database size is an issue, the original
+maps can be removed.  Be aware that there is no script currently or in
+development to reverse the process.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<p>See the documentation within the script for more details on the required
+options.</p>
+<pre>
+  $ cmap_create_stacked_maps.pl [options]</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_create_stacked_maps.pl</pre>
+<p>
+</p>
+<h2><a name="cmap_fix_map_display_order_pl">cmap_fix_map_display_order.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>Unless the display order is set, the maps will be ordered alphabetically in the
+menus.  This script changes the display order of maps to reflect the numerical
+value in the map names.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<pre>
+  $ cmap_fix_map_display_order.pl -d DATASOURCE --ms-accs=msacc1[,msacc2...]</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc cmap_fix_map_display_order.pl</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="development">DEVELOPMENT</a></h1>
+<p>The script in this section will only useful for debugging or benchmarking.</p>
+<p>
+</p>
+<h2><a name="profilecmapdraw_pl">profile-cmap-draw.pl</a></h2>
+<p>
+</p>
+<h3><a name="description">Description</a></h3>
+<p>This script is only useful for debugging or benchmarking the CMap drawing code.</p>
+<p>
+</p>
+<h3><a name="usage">Usage</a></h3>
+<p>This script must be run with root privilages.</p>
+<pre>
+  $ sudo profile-cmap-draw.pl -u CMAP_URL</pre>
+<p>
+</p>
+<h3><a name="see_also">See Also</a></h3>
+<pre>
+  $ perldoc profile-cmap-draw.pl</pre>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

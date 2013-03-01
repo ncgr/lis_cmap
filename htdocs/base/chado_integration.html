@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>chado integration</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#introduction">INTRODUCTION</a></li>
+	<li><a href="#creating_the_cmap_tables">CREATING THE CMAP TABLES</a></li>
+	<li><a href="#populate_tables">POPULATE TABLES</a></li>
+	<li><a href="#linking_a_feature_from_gbrowse_to_cmap_">Linking a feature from GBrowse to CMap.</a></li>
+	<li><a href="#conclusion">CONCLUSION</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="name">NAME</a></h1>
+<p>chado_integration.pod</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>Where we discuss how to integrate CMap with the chado database.
+This is specifically useful for connection of CMap with GBrowse.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="introduction">INTRODUCTION</a></h1>
+<p>This document assumes that you have a working installation of the
+chado database and you want to add CMap to it.</p>
+<p>The goal is to walk you through adding the CMap tables to the chado
+database and creating links from features in Gbrowse to CMap.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="creating_the_cmap_tables">CREATING THE CMAP TABLES</a></h1>
+<p>Since the database is already created, all you have to do is create
+the tables in it.</p>
+<pre>
+ $ psql chado_db &lt; sql/cmap.create.postgresql</pre>
+<p>Then create the linking table.  This connects the CMap features with
+the Chado features.</p>
+<pre>
+ $ psql chado_db &lt; chado_integration/linker_table.sql</pre>
+<p>Then all you need to is set up the correct privileges.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="populate_tables">POPULATE TABLES</a></h1>
+<p>First you will populate the CMap tables with your data.  For
+information on how to do this see docs/ADMINISTRATION.pod.</p>
+<p>After you have data in both CMap and Chado portions of the database,
+you can populate the linker table, ``feature_to_cmap''.  Since the data
+is going to be different from site to site, it is left to you to
+decide how exactly you want to populate the linker table.</p>
+<p>The ``feature_to_cmap'' table has 2 important columns that you will need
+to insert.  One is the ``feature_id'' of the Chado feature and the other
+is ``cmap_feature_acc'' which is the ``accession_id'' of a cmap feature.</p>
+<p>Here is an example insert statement where the chado feature_id is '32' and the
+cmap accession id is 'EDEN1':</p>
+<pre>
+ insert into feature_to_cmap (feature_id, cmap_feature_acc) values (32,'EDEN1')</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="linking_a_feature_from_gbrowse_to_cmap_">Linking a feature from GBrowse to CMap.</a></h1>
+<p>To link a feature from GBrowse to a feature in CMap, you must first
+have that link in the ``feature_to_cmap'' table, as described above.</p>
+<p>Then creating a link is as simple as editing the config file.  Edit or
+add the link attribute to the track definition like the following:</p>
+<pre>
+ link = sub {my $feature=shift; return $feature-&gt;cmap_link('DATASOURCE');}</pre>
+<p>You must change the DATASOURCE from above to the name of a CMap
+datasouce, which can be found as the &lt;database&gt; ``name'' in the cmap
+config file.</p>
+<p>The <code>cmap_link()</code> method is located in
+Bio::DB::Das::Chado::Segment::Feature.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="conclusion">CONCLUSION</a></h1>
+<p>That should allow you to link from GBrowse to CMap.  If you
+have any troubles email the CMap developer's list:</p>
+<pre>
+  gmod-cmap@lists.sourceforge.net</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ben Faga &lt;<a href="mailto:faga@cshl.edu">faga@cshl.edu</a>&gt;.</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

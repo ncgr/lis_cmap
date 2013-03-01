@@ -1,0 +1,12 @@
+[% 
+    INCLUDE header.tmpl 
+    title='CMap - Error'
+    no_link=''
+    help_anchor=''
+%]
+
+<h1>Error</h1>
+
+[% error OR 'Undefined error' | html %]
+
+[% INCLUDE footer.tmpl %]

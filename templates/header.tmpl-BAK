@@ -1,0 +1,121 @@
+[%-
+    DEFAULT title='Compartive &amp; Genetic Maps';
+    SET menu = [
+        { 
+            name    => 'home', 
+            url     => web_cmap_htdocs_dir,
+            display => 'CMap Home',
+        },
+        { 
+            name    => 'map_viewer', 
+            url     => "viewer?changeMenu=1", 
+            display => 'Maps' 
+        },
+        { 
+            name    => 'map_search', 
+            url     => "map_search", 
+            display => 'Map Search' 
+        },
+        { 
+            name    => 'feature_search', 
+            url     => "feature_search",
+            display => 'Feature Search' 
+        },
+        { 
+            name    => 'matrix', 
+            url     => "matrix", 
+            display => 'Matrix' 
+        },
+        { 
+            name    => 'map_set_info', 
+            url     => "map_set_info", 
+            display => 'Map Sets',
+        },
+        { 
+            name    => 'feature_type_info', 
+            url     => "feature_type_info", 
+            display => 'Feature Types',
+        },
+        { 
+            name    => 'map_type_info', 
+            url     => "map_type_info", 
+            display => 'Map Types',
+        },
+        { 
+            name    => 'evidence_type_info', 
+            url     => "evidence_type_info", 
+            display => 'Evidence Types',
+        },
+        { 
+            name    => 'species_info', 
+            url     => "species_info", 
+            display => 'Species',
+        },
+        { 
+            name    => 'saved_links', 
+            url     => "saved_links?action=saved_links_viewer", 
+            display => 'Saved Links',
+        },
+        { 
+            name    => 'help', 
+            url     => "help", 
+            display => 'Help',
+        },
+        { 
+            name    => 'tutorial', 
+            url     => web_cmap_htdocs_dir _ "/tutorial/", 
+            display => 'Tutorial',
+        },
+    ];
+
+    SET links=[];
+
+    FOREACH s=menu;
+        IF cur_sec == s.name; 
+            links.push("<b>$s.display</b>");
+        ELSIF ( s.name == 'help' );
+            SET help_link = cur_sec OR help_anchor;
+            links.push("<a href=\"$s.url?section=$help_link\">$s.display</a>");
+        ELSE; 
+            links.push("<a href=\"$s.url\">$s.display</a>");
+        END;
+    END;
+-%]
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>[%- title -%]</title>
+</head>
+[%- IF stylesheet -%]<link rel="stylesheet" href="[%- stylesheet -%]" type="text/css">[%- END -%]
+
+[%- body = page.start_body OR '<body>' -%]
+[%- IF body_addendum;
+    body.replace('^<body', "<body $body_addendum ");
+ELSE;
+    body;
+END -%]
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            [%- IF page -%]<img src="/images/icons/grain_icon.jpg" alt="grain_icon" height="16" width="16">[%- END -%]
+            [%- links.join( ' | ' ) -%]
+        </td>
+        <td align="right">
+            [%- IF data_sources.size > 1 -%]
+                <form>
+                    <input type="submit" name="submit" value="Data Source:">
+                    <select name="data_source">
+                        [%- FOREACH db=data_sources -%]
+                            <option value="[%- db.name -%]"[%- IF db.is_current; ' selected'; END -%]>[%- db.name -%]</option>
+                        [%- END -%]
+                    </select>
+                </form>
+            [%- ELSE -%]
+                &nbsp;
+            [%- END -%]
+        </td>
+    </tr>
+</table>

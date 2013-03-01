@@ -1,0 +1,180 @@
+[% DEFAULT title='Map Set Info' %]
+[% 
+    INCLUDE header.tmpl 
+    title='CMap - Map Set Info'
+    cur_sec='map_set_info'
+    help_anchor='map_set_info'
+%]
+
+<h1>[% title %]</h1>
+
+[%- IF intro -%]
+<p>[% intro %]</p>
+[%- END -%]
+
+<p>
+<div align="center">
+[% IF show_restriction %]
+    <form method="GET" action="map_set_info">
+    <table>
+        <tr>
+            <td>Restrict by Species:</td>
+            <td>Restrict by Map Type:</td>
+        </tr>
+
+        <tr>
+            <td>
+                <select name="species_acc">
+                    <option value="-1">--All Species--</option>
+                    [% FOREACH s=species %]
+                        <option value="[% s.species_acc %]"[% IF apr.param('species_acc')==s.species_acc %] selected[% END %]>[% s.species_common_name %]</option>
+                    [% END %]
+                </select>
+            </td>
+            <td>
+                <select name="map_type_acc">
+                    <option value="-1">--All Map Types--</option>
+                    [% FOREACH mt=map_types %]
+                        <option value="[% mt.map_type_acc %]"[% IF apr.param('map_type_acc')==mt.map_type_acc %] selected[% END %]>[% mt.map_type %]</option>
+                    [% END %]
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Submit">
+            </td>
+        </tr>
+    </table>
+    </form>
+[% ELSE %]
+    <b>[</b>&nbsp;<a href="map_set_info">Show All Map Sets</a>&nbsp;<b>]</b>
+[% END %]
+
+[% IF map_sets.size %]
+    <table border="0">
+        <tr>
+            <td colspan="3" align="center">
+                [% SET pager_url="map_set_info?species_acc=${apr.param('species_acc')}&map_type_acc=${apr.param('map_type_acc')}" %]
+                [% PROCESS pager.tmpl %]
+            </td>
+        </tr>
+        [% FOREACH ms=map_sets %]
+            <tr class="colored">
+                <th align="right">Map&nbsp;Set&nbsp;Name:</th>
+                <td><b>[% ms.map_set_name %]</b></td>
+                <td align="center"><b>[</b>&nbsp;<a href="map_set_info?map_set_acc=[% ms.map_set_acc %]">Show Only This Set</a>&nbsp;<b>]</b></td>
+            </tr> 
+
+            <tr>
+                <th align="right">Abbreviated&nbsp;Name:</th>
+                <td>[% ms.map_set_short_name %]</td>
+                <td align="center"><b>[</b>&nbsp;<a href="download_data?map_set_acc=[% ms.map_set_acc %]">Download&nbsp;Map&nbsp;Set&nbsp;Data</a>&nbsp;<b>]</b></td>
+            </tr> 
+
+            <tr>
+                <th align="right">Accession&nbsp;ID:</th>
+                <td>[% ms.map_set_acc %]</td>
+                <td align="center"><b>[</b>&nbsp;<a href="matrix?show_matrix=1&[% IF ms.is_relational_map %]link_map_set_acc=[% ms.map_set_acc %][% ELSE %]map_type_acc=[% ms.map_type_acc %]&species_acc=[% ms.species_acc %]&map_set_acc=[% ms.map_set_acc %][% END %]">View&nbsp;Map&nbsp;Set&nbsp;In&nbsp;Matrix</a>&nbsp;<b>]</b></td>
+            </tr>
+
+            <tr>
+                <th align="right">Species:</th>
+                <td>[% ms.species_full_name %] ([% ms.species_common_name %])</td>
+                <td align="center"><b>[</b>&nbsp;<a href="species_info?species_acc=[% ms.species_acc %]">View Species Info</a>&nbsp;<b>]</b></td>
+            </tr> 
+
+            <tr>
+                <th align="right">Map&nbsp;Type:</th>
+                <td>[% ms.map_type %]</td>
+                <td align="center"><b>[</b>&nbsp;<a href="map_type_info?map_type_acc=[% ms.map_type_acc %]">View Map Type Info</a>&nbsp;<b>]</b></td>
+            </tr> 
+
+            <tr>
+                <th align="right">Map&nbsp;Units:</th>
+                <td>[% ms.map_units %]</td>
+                <td>&nbsp;</td>
+            </tr> 
+
+            <tr>
+                <th align="right">Published&nbsp;On:</th>
+                <td>[% ms.published_on OR 'N/A' %]</td>
+                <td>&nbsp;</td>
+            </tr> 
+
+            [% FOREACH att=ms.attributes %]
+                [% NEXT IF att.is_public.defined AND att.is_public == 0 %]
+                <tr>
+                    <th align="right" valign="top">
+                        [% att.attribute_name | nbsp %]:
+                    </th>
+                    <td>
+                        [%- IF att.attribute_value.match('^http://') -%]
+                            <a href="[% att.attribute_value %]">[% att.attribute_value %]</a>
+                        [%- ELSE -%]
+                            [% att.attribute_value %]
+                        [%- END -%]
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            [% END %]
+
+            [% IF ms.maps.size %]
+                <tr>
+                    <th align="right" valign="top">Maps:</th>
+                    <td colspan="2">
+                        <table width="100%">
+                            [%- FOREACH map=ms.maps -%]
+                            <tr>
+                                <td>[% map.map_name %]</td>
+                                <td align="center"><b>[</b>&nbsp;<a href="viewer?ref_map_set_acc=[% ms.map_set_acc %];ref_map_accs=[% map.map_acc %]">Map Viewer</a>&nbsp;<b>]</b></td>
+                                <td align="center"><b>[</b>&nbsp;<a href="map_details?ref_map_set_acc=[% ms.map_set_acc %]&ref_map_accs=[% map.map_acc %]#details">Map Details</a>&nbsp;<b>]</b></td>
+                                <td align="center"><b>[</b>&nbsp;<a href="matrix?show_matrix=1&map_set_acc=[% ms.map_set_acc %]&map_name=[% map.map_name %]">Matrix Viewer</a>&nbsp;<b>]</b></td>
+                                <td align="center"><b>[</b>&nbsp;<a href="download_data?map_acc=[% map.map_acc %]">Download Map Data</a>&nbsp;<b>]</b></td>
+                            </tr>
+                            [%- END -%]
+                        </table>
+                    </td>
+                </tr>
+                [%- IF ms.maps.size > 1 -%]
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="2" align="center">
+                            <b>[</b>&nbsp;<a href="viewer?ref_map_set_acc=[% ms.map_set_acc %]&ref_map_accs=-1">Display All Maps in Viewer</a>&nbsp;<b>]</b>
+                        </td>
+                    </tr> 
+                [%- END -%]
+            [% END %]
+
+            [% IF ms.xrefs.size %]
+                <tr>
+                    <th align="right" valign="top">Cross-references:</th>
+                    <td>
+                        <ul>
+                        [%- FOREACH xref=ms.xrefs -%]
+                            [% NEXT UNLESS xref.xref_url %]
+                            <li><a href="[% xref.xref_url %]">[% xref.xref_name %]</a></li>
+                        [%- END -%]
+                        </ul>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr> 
+            [% END %]
+
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+        [% END %]
+    </table>
+[% ELSE %]
+    No map sets returned.
+[% END %]
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+[% INCLUDE footer.tmpl %]

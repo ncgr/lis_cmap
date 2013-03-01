@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+use strict;
+use Bio::GMOD::CMap::Apache;
+
+# To use a config directory other than the default,
+# call handler with the config_dir argument.
+# Bio::GMOD::CMap::Apache::handler( config_dir => '/path/to/cmap.conf' );
+eval { Bio::GMOD::CMap::Apache::handler( config_dir => '/home/legs/web/cmap.comparative-legumes.org/cmap.conf' ); };
+
+if ( my $err = $@ ) {
+    print "Content-type: text/plain\n\nError: $err";
+}

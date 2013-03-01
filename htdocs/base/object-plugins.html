@@ -1,0 +1,361 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>object plugins</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#plugin_names_and_fields">PLUGIN NAMES AND FIELDS</a></li>
+	<ul>
+
+		<li><a href="#map_set__map_set_info_">Map Set (map_set_info)</a></li>
+		<li><a href="#map__map_details_">Map (map_details)</a></li>
+		<li><a href="#feature__feature_">Feature (feature)</a></li>
+		<li><a href="#feature_type__feature_type_info_">Feature Type (feature_type_info)</a></li>
+		<li><a href="#map_type__map_type_info_">Map Type (map_type_info)</a></li>
+		<li><a href="#evidence_type__evidence_type_info_">Evidence Type (evidence_type_info)</a></li>
+		<li><a href="#species__species_info_">Species (species_info)</a></li>
+	</ul>
+
+	<li><a href="#configuration_file_tip">Configuration File Tip</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="name">NAME</a></h1>
+<p>Object Plugins</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This document discusses how to extend the various ``details'' pages in
+CMap (map_details, feature_details, etc) to add custom data drawn from
+external resources.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>As has been discussed in the ``attributes'' document, CMap stores almost
+no biological information about the various objects (map sets,
+species, features, etc.).  The ``attributes'' system does allow the
+curator to define any number of arbitrary name/value pairs of data
+(e.g., a ``GenBank ID'' for a feature or an ``NCBI Taxon ID'' for a
+species), and these attributes can be used by the cross-reference
+system to create novel and powerful dbxrefs.  However, storing
+attributes such as these in all likelihood duplicates information
+stored elsewhere, which is almost never a Good Thing (tm).</p>
+<p>As a solution, CMap includes a way to execute user-defined code that
+can manipulate the objects used in the construction of a ``details''
+page (e.g., map sets have the ``map_set_info'' page, features have the
+``feature'' page).  As with most of the other user-configurable items in
+CMap, the user will define this code in the database-specific
+configuration files.  The code must be written in Perl (the language
+in which CMap is written).</p>
+<p>There are two methods for defining the custom code, ``in-line'' in the
+config file or in a separate module.  The following example
+illustrates both of these methods.</p>
+<pre>
+  &lt;object_plugin&gt;
+      map_set_info &lt;&lt;EOF
+          sub {
+              my $map_set = shift;
+              $map_set-&gt;{'foo'} = 'bar';
+              push @{ $map_set-&gt;{'xrefs'} }, {
+                  xref_name =&gt; 'Google',
+                  xref_url  =&gt; &quot;<a href="http://www.google.com/?q=&quot">http://www.google.com/?q=&quot</a>;.
+                      $map_set-&gt;{'map_set_short_name'}
+              };</pre>
+<pre>
+              push @{ $map_set-&gt;{'attributes'} }, {
+                  attribute_name  =&gt; 'Favorite Color',
+                  attribute_value =&gt; 'Blue. No, red! Ahhhhh!',
+              };
+          }
+      EOF
+      feature Gramene::Marker::Marker2CMap::new
+  &lt;/object_plugin&gt;</pre>
+<p>As is shown above, the user has the ability to directly manipulate the
+given object (in this case, the map set object ``$map_set'').  In all
+cases, the ``object'' will be a Perl hash reference data structure.
+This object is used by the template for the ``details'' page.  This
+hashref will always be the first (and only) argument to the plugin
+code.  Your code should alter the hashref to add new cross-references
+(``xrefs''), attributes, or even new fields.</p>
+<p>The above example also shows adding a new field ``foo'' with the value
+``bar.''  If you wish this value to be displayed on the ``map_set_info''
+page, you would have to alter the ``map_set_info.tmpl'' template.  It's
+probably much easier to simply add to hashref's ``attributes'' or
+``xrefs'' as all the templates are designed to show these and will have
+to be altered to display other fields (and your changes could be lost
+the next time you update CMap).</p>
+<p>The ``attributes'' and ``xrefs'' fields of the hashref are themselves
+arrayrefs of hashrefs.  If that sounds scary, it's really not.  In
+short, the thing you add to it (using ``push'') should be a hashref with the
+following fields:</p>
+<pre>
+  attribute
+    attribute_name : The type of attribute, e.g., the phrase &quot;GenBank ID&quot;
+    attribute_value: The data, e.g., the actual GenBank ID</pre>
+<pre>
+  xref
+    xref_name: The text that user will click on for the link
+    xref_url : The location where the user will go after clicking</pre>
+<p>As long as you define the ``attributes'' and ``xrefs'' with these fields
+and copy the above syntax for ``push''ing them onto the appropriate
+fields (and all hashrefs will have these), your code should work just
+fine.</p>
+<p>Following is more discussion on defining the plugin code.</p>
+<ol>
+<li><strong><a name="item_in_2dline_sub">IN-LINE SUB</a></strong>
+
+<p>The ``map_set_info'' example above show that you can define an anonymous
+subroutine ``in-line'' in the config file.  Note the use of the ``HERE
+document'' syntax (``&lt;&lt;EOF''...``EOF'') to define a config value that spans
+multiple lines.</p>
+</li>
+<li><strong><a name="item_name_of_external_module_and_subroutine">NAME OF EXTERNAL MODULE AND SUBROUTINE</a></strong>
+
+<p>The ``feature'' example above shows how to reference an external module
+and subroutine, in this case ``Gramene::Marker::Marker2CMap::new.''
+``new'' is the name of a defined subroutine in the module
+``Gramene::Marker::Marker2CMap.pm.''  This module must live in some
+library path that CMap has access to.  (It's probably easiest to add a
+``use lib'' statement to the Apache ``perl.startup'' file or to put your
+code into the standard Perl library path.)  Some advantages to defining
+code in external modules:</p>
+<ul>
+<li>
+<p>Keeps the config file lighter.</p>
+</li>
+<li>
+<p>Allows for easy reuse of code for different object types and over
+different config files.</p>
+</li>
+</ul>
+<p>Here is an example of the ``Gramene::Marker::Marker2CMap'' module:</p>
+<pre>
+  package Gramene::Marker::Marker2CMap;</pre>
+<pre>
+  use strict;
+  use Gramene::Marker::DB;</pre>
+<pre>
+  sub new {
+      my $feature = shift;
+      my $mdb     = Gramene::Marker::DB-&gt;new;</pre>
+<pre>
+      my @markers;
+      for my $name ( 
+          $feature-&gt;{'feature_name'}, 
+          ( map { $_-&gt;{'alias'} } @{ $feature-&gt;{'aliases'} } )
+      ) {
+          my $found = $mdb-&gt;marker_search( 
+              marker_name =&gt; $name 
+          ) or next;
+          push @markers, @$found;
+      }</pre>
+<pre>
+      my $xref_url = '/db/markers/marker_view?marker_id=';
+      for my $m ( @markers ) {
+          push @{ $feature-&gt;{'xrefs'} }, {
+              xref_name =&gt; 
+                  &quot;View &amp;quot;$m-&gt;{'name'}&amp;quot; in Marker DB&quot;,
+              xref_url  =&gt; $xref_url . $m-&gt;{'marker_id'},
+          };
+      }
+  }
+  
+  1;</pre>
+<p>Notice that it's simply a standard Perl package, starting with the
+proper ``package'' declaration and returning a ``true'' value at the end,
+``1;'' in this case.  The ``Gramene::Marker::DB'' module is used to search
+for the CMap feature in the marker name, looking with the feature's
+primary name and any aliases.  For each marker (if any) that are
+found, a new cross-reference is created using the a relative URL
+(``/db/markers...'') and defining an informative link text and proper
+URL.</p>
+<p>CMap could also define new attributes for the feature based upon the
+field names and data from the markers found in the marker database,
+thereby allowing the CMap user full access to the marker information
+without leaving the CMap interface and without duplicating the marker
+data as CMap attributes.</p>
+</ol>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="plugin_names_and_fields">PLUGIN NAMES AND FIELDS</a></h1>
+<p>The following are the names to use for each object (they are the same
+as the ``handler'' for the object).  For each hashref, you can always
+add (``push'') attributes and xrefs.  If you wish to have the specific
+``details'' page display a visually structured dump of the object's data
+structure, you can use this snippet (here for a ``feature''):</p>
+<pre>
+  &lt;object_plugin&gt;
+      feature &lt;&lt;EOF
+          sub {
+              use Data::Dumper;
+              my $obj = shift;
+              push @{ $obj-&gt;{'attributes'} }, {
+                  attribute_name =&gt; 'Dump',
+                  attribute_value  =&gt; '&lt;pre&gt;'.Dumper($obj).'&lt;/pre&gt;'
+              };
+          }
+      EOF
+  &lt;/object_plugin&gt;</pre>
+<p>This will cause a new attribute called ``Dump'' to be created with a
+value of the return of the standard Perl module Data::Dumper's
+``Dumper'' method in ``PRE''-formatted HTML tags.</p>
+<p>For each object type, following are the plugin names to use (in
+parentheses) and the hashref's fields you can use:</p>
+<p>
+</p>
+<h2><a name="map_set__map_set_info_">Map Set (map_set_info)</a></h2>
+<pre>
+  species_common_name
+  species_full_name
+  is_relational_map
+  map_set_acc
+  map_set_id
+  map_set_name
+  map_type
+  map_type_acc
+  map_units
+  object_id
+  published_on
+  map_set_short_name
+  species_acc
+  species_id</pre>
+<p>
+</p>
+<h2><a name="map__map_details_">Map (map_details)</a></h2>
+<pre>
+  map_acc
+  map_name
+  map_set_acc
+  map_set_name
+  map_type_acc
+  map_units
+  object_id
+  species_acc
+  species_common_name
+  start
+  map_start
+  stop
+  map_stop</pre>
+<p>
+</p>
+<h2><a name="feature__feature_">Feature (feature)</a></h2>
+<pre>
+  aliases
+  attributes
+  feature_acc
+  feature_id
+  feature_name
+  feature_type
+  feature_type_acc
+  is_landmark
+  map_acc
+  map_id
+  map_name
+  map_set_acc
+  map_set_id
+  map_set_name
+  map_type_acc
+  map_units
+  object_id
+  species_acc
+  species_id
+  species_common_name
+  feature_start
+  feature_stop</pre>
+<p>
+</p>
+<h2><a name="feature_type__feature_type_info_">Feature Type (feature_type_info)</a></h2>
+<pre>
+  color
+  feature_type
+  feature_type_acc
+  shape</pre>
+<p>
+</p>
+<h2><a name="map_type__map_type_info_">Map Type (map_type_info)</a></h2>
+<pre>
+  color
+  display_order
+  is_relational_map
+  map_type
+  map_type_acc
+  map_units
+  shape
+  width</pre>
+<p>
+</p>
+<h2><a name="evidence_type__evidence_type_info_">Evidence Type (evidence_type_info)</a></h2>
+<pre>
+  evidence_type
+  evidence_type_acc
+  line_color
+  rank</pre>
+<p>
+</p>
+<h2><a name="species__species_info_">Species (species_info)</a></h2>
+<pre>
+  species_common_name
+  display_order
+  species_full_name
+  species_acc
+  species_id</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="configuration_file_tip">Configuration File Tip</a></h1>
+<p>To decrease the amount of redundant configuration information in the
+config files, an include statement is allowed.  This imports the
+contents of another file into the config file and is read as though it
+were a part of that config file.  An example of the syntax follows.</p>
+<pre>
+  &lt;&lt;include common_types.cfg&gt;&gt;
+  &lt;&lt;include object_plugins.cfg&gt;&gt;</pre>
+<p>In the above example, a file containing the common feature, map and
+evidence type configurations are stored in a file that can be used by
+multiple config files.  Likewise for object plugins.</p>
+<p>It is important to note that while additional feature, map and
+evidence types can be added in the individual config files, including
+an object plugin file AND defining object plugins in the file will
+cause CMap to break.  This is because the types are self contained XML
+entities whereas the all plugins must be defined in the
+&lt;object_plugin&gt; object.</p>
+<p>Also, be aware that it is posible to create infinite loops by
+including files that include each other.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ken Youens-Clark &lt;<a href="mailto:kclark@cshl.edu">kclark@cshl.edu</a>&gt;.</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

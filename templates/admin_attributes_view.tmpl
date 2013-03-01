@@ -1,0 +1,52 @@
+[% DEFAULT title='Attributes' %]
+<hr>
+<table width="100%">
+    <tr>
+        <td align="left"><h2>[% title %]</h2></td>
+        <td align="right">
+            <a href="admin?action=attribute_create;object_type=[% object_type %];object_id=[% object_id %];return_action=[% return_action %]">Add Attribute</a>
+        </td>
+    </tr>
+</table>
+
+[% IF attributes.list.size %]
+    <table width="100%">
+        <tr>
+            <th>
+                <a href="admin?action=[% return_action %];[% pk_name %]=[% object_id %];att_order_by=display_order">Display Order</a>
+            </th>
+            <th>
+                <a href="admin?action=[% return_action %];[% pk_name %]=[% object_id %];att_order_by=is_public">Public</a>
+            </th>
+            <th>
+                <a href="admin?action=[% return_action %];[% pk_name %]=[% object_id %];att_order_by=attribute_name">Name</a>
+            </th>
+            <th>
+                <a href="admin?action=[% return_action %];[% pk_name %]=[% object_id %];att_order_by=attribute_value">Value</a>
+            </th>
+            <td colspan="2">&nbsp</td>
+        </tr>
+        [% SET i=0 %]
+        [% FOREACH att=attributes %]
+            <tr bgcolor="[% IF i % 2 == 0 %]lightgrey[% ELSE %]white[% END %]">
+                <td>[% att.display_order %]</td>
+                <td>[% IF att.is_public; 'Yes'; ELSE; 'No'; END %]</td>
+                <td>[% att.attribute_name %]</td>
+                <td>[% att.attribute_value | truncate(80) | html %]</td>
+                <td align="center">
+                    <a href="admin?action=attribute_edit;attribute_id=[% att.attribute_id %];return_action=[% return_action %]">Edit</a>
+                </td>
+                <td align="center">
+                    <a href="admin?action=confirm_delete;entity_id=[% att.attribute_id %];entity_type=attribute;entity_name_field=attribute_name;return_action=[% return_action %]">Delete</a>
+                </td>
+            </tr>
+            [% SET i=i+1 %]
+        [% END %]
+    </table>
+[% ELSE %]
+    <div align="center">
+        No attributes defined.
+    </div>
+[% END %]
+<br>
+<br>

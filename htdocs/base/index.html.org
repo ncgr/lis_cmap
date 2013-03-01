@@ -1,0 +1,56 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<head>
+<title>CMap Installation Summary</title>
+<link rel="stylesheet" type="text/css" href="/base/cmap.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body>
+
+<h1>CMap Installation Summary</h1>
+<br />
+<!-- Here's a sample navigation bar you may want to use. -->
+<b>CMap Home</b>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/viewer">Maps</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/map_search">Map Search</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/feature_search">Feature Search</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/matrix">Matrix</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/map_set_info">Map Sets</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/feature_type_info">Feature Types</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/map_type_info">Map Types</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/evidence_type_info">Evidence Types</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/species_info">Species</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/saved_link">Saved Links</a>&nbsp;|&nbsp;<a href="/cgi-bin/cmap/help">Help</a>&nbsp;|&nbsp;<a href="/base/tutorial/">Tutorial</a>
+<!-- End CMap navbar -->
+<p>Congratulations!  CMap has been installed.</p>
+<p>Eventually you will want to create your own content for this intro page.</p>
+<p>Start using CMap with one of the following options.</p>
+<ul><li><a href="/cgi-bin/cmap/viewer">Maps</a> - Use a menu to select your starting maps
+</li> <li><a href="/cgi-bin/cmap/map_search">Map Search</a> - If the map set is quite large, the Map Search page can be quicker than sorting through menus.
+</li> <li><a href="/cgi-bin/cmap/feature_search">Feature Search</a> - Search for a specific feature and display it on a map.
+</li> <li><a href="/cgi-bin/cmap/matrix">Matrix</a> - View a table of the number of correspondences between pairs of map sets and maps.
+</li> <li><a href="/cgi-bin/cmap/saved_link">Saved Links</a> - View pages previously saved or imported.
+</li></ul>
+<p>For an introduction to the basic consepts of CMap, please see the <a href="/cgi-bin/cmap/help">help pages</a> or the <a href="/base/tutorial">tutorial</a>.
+</p>
+<p>We would appreciate you would include an acknowlegement of CMap on this page, e.g.:</p>
+<p><a href="http://www.gmod.org/cmap">CMap is free software from the GMOD project</a></p>
+<p>For the mean time, here are some links to the installed application and supporting docs:</p>
+<ul><li><a href="/cgi-bin/cmap/viewer">CMap Viewer</a></li>
+ <li><a href="/cgi-bin/cmap/admin">Web Admin Tool</a></li>
+ <li><a href="/base/tutorial/">User Tutorial</a></li>
+ <li><a href="/base/admintut/">Admin Tutorial</a></li>
+ <li><a href="INSTALL.html">INSTALL</a></li>
+ <li><a href="CMAP_API.html">CMAP API</a></li>
+ <li><a href="support_scripts.html">support scripts</a></li>
+ <li><a href="ADMINISTRATION.html">ADMINISTRATION</a></li>
+ <li><a href="CODE_OVERVIEW.html">CODE OVERVIEW</a></li>
+ <li><a href="gbrowse_integration.html">gbrowse integration</a></li>
+ <li><a href="object-plugins.html">object plugins</a></li>
+ <li><a href="attributes-and-xrefs.html">attributes and xrefs</a></li>
+ <li><a href="chado_integration.html">chado integration</a></li>
+ <li><a href="INSTALL.html">INSTALL</a></li>
+ <li><a href="cmap-schema-desc.html">cmap-schema-desc.html</a></li>
+ <li><a href="cmap-schema.png">cmap-schema.png</a></li>
+ <li><a href="cmap-schema-graph.png">cmap-schema-graph.png</a></li>
+</ul>
+CMap was installed on Tue Oct 20 11:48:43 2009
+<br />
+<a href="http://www.gmod.org"><img src="/base/gmod_logo.jpg" alt="Powered by GMOD" /></a>
+<hr>
+CMap is part of the <a href="http://www.gmod.org/">GMOD</a> project
+
+</body>
+</html>

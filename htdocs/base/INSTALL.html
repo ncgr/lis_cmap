@@ -1,0 +1,355 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>INSTALL</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#introduction">Introduction</a></li>
+	<li><a href="#postgres_requirements">Postgres Requirements</a></li>
+	<ul>
+
+		<li><a href="#upgrading_postgres__if_needed_">Upgrading Postgres (If Needed)</a></li>
+	</ul>
+
+	<li><a href="#add_untrusted_perl_to_the_db">Add ``untrusted'' perl to the db</a></li>
+	<li><a href="#add_new_tables_to_chado_">Add new tables to chado.  </a></li>
+	<li><a href="#create_featureset_">Create featureset.</a></li>
+	<ul>
+
+		<li><a href="#featureset_constraints">featureset constraints</a></li>
+		<li><a href="#example_populating_featureset_">Example populating featureset:</a></li>
+	</ul>
+
+	<li><a href="#add_maps_into_featureset_">Add ``maps'' into featureset.</a></li>
+	<ul>
+
+		<li><a href="#example_populating_feature_featureset">Example populating feature_featureset</a></li>
+	</ul>
+
+	<li><a href="#insert_new_cmap_map_types_and_feature_types">Insert new CMap map_types and feature_types</a></li>
+	<li><a href="#run_cmap_synchronize_chado_pl">Run cmap_synchronize_chado.pl</a></li>
+	<li><a href="#create_correspondences">Create Correspondences</a></li>
+	<li><a href="#triggers">Triggers</a></li>
+	<ul>
+
+		<li><a href="#installing_the_triggers">Installing the Triggers</a></li>
+		<li><a href="#what_the_triggers_do">What the Triggers Do</a></li>
+		<li><a href="#what_the_triggers_do_not_do">What the Triggers Do Not Do</a></li>
+	</ul>
+
+	<li><a href="#removing_linkage">Removing Linkage</a></li>
+	<li><a href="#creating_links_for_features_and_maps_between_cmap_and_chado">Creating Links For Features and Maps Between CMap and Chado</a></li>
+	<li><a href="#future_stuff">Future stuff</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="introduction">Introduction</a></h1>
+<p>I'm glad you've decided to synchronize your Chado data with CMap.  This
+document will help you get started</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="postgres_requirements">Postgres Requirements</a></h1>
+<p>Postgres 8.0+ with Perl support is required to use the Perl triggers.  You will
+need to upgrade your install of Postgres if your version does not meet the
+requirements.</p>
+<p>
+</p>
+<h2><a name="upgrading_postgres__if_needed_">Upgrading Postgres (If Needed)</a></h2>
+<p>When upgrading, first see the upgrade secion of postgres INSTALL doc.</p>
+<p>Here is what I had to do:</p>
+<dl>
+<dt><strong><a name="item__2d_dumped_old_posgres_db">- Dumped old posgres db</a></strong>
+
+<dd>
+<pre>
+  $ pg_dumpall &gt; outputfile</pre>
+</dd>
+<dt><strong><a name="item__2d_kill_current_posgres">- kill current posgres</a></strong>
+
+<dt><strong><a name="item__2d_install_postgres_8_2e0_2b_with_perl">- Install Postgres 8.0+ with Perl</a></strong>
+
+<dd>
+<p>use the  --with-perl flag during config</p>
+</dd>
+<dd>
+<pre>
+  $ ./configure --with-perl
+  $ make
+  $ make install
+  $ su - postgres
+  $ /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+  $ /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data -l /usr/local/pgsql/logfile start</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2d_add_the_old_data_back">- Add the old data back</a></strong>
+
+<dd>
+<pre>
+  $ /usr/local/pgsql/bin/psql -d postgres -f outputfile</pre>
+</dd>
+</dl>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="add_untrusted_perl_to_the_db">Add ``untrusted'' perl to the db</a></h1>
+<pre>
+  $ createlang plperlu template1
+  $ createlang plperlu dbname</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="add_new_tables_to_chado_">Add new tables to chado.</a></h1>
+<pre>
+
+These tables give the concept of a feature set (featureset) and links it to
+feature (feature_featureset) and dbxref (featureset_dbxref).  It also adds a
+linker table from featureloc to dbxref (featureloc_dbxref).</pre>
+<pre>
+    $ psql test2 &lt; chado_integration/chado_synchronize/chado_sync_tables.sql</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="create_featureset_">Create featureset.</a></h1>
+<p>In order for this whole thing to work, the featureset table needs to be
+populated.  Someday, a script might help you out with this but for now you will
+have to do this by hand.</p>
+<p>The concept of a featureset is the same as a map set in CMap.  Basically, maps
+(sequence assemblies, chromosomes or whatever you want to make a map) are
+grouped into sets.  For example, sequence assembies from the same assembly run
+would all be in the same set to differenciate from other assembly runs.</p>
+<p>
+</p>
+<h2><a name="featureset_constraints">featureset constraints</a></h2>
+<p>All maps in a set must be of the same type.</p>
+<p>All maps in a set must be from the same organism.</p>
+<p>Maps must only belong to one featureset otherwise there will possibly be
+inconsistencies.</p>
+<p>
+</p>
+<h2><a name="example_populating_featureset_">Example populating featureset:</a></h2>
+<pre>
+ insert into featureset (name,uniquename,feature_type_id,organism_id) 
+  (
+    select distinct 
+        o.abbreviation||'_'||cvt.name,
+        o.abbreviation||'_'||cvt.name,
+        f.type_id,
+        f.organism_id
+    from feature f, organism o, cvterm cvt 
+    where   f.type_id = cvt.cvterm_id
+        and f.organism_id = o.organism_id
+        and cvt.name = 'chromosome_arm'
+  );</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="add_maps_into_featureset_">Add ``maps'' into featureset.</a></h1>
+<p>In chado, the ``maps'' are stored in the feature table.  Each ``map'' should be connected to it's featureset by feature_featureset.</p>
+<p>
+</p>
+<h2><a name="example_populating_feature_featureset">Example populating feature_featureset</a></h2>
+<p>This example is not very complex.  For instance it does not take into account
+various versions of data but you can use it as a starting point.</p>
+<pre>
+  insert into feature_featureset 
+    select fs.featureset_id, f.feature_id 
+    from featureset fs, feature f 
+    where f.type_id = fs.feature_type_id;</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="insert_new_cmap_map_types_and_feature_types">Insert new CMap map_types and feature_types</a></h1>
+<p>You will need to insert new map types and feature types into the CMap config
+file.  The accessions for these types should be the cvterm ``name'' but with
+spaces replaced by ``_''.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="run_cmap_synchronize_chado_pl">Run cmap_synchronize_chado.pl</a></h1>
+<p>This script will look at the featuresets that you've inserted and insert the
+data into CMap.</p>
+<p>You will have several options.  The most import is the feature types to look
+at.  If you select too many, it may take a long time.</p>
+<pre>
+  $ chado_integration/chado_synchronize/cmap_synchronize_chado.pl --chado_datasource datasource -u sql_username [-p sql_password] --cmap_datasource cmap_datasource</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="create_correspondences">Create Correspondences</a></h1>
+<p>You will now need to use cmap_admin.pm to create correspondences between the
+newly created features.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="triggers">Triggers</a></h1>
+<p>Postgres triggers have been written to keep the data in the CMap database
+synchronized with chado.</p>
+<p>
+</p>
+<h2><a name="installing_the_triggers">Installing the Triggers</a></h2>
+<p>Included in this directory is a file called trigger.PL.  It will help create
+the triggers file.</p>
+<ul>
+<li><strong><a name="item_create_trigger_file_2e">Create trigger file.</a></strong>
+
+<p>Run trigger.PL using the cmap data source (the example uses CMAP_DEMO as the
+cmap data source).  This will create a file called ``triggers.DATASOURCE.sql''
+(in the example it will create ``triggers.CMAP_DEMO.sql'').</p>
+<pre>
+  $ perl trigger.PL -d CMAP_DEMO</pre>
+</li>
+<li><strong><a name="item_run_the_resulting_sql_in_postgres">Run the resulting sql in postgres</a></strong>
+
+<pre>
+  $ psql chado-fly &lt; triggers.CMAP_DEMO.sql</pre>
+</ul>
+<p>
+</p>
+<h2><a name="what_the_triggers_do">What the Triggers Do</a></h2>
+<ul>
+<li><strong><a name="item_the_triggers_watch_the_tables_3b_organism_2c_featu">The triggers watch the tables; organism, featureset, feature_featureset, featureloc and feature.</a></strong>
+
+<li><strong><a name="item_inserts">Inserts</a></strong>
+
+<dl>
+<dt><strong><a name="item_tables">- Tables (cmap_object): featureset (map_set), feature_featureset (map) and featureloc (feature)</a></strong>
+
+<dt><strong><a name="item__2d_inserts_data_in_the_cmap_database_correspondin">- Inserts data in the CMap database corresponding to its object type</a></strong>
+
+<dt><strong><a name="item__2d_inserts_the_cmap_id_into_the_chado_dbxref_tabl">- Inserts the CMap ID into the chado dbxref table and adds a link to the corresponding *_dbxref table.</a></strong>
+
+<dt><strong><a name="item__2d_in_the_case_of_a_featureset_insertion_2c_it_ch">- In the case of a featureset insertion, it checks to make sure the organism is in the CMap db and if not, adds it.</a></strong>
+
+</dl>
+<li><strong><a name="item_updates">Updates</a></strong>
+
+<dl>
+<dt><strong>- Tables (cmap_object): organism (species), featureset (map_set), feature_featureset (map), featureloc (feature) and feature (map/feature)</strong>
+
+<dt><strong><a name="item__2d_does_trivial_updates_such_as_name_changes_and_">- Does trivial updates such as name changes and featureloc position changes.</a></strong>
+
+</dl>
+<li><strong><a name="item_deletes">Deletes</a></strong>
+
+<dl>
+<dt><strong>- Tables (cmap_object): organism (species), featureset (map_set), feature_featureset (map) and featureloc (feature)</strong>
+
+<dt><strong><a name="item__2d_does_cascading_deletes_from_the_cmap_database_">- Does cascading deletes from the CMap database.  For instance, if a map set is deleted, all of the maps and features in that map set are also deleted.</a></strong>
+
+<dt><strong><a name="item__2d_relies_on_the_chado_deletes_to_cascade_2e_if_a">- Relies on the chado deletes to cascade.  If a feature is deleted, it's featureloc must also be deleted.</a></strong>
+
+</dl>
+</ul>
+<p>
+</p>
+<h2><a name="what_the_triggers_do_not_do">What the Triggers Do Not Do</a></h2>
+<ul>
+<li><strong>Inserts</strong>
+
+<dl>
+<dt><strong><a name="item__2d_does_not_do_anything_when_inserting_into_the_f">- Does not do anything when inserting into the feature table because there isn't enough information to go on.</a></strong>
+
+</dl>
+<li><strong>Updates</strong>
+
+<dl>
+<dt><strong><a name="item__2d_does_not_do_any_substantial_data_changes_such_">- Does not do any substantial data changes such as changing which organism a featureset is or what the srcfeature is of a featureloc.</a></strong>
+
+</dl>
+<li><strong>Deletes</strong>
+
+<dl>
+<dt><strong><a name="item__2d_does_not_remove_any_of_the_dbxref_entries_2e_o">- Does not remove any of the dbxref entries.  Only the linker tables are removed.</a></strong>
+
+</dl>
+</ul>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="removing_linkage">Removing Linkage</a></h1>
+<p>If you want to remove the links to CMap in the chado database, run
+remove_sync_from_chado.pl (in this directory).  This will remove all of the
+dbxref that point to the CMap database.</p>
+<pre>
+  $ chado_integration/chado_synchronize/remove_sync_from_chado.pl --chado_datasource datasource -u sql_username [-p sql_password] [--db_base_name db_base_name]</pre>
+<p>The options are similar to cmap_synchronize_chado.pl except db_base_name.  This
+is the base name used to name the entries in the ``db'' table.  It will be set to
+``cmap'' by default (which is fine if the value in cmap_synchronize_chado.pl
+wasn't changed). Only if there are multiple CMap databases that need to be
+connected will this value be changed.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="creating_links_for_features_and_maps_between_cmap_and_chado">Creating Links For Features and Maps Between CMap and Chado</a></h1>
+<p>From the CMap side, you can specify cross-references (xrefs) for each feature
+or map.  This is not automatic however.</p>
+<p>Then to create the link in the image, you can modify the area_code option in
+the config directory for each feature type.</p>
+<p>The following is an example of how to get an xref from the database.</p>
+<pre>
+  area_code &lt;&lt;EOF
+    my $dbxrefs = $self-&gt;sql()-&gt;get_xrefs(
+      cmap_object =&gt; $self,
+      object_id   =&gt; $feature-&gt;{'feature_id'},
+      object_type =&gt; 'feature',
+      xref_name   =&gt; 'Chado',
+    );
+    my $new_url = '';
+    if ( @{ $dbxrefs || [] } ) {
+      my $t = $self-&gt;template;
+      $t-&gt;process( \$dbxrefs-&gt;[0]{'xref_url'},
+          { object =&gt; $feature }, \$new_url );
+    }
+    $url = $new_url;
+    $code=sprintf(&quot;onMouseOver=\&quot;window.status='%s';return true\&quot;&quot;,$feature-&gt;{'feature_type_acc'});
+  EOF</pre>
+<p>For more information about how the area_code works, see the ``Map, Feature and
+Evidence Type Information'' section of ADMINISTRATION.html.</p>
+<p>For more information about how cross-references work, see attributes-and-xrefs.html.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="future_stuff">Future stuff</a></h1>
+<p>Maybe include the trigger installation in the cmap_synchronize_chado.pl script
+or at the least replace the text in the trigger.template file to make it easier
+for the user.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ben Faga &lt;<a href="mailto:faga@cshl.org">faga@cshl.org</a>&gt;
+</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

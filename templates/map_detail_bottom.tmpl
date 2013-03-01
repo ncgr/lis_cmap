@@ -1,0 +1,199 @@
+<a name="details">
+<h2>Map Details</h2>
+<table>
+    <tr>
+        <th align="right">Map&nbsp;Type:</th>
+        <td>
+            [% reference_map.map_type %]
+            <b>[</b> <a href="map_type_info?map_type_acc=[% reference_map.map_type_acc %]">View Map Type Info</a> <b>]</b>
+        </td>
+    </tr>
+    <tr>
+        <th align="right">Map&nbsp;Set&nbsp;Name:</th>
+        <td>
+            [% reference_map.species_common_name %] -
+            [% reference_map.map_set_name %]
+            <b>[</b> <a href="map_set_info?map_set_acc=[% reference_map.map_set_acc %]">View Map Set Info</a> <b>]</b>
+        </td>
+    </tr>
+    <tr>
+        <th align="right">Map&nbsp;Name:</th>
+        <td>[% reference_map.map_name %]</td>
+    </tr>
+    <tr>
+        <th align="right">Map&nbsp;Start:</th>
+        <td>[% reference_map.map_start | commify %] [% reference_map.map_units %]</td>
+    </tr>
+    <tr>
+        <th align="right">Map&nbsp;Stop:</th>
+        <td>[% IF reference_map.map_stop.defined %][% reference_map.map_stop | commify %][% ELSE %]NULL[% END %] [% reference_map.map_units %]</td>
+    </tr>
+    [% IF feature_count_by_type.size %]
+    <tr>
+        <th align="right" valign="top">Features&nbsp;by&nbsp;Type:</th>
+        <td>
+        <table>
+        [% SET total=0 %]
+        [% FOREACH ft=feature_count_by_type %]
+            <tr>
+                <td align="right">[% ft.feature_count | commify %]</td>
+                <td align="left"><a href="feature_type_info?feature_type_acc=[% ft.feature_type_acc %]">[% ft.feature_type %]</a></td>
+                [% total = total + ft.feature_count -%]
+            </tr>
+        [% END %]
+            <tr>
+                <td align="right"><u>[% total | commify %]</u></td>
+                <td align="left"><u>Total</u></td>
+            </tr>
+        </table>
+        </td>
+    </tr>
+    [% END %]
+    [% FOREACH att=reference_map.attributes %]
+        [% NEXT IF att.is_public.defined AND att.is_public == 0 %]
+        <tr>
+            <th align="right" valign="top">
+                [% att.attribute_name | nbsp %]:
+            </td>
+            <td>
+                [%- IF att.attribute_value.match('^http://') -%]
+                    <a href="[% att.attribute_value %]">[% att.attribute_value %]</a>
+                [%- ELSE -%]
+                    [% att.attribute_value %]
+                [%- END -%]
+            </td>
+        </tr>
+    [% END %]
+
+    [% IF reference_map.xrefs.size %]
+        <tr>
+            <th align="right" valign="top">Cross-references:</td>
+            <td>
+                <ul>
+                [%- FOREACH xref=reference_map.xrefs -%]
+                    [% NEXT UNLESS xref.xref_url %]
+                    <li><a href="[% xref.xref_url %]">[% xref.xref_name %]</a></li>
+                [%- END -%]
+                </ul>
+            </td>
+        </tr> 
+    [% END %]
+</table>
+
+<a name="features">
+<h2>Map Features</h2>
+<table border="1">
+    <tr>
+        <td valign="top" align="center" colspan="4">
+            <form method="GET" action="map_details">
+            Restrict by Map:
+            [% SET last_map_type = "" %]
+            <select name="comparative_map">
+                <option value="">--All--</option>
+                [% FOREACH ms=comparative_maps %]
+                    [% IF last_map_type != ms.map_type %]
+                        <option value="">== [% ms.map_type %] Maps ==</option>
+                    [% END %]
+                    [% IF ms.maps.size > 1 %]
+                        <option value="map_set_acc=[% ms.map_set_acc %]"[% IF comparative_map_field=='map_set_acc' && ms.map_set_acc==comparative_map_acc; ' selected'; END %]>[% ms.map_set_name %] (All)</option>
+                        [% FOREACH map=ms.maps %]
+                            <option value="map_acc=[% map.map_acc %]"[% IF comparative_map_field=='map_acc' && map.map_acc==comparative_map_acc; ' selected'; END %]>&nbsp;&nbsp;[% map.map_name %]</option>
+                        [% END %]
+                    [% ELSIF ms.maps.size == 1 %]
+                        [% SET map = ms.maps.0 %]
+                        <option value="map_acc=[% map.map_acc %]"[% IF comparative_map_field=='map_acc' && map.map_acc==comparative_map_acc; ' selected'; END %]>[% ms.map_set_name %]-[% map.map_name %]</option>
+                    [% END %]
+                    [% SET last_map_type = ms.map_type %]
+                [% END %]
+            </select>
+
+            <input type="hidden" name="order"            value="[% apr.param('order') %]">
+            <input type="hidden" name="order_by"         value="[% apr.param('order_by') %]">
+            <input type="hidden" name="ref_map_set_acc"  value="[% apr.param('ref_map_set_acc') %]">
+            <input type="hidden" name="ref_map_accs"      value="[% apr.param('ref_map_accs') %]">
+            <input type="hidden" name="comparative_maps" value="[% apr.param('comparative_maps') %]">
+            <input type="submit" value="Submit">
+            </form>
+        </td>
+        <td align="center" colspan="5">
+            [%- SET comp_maps = "${apr.param('comparative_maps')}" -%]
+            [%- SET pager_url = "map_details?" _ apr.query_string( ) -%]
+            [ <a href="download_data?map_acc=[% reference_map.map_acc %]">Download Map Data</a> ]
+            <br />
+            [ <a href="[% pager_url %]&action=download">Download Feature Correspondence Data</a> ]
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center" colspan="9">
+            [% PROCESS pager.tmpl %]
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="3">[% reference_map.species_common_name %] - [% reference_map.map_set_name %] - [% reference_map.map_name %]<br><small>(Click headers to resort)</small></th>
+        <th colspan="6">Comparative Maps</th>
+    </tr>
+
+    <tr>
+        <th><a href="map_details?ref_map_set_acc=[% apr.param('ref_map_set_acc') %];ref_map_accs=[% apr.param('ref_map_accs') %];ref_map_start=[% apr.param('ref_map_start') %];ref_map_stop=[% apr.param('ref_map_stop') %];comparative_maps=[% apr.param('comparative_maps') %];highlight=[% apr.param('highlight_uri') %];image_size=[% apr.param('image_size') %];font_size=[% apr.param('font_size') %];image_type=[% apr.param('image_type') %];label_features=[% apr.param('label_features') %];order=[% apr.param('order') %];order_by=feature_name;">Feature</a></th>
+        <th><a href="map_details?ref_map_set_acc=[% apr.param('ref_map_set_acc') %];ref_map_accs=[% apr.param('ref_map_accs') %];ref_map_start=[% apr.param('ref_map_start') %];ref_map_stop=[% apr.param('ref_map_stop') %];comparative_maps=[% apr.param('comparative_maps') %];highlight=[% apr.param('highlight_uri') %];image_size=[% apr.param('image_size') %];font_size=[% apr.param('font_size') %];image_type=[% apr.param('image_type') %];label_features=[% apr.param('label_features') %];order=[% apr.param('order') %];order_by=feature_type_acc;">Type</a></th>
+        <th><a href="map_details?ref_map_set_acc=[% apr.param('ref_map_set_acc') %];ref_map_accs=[% apr.param('ref_map_accs') %];ref_map_start=[% apr.param('ref_map_start') %];ref_map_stop=[% apr.param('ref_map_stop') %];comparative_maps=[% apr.param('comparative_maps') %];highlight=[% apr.param('highlight_uri') %];image_size=[% apr.param('image_size') %];font_size=[% apr.param('font_size') %];image_type=[% apr.param('image_type') %];label_features=[% apr.param('label_features') %];order=[% apr.param('order') %];order_by=map_start;">Position</a> ([% reference_map.map_units %])</th>
+        <th>Map</th>
+        <th>Feature</th>
+        <th>Type</th>
+        <th>Position</th>
+        <th>Evidence</th>
+        <th>Actions</th>
+    </tr>
+
+    [% FOREACH f=features %]
+    <tr>
+        <td[% IF f.no_positions>1 %] rowspan="[% f.no_positions %]"[% END %][% IF f.highlight_color %] bgcolor="[% f.highlight_color %]"[% END %]>
+            <a href="feature?feature_acc=[% f.feature_acc %]">[% f.feature_name %]</a>
+        </td>
+        <td [% IF f.no_positions>1 %] rowspan="[% f.no_positions %]"[% END %]>
+            [% f.feature_type %]
+        </td>
+        <td [% IF f.no_positions>1 %] rowspan="[% f.no_positions %]"[% END %] align="right">
+            [% f.feature_start | commify %] [% IF f.feature_stop>f.feature_start %]- [% f.feature_stop | commify %][% END %]
+
+        </td>
+
+        [% IF f.positions.size %]
+            [% SET i=0 %]
+            [% FOREACH p=f.positions %]
+                [% IF i>0 %]<tr>[% END %]
+
+                <td>
+                    [% p.species_common_name2 %] - [% p.map_set_short_name2 %] - [% p.map_name2 %]
+                </td>
+                <td>
+                    <a href="feature?feature_acc=[% p.feature_acc2 %]">[% p.feature_name2 %]</a>
+                </td>
+                <td>
+                    [% p.feature_type2 %]
+                </td>
+                <td align="right">
+                    [% p.feature_start2 | commify %] [% IF p.feature_stop2>p.feature_start2 %]- [% p.feature_stop2 | commify %][% END %] ([% p.map_units2 %])
+                </td>
+                <td>
+                    [% p.evidence.join(', ') %]
+                </td>
+                <td align="center">
+                    <a href="map_details?ref_map_set_acc=[% reference_map.map_set_acc%];ref_map_accs=[% reference_map.map_acc %];comparative_maps=1%3dmap_acc%3d[% p.map_acc2 %];highlight=&quot;[% f.feature_name %]&quot;[% IF p.feature_name2 != f.feature_name %],&quot;[% p.feature_name2 %]&quot;[% END %]">View&nbsp;Maps</a>
+                </td>
+
+                [% IF i>0 %]</tr>[% END %]
+                [% SET i=i+1 %]
+            [% END %]
+            
+        [% ELSE %]
+
+                <td colspan="6" align="center"><em>No other positions</em></td>
+
+        [% END %]
+    </tr>
+    [% END %]
+</table>
+[% INCLUDE footer.tmpl %]

@@ -1,0 +1,30 @@
+[% INCLUDE admin_header.tmpl title="View Correspondence Evidence Type &quot;$evidence_type.evidence_type&quot;" %]
+<a href="admin">Home</a> |
+<a href="admin?action=corr_evidence_types_view">View All Correspondence Evidence Types</a>
+<hr noshade>
+<table>
+    <tr>
+        <td align="right">Acc. ID <em>(opt.)</em>:</th>
+        <td>[% evidence_type.evidence_type_acc %]</td>
+    </tr>
+
+    <tr>
+        <td align="right">Evidence Type:</th>
+        <td>[% evidence_type.evidence_type %]</td>
+    </tr>
+
+    <tr>
+        <td align="right">Rank:</th>
+        <td>[% evidence_type.rank %]</td>
+    </tr>
+
+    <tr>
+        <td align="right">Color <em>(opt.)</em>:</td>
+        <td>[% evidence_type.line_color %]</td>
+    </tr>
+</table>
+
+<hr>
+Note: Attributes and Cross References for map types are maintained in the configuration file.
+
+[% INCLUDE admin_footer.tmpl %]

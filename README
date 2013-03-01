@@ -1,0 +1,29 @@
+lis_cmap
+
+This repository contains htdocs, templates & configuration for the site:
+http://cmap.comparative-legumes.org/
+
+1) Install CMAP from http://www.gmod.org
+
+CMAP has it's own installation process and set of dependencies, which
+is fully documented there.
+
+2) The path to the conf file needs to be set in Constants.pm, e.g.
+
+/usr/local/share/perl/{VER}/Bio/GMOD/CMap/Constants.pm
+
+   #
+   # The location of the configuration files.
+   #
+   use constant CONFIG_DIR => '/path/to/your/cmap.conf';
+   use constant GLOBAL_CONFIG_FILE => 'global.conf';
+
+3) Only the altered/added files are in this repository. The main file
+of interest is cmap.conf/mysql.conf which contains map templates. The
+htdocs and templates directories are included, even though they are
+mostly just stock CMAP stuff, some are slightly modified, especially
+index.html
+
+4) The database password is blanked out in mysql.conf, and htpasswd
+files, you will need to edit passwords back in.
+

@@ -1,0 +1,413 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>gbrowse integration</title>
+<link rel="stylesheet" href="/base/pod-style.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body>
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#introduction">INTRODUCTION</a></li>
+	<li><a href="#create_the_database">CREATE THE DATABASE</a></li>
+	<ul>
+
+		<li><a href="#fresh_install">Fresh Install</a></li>
+		<li><a href="#previous_cmap_install">Previous CMap Install</a></li>
+		<li><a href="#create_database_using_bp_load_gff_pl_or_bp_bulk_load_gff_pl">Create Database Using bp_load_gff.pl or bp_bulk_load_gff.pl</a></li>
+	</ul>
+
+	<li><a href="#configuring_cmap">CONFIGURING CMAP</a></li>
+	<ul>
+
+		<li><a href="#new_fields">New Fields</a></li>
+		<li><a href="#modifying_feature_types">Modifying Feature Types</a></li>
+		<li><a href="#modifying_map_types">Modifying Map Types</a></li>
+	</ul>
+
+	<li><a href="#configuring_gbrowse">CONFIGURING GBROWSE</a></li>
+	<li><a href="#data">DATA</a></li>
+	<ul>
+
+		<li><a href="#loading_cmap_data">LOADING CMAP DATA</a></li>
+		<li><a href="#copy_data_from_cmap">COPY DATA FROM CMAP</a></li>
+		<li><a href="#manually_import_corresponding_gbrowse_data">MANUALLY IMPORT CORRESPONDING GBROWSE DATA</a></li>
+		<ul>
+
+			<li><a href="#preparing_cmap_data_for_gbrowse_data_insert">PREPARING CMAP DATA FOR GBROWSE DATA INSERT</a></li>
+			<li><a href="#importing_the_gbrowse_data">IMPORTING THE GBROWSE DATA</a></li>
+		</ul>
+
+		<li><a href="#loading_gbrowse_data">LOADING GBROWSE DATA</a></li>
+		<li><a href="#copying_data_from_gbrowse">COPYING DATA FROM GBROWSE</a></li>
+	</ul>
+
+	<li><a href="#link_the_two">LINK THE TWO</a></li>
+	<ul>
+
+		<li><a href="#link_to_gbrowse_from_cmap">Link to GBrowse from CMap</a></li>
+		<li><a href="#link_to_cmap_from_gbrowse">Link to CMap from GBrowse</a></li>
+	</ul>
+
+	<li><a href="#conclusion">Conclusion</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>CMap and GBrowse integration</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="introduction">INTRODUCTION</a></h1>
+<p>There has been considerable interest in integrating GBrowse and CMap.  The
+solution presented here is to interweave their database schemas by merging the
+cmap_feature table (from CMap) and the fgroup table (from GBrowse).  This
+enables features/groups from each to be referenced from each program.</p>
+<p>The process of setting up an integrated is explained in this document.</p>
+<p>Note: Currently the only RDBMS used in the integration is mysql.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="create_the_database">CREATE THE DATABASE</a></h1>
+<p>There are several different ways to create the integrated database.</p>
+<p>
+</p>
+<h2><a name="fresh_install">Fresh Install</a></h2>
+<p>If you are installing both for the first time, you can use the
+sql/cmap_gbrowse_create.mysql file.  This will create a usable CMap database
+and also include the integraded GBrowse schema.  For instructions on how to
+install a sql file, see INSTALL.pod.</p>
+<p>You can also install the regular cmap database and use the following the
+``Previous Install'' directions.</p>
+<p>
+</p>
+<h2><a name="previous_cmap_install">Previous CMap Install</a></h2>
+<p>If you currently have a CMap version of 0.13 or higher, don't panic.  The
+database update is non-destructive to the CMap side.  (If you are running and
+older version of CMap, you will need to upgrade first.)</p>
+<p>Simply, run the upgrade sql script, sql/cmap_gbrowse.adapt.mysql.  This will
+add the GBrowse tables and the new columns in the CMap tables.</p>
+<pre>
+    Example:
+        $ mysql CMAP_GBROWSE &lt; sql/cmap_gbrowse.adapt.mysql</pre>
+<p>
+</p>
+<h2><a name="create_database_using_bp_load_gff_pl_or_bp_bulk_load_gff_pl">Create Database Using bp_load_gff.pl or bp_bulk_load_gff.pl</a></h2>
+<p>You will need a recent version of bioperl-live from cvs.</p>
+<p>If you wish to import GBrowse data first (and use that data to populate the CMap side), you can use either of these loaders; bp_load_gff.pl or bp_bulk_load_gff.pl.  These programs can create the database while they import data.</p>
+<p>You must specify mysqlcmap as the adaptor.</p>
+<pre>
+    Examples:
+        $ bp_bulk_load_gff.pl -d dbi:mysql:db_name  -a mysqlcmap --create yeast_data.gff</pre>
+<pre>
+        $ bp_load_gff.pl -d dbi:mysql:db_name -a dbi::mysqlcmap --create yeast_data.gff</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="configuring_cmap">CONFIGURING CMAP</a></h1>
+<p>Starting with a regular CMap config, configuring for integration can be fun and
+easy.  (If you need help with the CMap configuration part, please see
+ADMINISTRATION.pl in the docs folder.)</p>
+<p>
+</p>
+<h2><a name="new_fields">New Fields</a></h2>
+<p>The following fields need to be added to the individual config file for this
+data source.</p>
+<ul>
+<li><strong><a name="item_gbrowse_compatible">gbrowse_compatible</a></strong>
+
+<p>Set to 1 or 0.  Setting to ``1'' indicates that this data source is integrated
+with GBrowse.</p>
+</li>
+<li><strong><a name="item_gbrowse_default_map_class">gbrowse_default_map_class</a></strong>
+
+<p>Set to the reference class as will be defined in the GBrowse config file.
+Features of this class will be seen by GBrowse as the ``map''.  When CMap map
+data is converted into GBrowse, a feature with this class will be created that
+spans the whole length of the CMap map.</p>
+</li>
+<li><strong><a name="item_gbrowse_default_map_feature_type_acc">gbrowse_default_map_feature_type_acc</a></strong>
+
+<p>This is the CMap feature type accession that the ``map'' feature will have in the
+cmap database.  This must also be definded as a feature type.</p>
+</li>
+<li><strong><a name="item_gbrowse_config_dir">gbrowse_config_dir</a></strong>
+
+<p>Only needed if you are going to copy data from the GBrowse side to the CMap side of the database.  gbrowse_config_dir holds the name of the directory where the GBrowse config file resides.</p>
+</li>
+<li><strong><a name="item_gbrowse_config_file">gbrowse_config_file</a></strong>
+
+<p>Only needed if you are going to copy data from the GBrowse side to the CMap side of the database.  gbrowse_config_file holds the name of the GBrowse config file that corresponds to this one.  This is important to determine the cmap feature types that the GBrowse features will have.</p>
+</li>
+</ul>
+<p>The following is an example of how that would look.</p>
+<pre>
+    #
+    # The database includes gbrowse tables.
+    #
+    gbrowse_compatible 1</pre>
+<pre>
+    #
+    # The GBrowse class that a map will have.
+    #
+    gbrowse_default_map_class CMap_Map</pre>
+<pre>
+    #
+    # The CMap feature_type_acc that a map &quot;feature&quot; will have.
+    #
+    gbrowse_default_map_feature_type_acc gbrowse_map</pre>
+<pre>
+    &lt;feature_type gbrowse_map&gt;
+        feature_type_acc gbrowse_map
+        feature_type GBrowse Map
+        default_rank 10
+        color
+        shape in-triangle
+        drawing_lane 10
+        drawing_priority 1
+    &lt;/feature_type&gt;</pre>
+<p>
+</p>
+<h2><a name="modifying_feature_types">Modifying Feature Types</a></h2>
+<ul>
+<li><strong><a name="item_gbrowse_class">gbrowse_class</a></strong>
+
+<p>Each feature type whose features you to be able view in GBrowse will need a
+``gbrowse_class'' entry added.  This is the class that will be assigned to the
+features.  If a class does not have a gbrowse_class assigned to it, it will be
+unavailable from GBrowse.</p>
+<p>IMPORTANT NOTE: The Combination of the gbrowse_class (gclass) and feature_name
+must be unique.  Therefore, it is important to not give a gbrowse_class to
+feature types that can have redundant names, such as markers or read depth.  A
+non-unique set will result in an error when preparing the CMap data for GBrowse
+and also possibly only allowing the first of that name to be displayed.</p>
+</li>
+<li><strong><a name="item_gbrowse_ftype">gbrowse_ftype</a></strong>
+
+<p>This needs to be set for each feature type whose data will be copied from the
+CMap db to the GBrowse db.  It is the GBrowse feature type ``fmethod''.</p>
+</li>
+</ul>
+<pre>
+    Example:
+    &lt;feature_type read&gt;
+        feature_type_acc read
+        feature_type Read
+        default_rank 3
+        shape out-triangle
+        drawing_lane 3
+        drawing_priority 1
+        gbrowse_class read
+        gbrowse_ftype Read
+    &lt;/feature_type&gt;</pre>
+<p>
+</p>
+<h2><a name="modifying_map_types">Modifying Map Types</a></h2>
+<ul>
+<li><strong>gbrowse_ftype</strong>
+
+<p>This needs to be set for each map type whose data will be copied from the CMap
+db to the GBrowse db.  It is the GBrowse feature type ``fmethod'' that will be
+used for the ``map feature''.</p>
+</li>
+</ul>
+<pre>
+    Example:
+    &lt;map_type sequence&gt;
+        map_type_acc sequence
+        map_type Sequence
+        map_units bp
+        is_relational_map
+        width 1
+        shape span
+        color
+        display_order 1
+        gbrowse_ftype Sequence
+    &lt;/map_type&gt;</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="configuring_gbrowse">CONFIGURING GBROWSE</a></h1>
+<p>To use the integrated database, you must select the dbi::mysqlcmap adaptor as
+in the following example.</p>
+<pre>
+    description   = CMap Integrated 
+    db_adaptor    = Bio::DB::GFF
+    db_args       = -adaptor dbi::mysqlcmap
+                    -dsn     CMAP_GBROWSE
+    user          = mysql
+    pass          = mysql</pre>
+<p>Also, remember to make the ``reference class'' the same as what was defined in
+the cmap config file.</p>
+<p>If you are going to copy data from the GBrowse side of the db into the CMap side, you will also need to add a ``cmap_feature_type_acc'' value to each track that you want to be able to copy.  An example track would look like this:</p>
+<pre>
+    [contig]
+    feature      = contig
+    glyph        = generic
+    key          = Contig
+    link         = sub {my $self = shift; return $self-&gt;cmap_viewer_link('GCMAP');}
+    cmap_feature_type_acc = contig</pre>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="data">DATA</a></h1>
+<p>There are multiple ways to get data into the database.  You can load CMap data first using cmap_admin.pl (that comes with CMap).  Then you can either simply copy that data into the GBrowse side or manually insert corresponding GBrowse data using bp_load_gff.pl (from bioperl).  Alternatively, you can load GFF data into the GBrowse side first and then copy that data into the CMap side.</p>
+<p>
+</p>
+<h2><a name="loading_cmap_data">LOADING CMAP DATA</a></h2>
+<p>You can load the CMap data as normal.  Keep in mind that (currently) it is
+essential that the CMap data be loaded in first.  Under this system, there can
+be CMap data not displayed in GBrowse but not the other way around.</p>
+<p>
+</p>
+<h2><a name="copy_data_from_cmap">COPY DATA FROM CMAP</a></h2>
+<p>You can also copy data that was imported as CMap data into the GBrowse database
+using CMap Admin.  If your data_source config file has the ``gbrowse_compatible''
+set, the menu option ``Copy CMap data into GBrowse'' will appear in the
+cmap_admin.pl main menu.</p>
+<p>Simply select the copy option and select the map sets and feature types you
+want to import.</p>
+<p>Be sure that the feature types you want to copy have both a gbrowse_class and a
+gbrowse_ftype.  The map sets' map type must have a gbrowse_ftype associated
+with it in the config file as well.</p>
+<p>
+</p>
+<h2><a name="manually_import_corresponding_gbrowse_data">MANUALLY IMPORT CORRESPONDING GBROWSE DATA</a></h2>
+<p>If you have a GFF file with data that corresponds to the CMap data, you can import that data separately.  Doing this rather than copying from the CMap side will allow you to import more detailed data.</p>
+<p>When importing, it is very important that the feature names and classes correspond to the feature names and gclasses already in the CMap database.</p>
+<p>
+</p>
+<h3><a name="preparing_cmap_data_for_gbrowse_data_insert">PREPARING CMAP DATA FOR GBROWSE DATA INSERT</a></h3>
+<p>Using cmap_admin.pl, select the correct data source and then choose the
+``Prepare the Database for GBrowse data'' option.  It will ask you to select a
+map set and some feature types to prepare.  You will want to prepare the data
+that corresponds to the GBrowse data you will be then importing.</p>
+<p>This will copy the gbrowse_class into the gclass column of each feature.  The
+gbrowse_class is defined by the feature type in the config file (see
+<a href="#modifying_feature_types">Modifying Feature Types</a> above).</p>
+<p>It also creates a feature for the whole map.  This feature will have the gclass
+that is defined in the config file as gbrowse_default_map_class and the cmap
+feature type that is defined in the config file as
+gbrowse_default_map_feature_type_acc.</p>
+<p>When this is done, the database will be ready for importing the GBrowse data.</p>
+<p>
+</p>
+<h3><a name="importing_the_gbrowse_data">IMPORTING THE GBROWSE DATA</a></h3>
+<p>You can use bp_load_gff.pl to load Data into the GBrowse side of the database
+(making sure that the data is already prepared in the CMap side, of course).
+Use the dbi::mysqlcmap adaptor as follows.</p>
+<pre>
+    /usr/bin/bp_load_gff.pl --dns CMAP_GBROWSE --adaptor dbi::mysqlcmap file_name.gff</pre>
+<p>
+</p>
+<h2><a name="loading_gbrowse_data">LOADING GBROWSE DATA</a></h2>
+<p>You can load GBrowse data on its own from a GFF file.  This method is also described in <a href="#create_database_using_bp_load_gff_pl_or_bp_bulk_load_gff_pl">Create Database Using bp_load_gff.pl or bp_bulk_load_gff.pl</a>.</p>
+<p>Keep in mind NOT to use the --create option if you don't want to wipe the database and start over.</p>
+<p>You can use either of these loaders; bp_load_gff.pl or bp_bulk_load_gff.pl.</p>
+<p>You must specify mysqlcmap as the adaptor.</p>
+<pre>
+    Examples:
+        $ bp_bulk_load_gff.pl -d dbi:mysql:db_name  -a mysqlcmap yeast_data.gff</pre>
+<pre>
+        $ bp_load_gff.pl -d dbi:mysql:db_name -a dbi::mysqlcmap yeast_data.gff</pre>
+<p>
+</p>
+<h2><a name="copying_data_from_gbrowse">COPYING DATA FROM GBROWSE</a></h2>
+<p>In order to copy data from the GBrowse side to the CMap side of the database, you will need to make some changes to the config files.  These were described in <a href="#configuring_cmap">CONFIGURING CMAP</a> and <a href="#configuring_gbrowse">CONFIGURING GBROWSE</a>.</p>
+<p>Using cmap_admin.pl, select the ``Copy GBrowse into the CMap database'' option (this option will only appear if the datasource (config file) that you are currently using is gbrowse_compatible).</p>
+<p>Then select the map set that you want to copy the data into and the program will take care of the rest.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="link_the_two">LINK THE TWO</a></h1>
+<p>Now you will want to link from each to the other.  You will have to make some
+adjustments to each GBrowse and CMap to be able to do this.</p>
+<p>
+</p>
+<h2><a name="link_to_gbrowse_from_cmap">Link to GBrowse from CMap</a></h2>
+<p>To create a link from a GBrowse feature you simply need to create a link option
+for the track in the configuration file like the following.</p>
+<pre>
+ link = sub {my $self = shift; return $self-&gt;cmap_viewer_link('data_source');}</pre>
+<p>This calls a method of the feature which returns a link to CMap.  If it is able
+to, it will return a link to the viewer showing the feature highlighted.  If it
+is unable to create the link because the data cannot be found in the CMap db or
+because it is not using an adaptor with the create_cmap_viewer_link method
+(only mysqlcmap.pm has this currently), it will return a link to the feature
+search page using the feature name.</p>
+<p>The 'data_source' is the name of the CMap data_source that the link will use.</p>
+<p>With this information in place, you have just connected to CMap.</p>
+<p>
+</p>
+<h2><a name="link_to_cmap_from_gbrowse">Link to CMap from GBrowse</a></h2>
+<p>You can change the URL of a cmap feature by defining it in the config file, as
+in the following example.  Pay attention to the $url variable in the area_code
+string.</p>
+<pre>
+ &lt;feature_type read&gt;
+ feature_type_acc read
+ feature_type Read
+ default_rank 3
+ shape span
+ drawing_lane 3
+ drawing_priority 1
+ gbrowse_class read
+ gbrowse_ftype read
+ area_code &lt;&lt;EOF
+ $code=sprintf(&quot;onMouseOver=\&quot;window.status='View %s in GBrowse';return true\&quot;&quot;,$feature-&gt;{'feature_type_acc'});
+ $alt = $feature-&gt;{'feature_name'};
+ $url=sprintf(&quot;/cgi-bin/gbrowse/cmap?name=%s:%s&quot;,$self-&gt;feature_type_data($feature-&gt;{'feature_type_acc'},'gbrowse_ftype'),$feature-&gt;{'feature_name'});
+ EOF
+ &lt;/feature_type&gt;</pre>
+<p>The area_code option allows you to change three variables to affect the
+behavior of the area box around the feature (and it's label).  The $code
+variable can contain javascript, the $alt variable contains the string
+displayed on mouse over.  We are currently interested in the $url variable
+which contains the URL that the feature will refer to when clicked.</p>
+<pre>
+ $url=sprintf(&quot;/cgi-bin/gbrowse/cmap?name=%s:%s&quot;,$self-&gt;feature_type_data($feature-&gt;{'feature_type_acc'},'gbrowse_ftype'),$feature-&gt;{'feature_name'});</pre>
+<p>GBrowse needs two bits of information to find a feature, it's ftype and its
+name.  To get the name we look into the feature object that we have access to.
+It is contained in $feature-&gt;{'feature_name'}.</p>
+<p>To get the ftype, we need to query the config.  We can do this by calling the
+'feature_type_data' method which takes the feature type accession
+($feature-&gt;{'feature_type_acc'}) and the key that your looking for
+('gbrowse_ftype').  Although you could cheat and hard code the ftype, it would
+make it more difficult to copy and paste this bit of code.  Besides this is
+more fun.</p>
+<p>That is all you need to connect the feature back to GBrowse.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="conclusion">Conclusion</a></h1>
+<p>Then your done and you can happily use both CMap and GBrowse in concert.</p>
+<p>
+<a href="#__index__"><small>Back to Top</small></a>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ben Faga &lt;<a href="mailto:faga@cshl.org">faga@cshl.org</a>&gt;</p>
+<p><a href="#__index__"><small>Back to Top</small></a></p>
+
+</body>
+
+</html>

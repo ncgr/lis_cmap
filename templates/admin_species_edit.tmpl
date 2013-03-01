@@ -1,0 +1,55 @@
+[% INCLUDE admin_header.tmpl title="Species Edit &quot;$species.species_common_name&quot;" %]
+<a href="admin">Home</a> |
+<a href="admin?action=confirm_delete;entity_type=species;entity_id=[% species.species_id %];entity_name_field=species_common_name">Delete</a> |
+<a href="admin?action=species_view">View Species</a>
+<hr noshade>
+
+[% IF errors.size %]
+    <b>There were errors:</b>
+    <ul>
+        [% FOREACH e=errors %]
+          <li>[% e %]</li>
+        [% END %]
+    </ul>
+[% END %]
+
+<form method="post" action="admin">
+<table>
+    <tr>
+        <td align="right">Acc. ID <em>(opt.)</em>:</td>
+        <td>
+            <input name="species_acc" value="[% species.species_acc %]">
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">Common Name:</td>
+        <td>
+            <input name="species_common_name" value="[% species.species_common_name %]">
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">Full Name:</td>
+        <td>
+            <input name="species_full_name" value="[% species.species_full_name %]">
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">Display Order <em>(opt.)</em>:</td>
+        <td>
+            <input name="display_order" value="[% species.display_order %]">
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Submit">
+            <input type="hidden" name="species_id" value="[% species.species_id %]">
+            <input type="hidden" name="action" value="species_update">
+        </td>
+    </tr>
+</table>
+</form>
+[% INCLUDE admin_footer.tmpl %]

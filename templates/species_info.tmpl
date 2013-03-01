@@ -1,0 +1,121 @@
+[% SET title='Species Info' %]
+[% 
+    INCLUDE header.tmpl 
+    title='CMap - Species Info'
+    cur_sec='species_info'
+    help_anchor='species_info'
+%]
+
+<h1>[% title %]</h1>
+
+[%- IF intro -%]
+<p>[% intro %]</p>
+[%- END -%]
+
+<div align="center">
+
+<form method="GET" action="species_info">
+    Display:
+    <select name="species_acc">
+        <option value="">--All Species--</option>
+        [% FOREACH s=all_species %]
+            <option value="[% s.species_acc %]"[% IF apr.param('species_acc')==s.species_acc %] selected[% END %]>[% s.species_common_name %] ([% s.species_full_name %])</option>
+        [% END %]
+    </select>
+    <input type="submit" value="Submit">
+</form>
+
+<p>
+[% IF species.size %]
+    <table>
+        <tr>
+            <td colspan="3" align="center">
+                [% SET pager_url="species_info?" %]
+                [% PROCESS pager.tmpl %]
+            </td>
+        </tr>
+        [% FOREACH s=species %]
+            <tr class="colored">
+                <td align="right">Common&nbsp;Name:</td>
+                <td><b>[% s.species_common_name %]</b></td>
+                <td align="center"><b>[</b>&nbsp;<a href="species_info?species_acc=[% s.species_acc %]">Show Only This Species</a>&nbsp;<b>]</b></td>
+            </tr> 
+
+            <tr>
+                <td align="right">Full&nbsp;Name:</td>
+                <td colspan="2">[% s.species_full_name %]</td>
+            </tr>
+
+            <tr>
+                <td align="right">Accession&nbsp;ID:</td>
+                <td colspan="2">[% s.species_acc %]</td>
+            </tr>
+
+            [% FOREACH att=s.attributes %]
+                [% NEXT IF att.is_public.defined AND att.is_public == 0 %]
+                <tr>
+                    <td align="right">[% att.attribute_name %]:</td>
+                    <td colspan="2">
+                        [%- IF att.attribute_value.match('^http://') -%]
+                            <a href="[% att.attribute_value %]">[% att.attribute_value %]</a>
+                        [%- ELSE -%]
+                            [% att.attribute_value %]
+                        [%- END -%]
+                    </td>
+                </tr>
+            [% END %]
+
+            [% IF s.xrefs.size %]
+                <tr>
+                    <td align="right" valign="top">Cross-references:</td>
+                    <td colspan="2">
+                        <ul>
+                        [% FOREACH xref=s.xrefs %]
+                            [% NEXT UNLESS xref.xref_url %]
+                            <li><a href="[% xref.xref_url %]">[% xref.xref_name %]</a></li>
+                        [% END %]
+                        </ul>
+                    </td>
+                </tr>
+            [% END %]
+
+            [% IF s.map_sets.size %]
+                <tr>
+                    <td valign="top" align="right">Map Sets ([% s.map_sets.size %]):</td>
+                    <td colspan="2" align="center">
+                        <b>[</b>&nbsp;<a href="map_set_info?species_acc=[% s.species_acc %]">Show Map Sets From This Species</a>&nbsp;<b>]</b>
+                        [% SET last_map_type='' %]
+                        <table border="0" width="100%">
+                        [% FOREACH ms=s.map_sets %]
+                            [% IF ms.map_type_acc != last_map_type %]
+                                <tr>
+                                <th colspan="3" align="left">[% ms.map_type %] Maps</th>
+                                </tr>
+                            [% END %]
+                            <tr>
+                            <td>[% ms.map_set_name %]</td>
+                            <td align="center">&nbsp;<b>[</b>&nbsp;<a href="map_set_info?map_set_acc=[% ms.map_set_acc %]">View&nbsp;Map&nbsp;Set&nbsp;Info</a>&nbsp;<b>]</b>&nbsp;</td>
+                            <td align="center">&nbsp;<b>[</b>&nbsp;<a href="matrix?show_matrix=1&[% IF ms.is_relational_map %]link_map_set_acc=[% ms.map_set_acc %][% ELSE %]map_type_acc=[% ms.map_type_acc %]&species_acc=[% ms.species_acc %]&map_set_acc=[% ms.map_set_acc %][% END %]">View&nbsp;Map&nbsp;Set&nbsp;In&nbsp;Matrix</a>&nbsp;<b>]</b>&nbsp;</td>
+                            </tr>
+                            [% last_map_type=ms.map_type_acc %]
+                        [% END %]
+                        </table>
+                    </td>
+                </tr>
+            [% END %]
+            <tr><td colspan="3">&nbsp;</td></tr>
+        [% END %]
+    </table>
+[% ELSE %]
+
+    No map types found.
+
+[% END %]
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+[% INCLUDE footer.tmpl %]
